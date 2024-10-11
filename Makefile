@@ -9,6 +9,7 @@ LOCAL_SETTINGS = local/settings.dev.py
 # Default target
 .PHONY: install
 install: venv
+	$(POETRY_RUN) pre-commit install
 	poetry install
 
 .PHONY: run
@@ -43,6 +44,26 @@ venv:
 # Create a development environment
 .PHONY: devenv
 devenv: venv
-# Create a virtual environment
 	. venv/bin/activate; poetry install
 	test $(LOCAL_SETTINGS) || cp $(PACKAGE_NAME)/project/settings/templates/settings.dev.py $(LOCAL_SETTINGS)
+
+.PHONY: lint
+lint:
+	$(POETRY_RUN) flake8 $(PACKAGE_NAME)
+
+.PHONY: format
+format:
+	$(POETRY_RUN) black $(PACKAGE_NAME)
+
+# pre-commit hooks
+.PHONY: install-pre-commit
+install-pre-commit: uninstall-pre-commit
+	$(POETRY_RUN) pre-commit install
+
+.PHONY: uninstall-pre-commit
+uninstall-pre-commit:
+	$(POETRY_RUN) pre-commit uninstall
+
+.PHONY: pre-commit
+pre-commit:
+	$(POETRY_RUN) pre-commit run --all-files
