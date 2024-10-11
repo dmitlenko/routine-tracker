@@ -18,3 +18,12 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',  # noqa # type: ignore
     }
 }
+
+
+LOGGING['formatters']['colored'] = {  # noqa # type: ignore
+    '()': 'colorlog.ColoredFormatter',
+    'format': '%(log_color)s%(asctime)s [%(levelname)s] %(name)s: %(bold_white)s%(message)s',
+}
+LOGGING['loggers']['routine_tracker']['level'] = 'DEBUG'  # noqa # type: ignore
+LOGGING['handlers']['console']['level'] = 'DEBUG'  # noqa # type: ignore
+LOGGING['handlers']['console']['formatter'] = 'colored'  # noqa # type: ignore

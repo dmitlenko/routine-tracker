@@ -27,6 +27,7 @@ include(
     'base.py',
     'deployment.py',
     'custom.py',
+    'logging.py',
     optional(str(LOCAL_SETTINGS_PATH)),
     'env.py',
 )
