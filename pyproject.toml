@@ -17,7 +17,12 @@ pyyaml = "^6.0.2"
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.3.3"
 colorlog = "^6.8.2"
+pytest-django = "^4.9.0"
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "routine_tracker.project.settings"
+python_files = ["test_*.py", "*_test.py", "*_tests.py", "tests.py"]
