@@ -1,6 +1,7 @@
 import os
-import yaml
 from typing import Any, Union
+
+import yaml
 
 
 def yaml_coerce(value: Union[str, Any]) -> Any:
