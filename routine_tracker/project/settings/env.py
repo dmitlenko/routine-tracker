@@ -1,5 +1,5 @@
-from core.utils.collections import deep_update
-from core.utils.settings import get_env_settings
+from routine_tracker.core.utils.collections import deep_update
+from routine_tracker.core.utils.settings import get_env_settings
 
 # Update the global settings with the environment variables
 # that start with the prefix 'RT_'.
