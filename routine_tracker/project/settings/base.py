@@ -2,9 +2,6 @@
 Django settings for routine_tracker project.
 """
 
-from re import S
-
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -12,6 +9,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'routine_tracker.accounts',
 ]
 
 MIDDLEWARE = [
@@ -43,6 +41,8 @@ TEMPLATES = [
         },
     },
 ]
+
+AUTH_USER_MODEL = 'accounts.User'
 
 AUTH_PASSWORD_VALIDATORS = [
     {
