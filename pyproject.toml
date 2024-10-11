@@ -40,10 +40,8 @@ line-length = 119
 skip-string-normalization = true
 target-version = ['py312']
 include = '\.pyi?$'
-exclude = '''
+force-exclude = '''
 /(
-    \.git
-  | \.?venv
   | migrations
 )/
 '''
