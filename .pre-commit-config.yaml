@@ -11,11 +11,6 @@ repos:
   hooks:
   - id: isort
     name: isort (python)
-- repo: https://github.com/google/yapf
-  rev: v0.40.2
-  hooks:
-  - id: yapf
-    additional_dependencies: [toml]
 - repo: https://github.com/pycqa/flake8
   rev: '7.1.1'
   hooks:
@@ -27,3 +22,8 @@ repos:
     - flake8-import-order
     - flake8-polyfill
     - flake8-quotes
+- repo: https://github.com/psf/black-pre-commit-mirror
+  rev: 24.8.0
+  hooks:
+  - id: black
+    language_version: python3.12
