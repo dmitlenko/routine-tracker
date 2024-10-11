@@ -9,7 +9,7 @@
     - User can select type of the routine value: check (box), number, date, time
     - User can input name, description, icon, and color for the routine
 3. App should show statistics based on user data
-    - Single routine chart 
+    - Single routine chart
     - Routine group chart
     - Some message to user like ('You are getting better at X' or 'Your performance is N% higher compared to the last M days')
 4. User can set up reminders for routines

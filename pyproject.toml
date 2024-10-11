@@ -1,0 +1,47 @@
+[tool.poetry]
+name = "routine-tracker"
+version = "0.1.0"
+description = ""
+authors = ["Denys Mitlenko <mitlenkodenis3@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+django = "^5.1.2"
+django-htmx = "^1.19.0"
+psycopg2-binary = "^2.9.9"
+django-split-settings = "^1.3.2"
+pyyaml = "^6.0.2"
+
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.3"
+colorlog = "^6.8.2"
+pytest-django = "^4.9.0"
+flake8 = "^7.1.1"
+pre-commit = "^4.0.1"
+black = "^24.10.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "routine_tracker.project.settings"
+python_files = ["test_*.py", "*_test.py", "*_tests.py", "tests.py"]
+
+[tool.isort]
+profile = "black"
+multi_line_output = 5
+line_length = 119
+
+[tool.black]
+line-length = 119
+skip-string-normalization = true
+target-version = ['py312']
+include = '\.pyi?$'
+force-exclude = '''
+/(
+  | migrations
+)/
+'''
