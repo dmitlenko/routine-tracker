@@ -9,6 +9,10 @@ from routine_tracker.core.utils.misc import get_env
 # This is the directory where the manage.py file is located
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
+# Project directory
+# This is the directory where the settings module is located
+PROJECT_APP_DIR = Path(__file__).resolve().parent.parent
+
 # Environment variable prefix for settings
 ENV_SETTINGS_PREFIX = 'RT_'
 
