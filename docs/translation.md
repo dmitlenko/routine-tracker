@@ -12,7 +12,7 @@ This document outlines the procedure for incorporating a new language into the p
    Execute the following command to initialize the necessary translation files:
 
    ```bash
-   make translation
+   make translations
    ```
 
 3. **Provide Translations**
