@@ -28,6 +28,7 @@ include(
     'deployment.py',
     'custom.py',
     'logging.py',
+    'locale.py',
     optional(str(LOCAL_SETTINGS_PATH)),
     'env.py',
 )
