@@ -62,3 +62,7 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return _("{username}'s profile").format(username=self.user.username)
+
+    class Meta:
+        verbose_name = _('User profile')
+        verbose_name_plural = _('User profiles')
