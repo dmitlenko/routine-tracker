@@ -1,6 +1,23 @@
-from django.contrib.auth.models import AbstractUser
+from typing import Any
+
+from django.contrib.auth.models import AbstractUser, UserManager
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+
+
+class CustomUserManager(UserManager):
+    """
+    Custom user manager to create a user profile instance when a new user is created
+    """
+
+    def _create_user(self, *args, **kwargs) -> Any:
+        # Create a new user
+        user = super()._create_user(*args, **kwargs)
+
+        # Create a user profile instance
+        UserProfile.objects.create(user=user)
+
+        return user
 
 
 class User(AbstractUser):
@@ -12,6 +29,8 @@ class User(AbstractUser):
 
     REQUIRED_FIELDS = ['email']
     USERNAME_FIELD = 'username'
+
+    objects = CustomUserManager()
 
     def __str__(self):
         return self.username
