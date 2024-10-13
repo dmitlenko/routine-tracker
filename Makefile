@@ -18,7 +18,7 @@ run:
 
 .PHONY: test
 test:
-	$(POETRY_RUN) pytest
+	$(MANAGE) test
 
 .PHONY: migrate
 migrate:
