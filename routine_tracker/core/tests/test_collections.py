@@ -4,7 +4,15 @@ from ..utils.collections import deep_update
 
 
 class CollectionsTestCase(TestCase):
+    """
+    Test case for the collections module.
+    """
+
     def test_deep_update(self):
+        """
+        Method to test the deep_update function.
+        """
+
         # Define the base dictionary
         base_dict = {
             "a": 1,

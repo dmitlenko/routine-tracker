@@ -6,11 +6,19 @@ from ..utils.misc import get_env, yaml_coerce
 
 
 class MiscTestCase(TestCase):
+    """
+    Test case for the misc module.
+    """
+
     def setUp(self):
         # Set the environment variable
         os.environ["TEST_ENV_VAR"] = "test"
 
     def test_get_env(self):
+        """
+        Method to test the get_env function.
+        """
+
         # Test that the function returns the correct value
         self.assertEqual(
             get_env("TEST_ENV_VAR", default="test"),
@@ -19,6 +27,10 @@ class MiscTestCase(TestCase):
         )
 
     def test_yaml_coerce(self):
+        """
+        Method to test the yaml_coerce function.
+        """
+
         # Check if the function coerces the value correctly
         # Test with boolean values
         self.assertTrue(yaml_coerce("true"), "yaml_coerce should coerce 'true' to True")
