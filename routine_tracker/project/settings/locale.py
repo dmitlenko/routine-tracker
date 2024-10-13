@@ -10,3 +10,5 @@ LANGUAGES = [
     ('en', _('English')),
     ('uk', _('Ukrainian')),
 ]
+
+LOCALE_PATHS = (PROJECT_APP_DIR / 'locale',)  # noqa # type: ignore
