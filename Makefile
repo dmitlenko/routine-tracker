@@ -67,3 +67,13 @@ uninstall-pre-commit:
 .PHONY: pre-commit
 pre-commit:
 	$(POETRY_RUN) pre-commit run --all-files
+
+
+# translations
+.PHONY: compile-translations
+compile-translations: translations
+	$(MANAGE) compilelocales
+
+.PHONY: translations
+translations:
+	$(MANAGE) makelocales
