@@ -6,26 +6,31 @@ This document outlines the procedure for incorporating a new language into the p
 ## Workflow Overview
 
 1. **Register the New Language**
+
    Add the desired language to the `LANGUAGES` list within the [`settings/locale.py`](../routine_tracker/project/settings/locale.py) file.
 
-2. **Generate Translation Files**
+3. **Generate Translation Files**
+
    Execute the following command to initialize the necessary translation files:
 
    ```bash
    make translations
    ```
 
-3. **Provide Translations**
+4. **Provide Translations**
+
    Open the `.po` files located in the `locale` directory and translate the required text strings.
 
-4. **Compile Translations**
+6. **Compile Translations**
+
    Convert the `.po` files into `.mo` files by running:
 
    ```bash
    make compile-translations
    ```
 
-5. **Apply Changes to the Database**
+8. **Apply Changes to the Database**
+
    Ensure the new language is registered by updating the database with the command:
 
    ```bash
