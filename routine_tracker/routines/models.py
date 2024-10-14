@@ -49,5 +49,8 @@ class RoutineEntry(models.Model):
     value = models.PositiveIntegerField()
     notes = models.TextField(blank=True)
 
+    def __str__(self):
+        return f'{self.routine.name} - {self.date}'
+
     class Meta:
         ordering = ['-date']
