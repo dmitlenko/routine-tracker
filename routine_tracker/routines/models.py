@@ -8,40 +8,28 @@ from django.utils.translation import gettext_lazy as _
 User = get_user_model()
 
 
-StreakStatistics = TypedDict(
-    'StreakStatistics',
-    {
-        'completeness': float,
-        'days': int,
-        'start': date,
-        'end': date,
-        'missed': int,
-    },
-)
+class StreakStatistics(TypedDict):
+    completeness: float
+    days: int
+    start: date
+    end: date
+    missed: int
 
 
-RoutineStatistics = TypedDict(
-    'RoutineStatistics',
-    {
-        'total': int,
-        'completed': int,
-        'average': float,
-        'best': int,
-        'worst': int,
-        'streak': StreakStatistics,
-    },
-)
+class RoutineStatistics(TypedDict):
+    total: int
+    completed: int
+    average: float
+    best: int
+    worst: int
+    streak: StreakStatistics
 
 
-RoutineGroupStatistics = TypedDict(
-    'RoutineGroupStatistics',
-    {
-        'most_completed': 'Routine',
-        'least_completed': 'Routine',
-        'average_completion': float,
-        'total_routines': int,
-    },
-)
+class RoutineGroupStatistics(TypedDict):
+    most_completed: 'Routine'
+    least_completed: 'Routine'
+    average_completion: float
+    total_routines: int
 
 
 class RoutineGroup(models.Model):
