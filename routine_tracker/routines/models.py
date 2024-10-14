@@ -32,6 +32,12 @@ class RoutineGroupStatistics(TypedDict):
     total_routines: int
 
 
+class RoutinePerformance(TypedDict):
+    average_increase: float
+    consistency: float
+    completion_rate: float
+
+
 class RoutineGroup(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='routine_groups')
     name = models.CharField(max_length=100)
@@ -191,6 +197,30 @@ class Routine(models.Model):
 
         # Return statistics
         return {**general_stats, 'streak': streak}, entries
+
+    def performance(self, start: date, end: date = None) -> Union[RoutinePerformance, None]:
+        # Get statistics for the routine
+        stats = self.statistics(start, end)
+
+        # If there are no statistics, return None
+        if stats is None:
+            return None
+
+        # Get the general statistics
+        stats = stats[0]
+
+        # Average increase
+        # Calculate the difference between the first and last entries
+        avg_increase = stats['completed'] / stats['total'] if stats['total'] > 0 else 0
+        total_days = stats['streak']['days'] + stats['streak']['missed']
+        consistency = stats['streak']['days'] / total_days if total_days > 0 else 0
+        completion_rate = stats['completed'] / stats['total'] if stats['total'] > 0 else 0
+
+        return {
+            'average_increase': avg_increase,
+            'consistency': consistency,
+            'completion_rate': completion_rate,
+        }
 
     def __str__(self):
         return self.name
