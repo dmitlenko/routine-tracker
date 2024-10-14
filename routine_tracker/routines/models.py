@@ -38,6 +38,10 @@ class RoutinePerformance(TypedDict):
 
 
 class RoutineGroup(models.Model):
+    """
+    Routine group model.
+    """
+
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='routine_groups')
     name = models.CharField(max_length=100)
     description = models.TextField(blank=True)
@@ -98,12 +102,24 @@ class RoutineGroup(models.Model):
 
 
 class Routine(models.Model):
+    """
+    Routine model.
+    """
+
     class Type(models.TextChoices):
+        """
+        Routine type choices.
+        """
+
         CHECK = 'check', _('Check')
         TIME = 'time', _('Time')
         COUNT = 'count', _('Count')
 
     class Measure(models.TextChoices):
+        """
+        Routine measure choices.
+        """
+
         SECONDS = 'sec', _('Seconds')
         MINUTES = 'min', _('Minutes')
         HOURS = 'hrs', _('Hours')
@@ -196,6 +212,16 @@ class Routine(models.Model):
         return {**general_stats, 'streak': streak}, entries
 
     def performance(self, start: date, end: date = None) -> Union[RoutinePerformance, None]:
+        """Calculate performance for this routine within a given date range.
+
+        Args:
+            start (date): Start date for the performance.
+            end (date, optional): End date for the performance statistics. Defaults to None.
+
+        Returns:
+            Union[RoutinePerformance, None]: Performance statistics for the routine.
+        """
+
         # Get statistics for the routine
         stats = self.statistics(start, end)
 
@@ -224,6 +250,10 @@ class Routine(models.Model):
 
 
 class RoutineEntry(models.Model):
+    """
+    Routine entry model.
+    """
+
     routine = models.ForeignKey(Routine, on_delete=models.CASCADE, related_name='entries')
     date = models.DateField()
     value = models.PositiveIntegerField()
