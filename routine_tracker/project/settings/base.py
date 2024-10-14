@@ -11,6 +11,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'routine_tracker.core',
     'routine_tracker.accounts',
+    'routine_tracker.routines',
 ]
 
 MIDDLEWARE = [
