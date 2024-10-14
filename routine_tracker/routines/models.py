@@ -43,11 +43,11 @@ class RoutineGroup(models.Model):
     Routine group model.
     """
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='routine_groups')
-    name = models.CharField(max_length=100)
-    description = models.TextField(blank=True)
-    icon = models.CharField(max_length=50, blank=True)
-    color = models.CharField(max_length=7, default='#007bff')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='routine_groups', verbose_name=_('User'))
+    name = models.CharField(_('Name'), max_length=100)
+    description = models.TextField(_('Description'), blank=True)
+    icon = models.CharField(_('Icon'), max_length=50, blank=True)
+    color = models.CharField(_('Color'), max_length=7, default='#007bff')
 
     def statistics(
         self, start: date, end: date = None
@@ -101,6 +101,11 @@ class RoutineGroup(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        ordering = ['name']
+        verbose_name = _('Routine Group')
+        verbose_name_plural = _('Routine Groups')
+
 
 class Routine(models.Model):
     """
@@ -127,15 +132,17 @@ class Routine(models.Model):
         REPS = 'rps', _('Reps')
         SETS = 'sts', _('Sets')
 
-    group = models.ForeignKey(RoutineGroup, on_delete=models.CASCADE, related_name='routines')
-    name = models.CharField(max_length=100)
-    description = models.TextField(blank=True)
-    icon = models.CharField(max_length=50, blank=True)
+    group = models.ForeignKey(RoutineGroup, on_delete=models.CASCADE, related_name='routines', verbose_name=_('Group'))
+    name = models.CharField(_('Name'), max_length=100)
+    description = models.TextField(_('Description'), blank=True)
+    icon = models.CharField(_('Icon'), max_length=50, blank=True)
 
-    type = models.CharField(max_length=5, choices=Type.choices, default=Type.CHECK)
-    has_goal = models.BooleanField(default=False)
-    goal = models.PositiveIntegerField(blank=True, null=True)
-    measure = models.CharField(max_length=50, blank=True, choices=Measure.choices, default=Measure.SECONDS)
+    type = models.CharField(_('Type'), max_length=5, choices=Type.choices, default=Type.CHECK)
+    has_goal = models.BooleanField(_('Has a goal'), default=False)
+    goal = models.PositiveIntegerField(_('Goal'), blank=True, null=True)
+    measure = models.CharField(
+        _('Measure'), max_length=50, blank=True, choices=Measure.choices, default=Measure.SECONDS
+    )
 
     def _calculate_general_statistics(self, entries: 'models.QuerySet[RoutineEntry]') -> Dict[str, Union[int, float]]:
         total = len(entries)
@@ -262,19 +269,26 @@ class Routine(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        ordering = ['name']
+        verbose_name = _('Routine')
+        verbose_name_plural = _('Routines')
+
 
 class RoutineEntry(models.Model):
     """
     Routine entry model.
     """
 
-    routine = models.ForeignKey(Routine, on_delete=models.CASCADE, related_name='entries')
-    date = models.DateField()
-    value = models.PositiveIntegerField()
-    notes = models.TextField(blank=True)
+    routine = models.ForeignKey(Routine, on_delete=models.CASCADE, related_name='entries', verbose_name=_('Routine'))
+    date = models.DateField(_('Date'))
+    value = models.PositiveIntegerField(_('Value'))
+    notes = models.TextField(_('Notes'), blank=True)
 
     def __str__(self):
         return f'{self.routine.name} - {self.date}'
 
     class Meta:
         ordering = ['-date']
+        verbose_name = _('Routine Entry')
+        verbose_name_plural = _('Routine Entries')
