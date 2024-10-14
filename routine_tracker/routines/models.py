@@ -33,12 +33,72 @@ RoutineStatistics = TypedDict(
 )
 
 
+RoutineGroupStatistics = TypedDict(
+    'RoutineGroupStatistics',
+    {
+        'most_completed': 'Routine',
+        'least_completed': 'Routine',
+        'average_completion': float,
+        'total_routines': int,
+    },
+)
+
+
 class RoutineGroup(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='routine_groups')
     name = models.CharField(max_length=100)
     description = models.TextField(blank=True)
     icon = models.CharField(max_length=50, blank=True)
     color = models.CharField(max_length=7, default='#007bff')
+
+    def statistics(
+        self, start: date, end: date = None
+    ) -> Union[Tuple[RoutineGroupStatistics, 'models.QuerySet[Routine]'], None]:
+        """Calculate statistics for this group within a given date range.
+
+        Args:
+            start (date): Start date for the statistics.
+            end (date, optional): End date for the statistics. Defaults to None.
+
+        Returns:
+            Union[Tuple[RoutineGroupStatistics, QuerySet[Routine]], None]:
+            Tuple containing the statistics and the routines for the group.
+        """
+
+        # Get all routines for this group
+        routines = self.routines.all()
+
+        # If there are no routines, return None
+        if not routines:
+            return None
+
+        # Calculate statistics for each routine
+        most_completed = None
+        least_completed = None
+        total_completed = 0
+        total_routines = len(routines)
+
+        for routine in routines:
+            stats = routine.statistics(start, end)
+            if stats is None:
+                continue
+
+            total_completed += stats['completed']
+
+            if most_completed is None or stats['completed'] > most_completed['completed']:
+                most_completed = stats
+
+            if least_completed is None or stats['completed'] < least_completed['completed']:
+                least_completed = stats
+
+        average_completion = total_completed / total_routines
+
+        return {
+            'most_completed': most_completed,
+            'least_completed': least_completed,
+            'average_completion': average_completion,
+            'total_routines': total_routines,
+        }, routines
 
     def __str__(self):
         return self.name
