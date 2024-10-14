@@ -2,6 +2,7 @@ from datetime import date, timedelta
 from typing import Dict, Tuple, TypedDict, Union
 
 from django.contrib.auth import get_user_model
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
@@ -244,6 +245,19 @@ class Routine(models.Model):
             'consistency': consistency,
             'completion_rate': completion_rate,
         }
+
+    def clean(self) -> None:
+        # Check some edge cases for the routine
+        # If the routine has a goal, ensure that a goal is set
+        if self.has_goal and self.goal is None:
+            raise ValidationError(_('A goal value must be set if the routine has a goal.'))
+
+        # If the routine has a type of 'check', ensure that it does not have a goal
+        if self.type == self.Type.CHECK and self.has_goal:
+            raise ValidationError(_('A check routine cannot have a goal.'))
+
+        # Call the parent class clean method
+        return super().clean()
 
     def __str__(self):
         return self.name
