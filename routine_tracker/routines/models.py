@@ -18,7 +18,6 @@ class StreakStatistics(TypedDict):
 
 class RoutineStatistics(TypedDict):
     total: int
-    completed: int
     average: float
     best: int
     worst: int
@@ -123,14 +122,12 @@ class Routine(models.Model):
 
     def _calculate_general_statistics(self, entries: 'models.QuerySet[RoutineEntry]') -> Dict[str, Union[int, float]]:
         total = len(entries)
-        completed = len([entry for entry in entries if entry.value >= self.goal])
         average = sum([entry.value for entry in entries]) / total
         best = max([entry.value for entry in entries])
         worst = min([entry.value for entry in entries])
 
         return {
             'total': total,
-            'completed': completed,
             'average': average,
             'best': best,
             'worst': worst,

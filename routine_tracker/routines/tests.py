@@ -147,11 +147,6 @@ class RoutineStatisticsTest(TestCase):
         stats, _ = self.routine.statistics(start=self.start_date)
         self.assertEqual(stats['total'], self.total)
 
-    def test_statistics_completed(self):
-        stats, entries = self.routine.statistics(start=self.start_date)
-        completed = len([entry for entry in entries if entry.value >= self.routine.goal])
-        self.assertEqual(stats['completed'], completed)
-
     def test_statistics_average(self):
         stats, entries = self.routine.statistics(start=self.start_date)
         average = sum([entry.value for entry in entries]) / self.total
@@ -174,7 +169,6 @@ class RoutineStatisticsTest(TestCase):
     def test_statistics_end_date(self):
         stats, entries = self.routine.statistics(start=self.start_date, end=self.end_date)
         total = len(entries)
-        completed = len([entry for entry in entries if entry.value >= self.routine.goal])
         average = sum([entry.value for entry in entries]) / total
         best = max([entry.value for entry in entries])
         worst = min([entry.value for entry in entries])
@@ -182,7 +176,6 @@ class RoutineStatisticsTest(TestCase):
         self.assertEqual(
             stats['total'], (self.end_date - self.start_date).days - 1
         )  # -1 because we skipping day 7 in self.skip_days
-        self.assertEqual(stats['completed'], completed)
         self.assertEqual(stats['average'], average)
         self.assertEqual(stats['best'], best)
         self.assertEqual(stats['worst'], worst)
