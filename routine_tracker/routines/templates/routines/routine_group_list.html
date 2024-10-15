@@ -1,0 +1,13 @@
+{% extends "layouts/default.html" %}
+
+{% block content %}
+    <h1>Groups</h1>
+    <ul>
+        {% for group in groups %}
+            <li>
+                {% component 'routine_group' group=group / %}
+            </li>
+        {% endfor %}
+    </ul>
+    {% comment %} <a href="{% url 'routines:group-create' %}">Create a new group</a> {% endcomment %}
+{% endblock content %}
