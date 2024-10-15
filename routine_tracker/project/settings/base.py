@@ -12,6 +12,7 @@ INSTALLED_APPS = [
     'routine_tracker.core',
     'routine_tracker.accounts',
     'routine_tracker.routines',
+    'django_components',
 ]
 
 MIDDLEWARE = [
@@ -33,13 +34,27 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [],
-        'APP_DIRS': True,
         'OPTIONS': {
+            'builtins': [
+                'django_components.templatetags.component_tags',
+            ],
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+            ],
+            'loaders': [
+                (
+                    'django.template.loaders.cached.Loader',
+                    [
+                        # Default django loader
+                        'django.template.loaders.filesystem.Loader',
+                        'django.teamplate.loaders.app_directories.Loader',
+                        # Components loader
+                        'django_components.loaders.ComponentLoader',
+                    ],
+                )
             ],
         },
     },
@@ -75,3 +90,9 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     BASE_DIR / 'static',  # noqa # type: ignore
 ]
+
+COMPONENTS = {
+    "dirs": [
+        BASE_DIR / 'components',  # noqa # type: ignore
+    ]
+}
