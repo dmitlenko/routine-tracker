@@ -62,6 +62,9 @@ TEMPLATES = [
     },
 ]
 
+LOGIN_REDIRECT_URL = 'base:index'
+LOGOUT_REDIRECT_URL = 'base:index'
+
 AUTH_USER_MODEL = 'accounts.User'
 
 AUTH_PASSWORD_VALIDATORS = [
