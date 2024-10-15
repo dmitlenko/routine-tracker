@@ -10,6 +10,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'routine_tracker.core',
+    'routine_tracker.base',
     'routine_tracker.accounts',
     'routine_tracker.routines',
     'django_components',
