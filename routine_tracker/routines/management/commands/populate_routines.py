@@ -44,12 +44,14 @@ class Command(BaseCommand):
                 self.stdout.write(self.style.SUCCESS(f"Created RoutineGroup: {group.name}"))
 
                 for _ in range(routines_count):
+                    routine_type = random.choice(Routine.Type.values)
+
                     routine = Routine.objects.create(
                         group=group,
                         name=fake.word().capitalize(),
                         description=fake.sentence(),
                         icon=fake.word(),
-                        type=random.choice(Routine.Type.values),
+                        type=routine_type,
                         has_goal=random.choice([True, False]),
                         goal=random.randint(10, 100) if random.choice([True, False]) else None,
                         measure=random.choice(Routine.Measure.values),
@@ -58,7 +60,7 @@ class Command(BaseCommand):
 
                     for _ in range(entries_count):
                         entry_date = date.today() - timedelta(days=random.randint(0, 365))
-                        value = random.randint(1, 100)
+                        value = random.randint(0, 1) if routine.type == Routine.Type.CHECK else random.randint(1, 100)
                         entry = RoutineEntry.objects.create(
                             routine=routine,
                             date=entry_date,
