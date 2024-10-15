@@ -1,0 +1,28 @@
+{% load routine_extras %}
+
+<div>
+    <h2>{{ routine.name }}</h2>
+    <p>{{ routine.description }}</p>
+    <ul class="routine-entries">
+        {% for entry in entries %}
+            <li>
+                <p>
+                    {{ entry.date|date:"d.m.Y" }}
+                </p>
+                <span>
+                    {% if routine.type == 'check' %}
+                        {% if entry.value %}
+                            ✅
+                        {% else %}
+                            🟩
+                        {% endif %}
+                    {% elif routine.type == 'count' %}
+                        {{ entry.value }} {{ routine.measure }}
+                    {% elif routine.type == 'time' %}
+                        {{ entry.value|duration }}
+                    {% endif %}
+                </span>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
