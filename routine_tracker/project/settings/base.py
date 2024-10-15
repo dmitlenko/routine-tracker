@@ -14,6 +14,7 @@ INSTALLED_APPS = [
     'routine_tracker.accounts',
     'routine_tracker.routines',
     'django_components',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [
