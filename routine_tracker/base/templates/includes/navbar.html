@@ -3,4 +3,7 @@
         <li><a href="{% url 'base:index' %}">Home</a></li>
         <li><a href="{% url 'accounts:profile' %}">Profile</a></li>
     </ul>
+    <div>
+        {% include 'includes/logout.html' %}
+    </div>
 </nav>
