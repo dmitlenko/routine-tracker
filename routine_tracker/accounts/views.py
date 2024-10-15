@@ -14,18 +14,23 @@ User = get_user_model()
 
 
 class LoginView(LoginView):
-    template_name = "accounts/auth.html"
+    template_name = "accounts/form.html"
     extra_context = {
         "title": "Login",
         "submit": "Login",
+        "layout": "layouts/empty.html",
     }
 
 
 class RegistrationView(FormView):
-    template_name = "accounts/auth.html"
+    template_name = "accounts/form.html"
     form_class = RegistrationForm
     success_url = reverse_lazy("base:index")
-    extra_context = {"title": "Register", "submit": "Register"}
+    extra_context = {
+        "title": "Register",
+        "submit": "Register",
+        "layout": "layouts/empty.html",
+    }
 
     def form_valid(self, form: RegistrationForm) -> HttpResponse:
         # Save the user
