@@ -1,7 +1,7 @@
 from typing import Any
 
 from django.contrib.auth import get_user_model, login
-from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView
 from django.db.models.query import QuerySet
 from django.http import HttpResponse
 from django.urls import reverse_lazy
@@ -52,6 +52,16 @@ class ProfileView(DetailView):
         profile, _ = UserProfile.objects.get_or_create(user=self.request.user)
 
         return profile
+
+
+class ChangePasswordView(PasswordChangeView):
+    template_name = "accounts/form.html"
+    success_url = reverse_lazy("accounts:profile")
+    extra_context = {
+        "title": "Change Password",
+        "submit": "Change Password",
+        "layout": "layouts/default.html",
+    }
 
 
 class LogoutView(LogoutView):
