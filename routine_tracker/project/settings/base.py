@@ -51,9 +51,9 @@ TEMPLATES = [
                     [
                         # Default django loader
                         'django.template.loaders.filesystem.Loader',
-                        'django.teamplate.loaders.app_directories.Loader',
+                        'django.template.loaders.app_directories.Loader',
                         # Components loader
-                        'django_components.loaders.ComponentLoader',
+                        'django_components.template_loader.Loader',
                     ],
                 )
             ],
