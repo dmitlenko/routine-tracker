@@ -1,0 +1,10 @@
+<div>
+    <h2><a href="{% url 'routines:routine-group-detail' pk=group.id %}">{{ group }}</a></h2>
+    <ul>
+        {% for routine in routines %}
+            <li>
+                {{ routine }}
+            </li>
+        {% endfor %}
+    </ul>
+</div>
