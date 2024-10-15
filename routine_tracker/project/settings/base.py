@@ -96,8 +96,12 @@ STATICFILES_DIRS = [
     BASE_DIR / 'static',  # noqa # type: ignore
 ]
 
-COMPONENTS = {
-    "dirs": [
-        BASE_DIR / 'components',  # noqa # type: ignore
-    ]
-}
+COMPONENTS = {"dirs": []}
+
+STATICFILES_FINDERS = [
+    # Default finders
+    "django.contrib.staticfiles.finders.FileSystemFinder",
+    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
+    # Django components
+    "django_components.finders.ComponentsFileSystemFinder",
+]
