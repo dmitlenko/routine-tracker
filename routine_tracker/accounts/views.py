@@ -1,6 +1,7 @@
 from typing import Any
 
 from django.contrib.auth import get_user_model, login
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView
 from django.db.models.query import QuerySet
 from django.http import HttpResponse
@@ -43,7 +44,7 @@ class RegistrationView(FormView):
         return super().form_valid(form)
 
 
-class ProfileView(DetailView):
+class ProfileView(LoginRequiredMixin, DetailView):
     model = UserProfile
     context_object_name = "profile"
     template_name = "accounts/profile.html"
@@ -54,7 +55,7 @@ class ProfileView(DetailView):
         return profile
 
 
-class ChangePasswordView(PasswordChangeView):
+class ChangePasswordView(LoginRequiredMixin, PasswordChangeView):
     template_name = "accounts/form.html"
     success_url = reverse_lazy("accounts:profile")
     extra_context = {
@@ -64,5 +65,5 @@ class ChangePasswordView(PasswordChangeView):
     }
 
 
-class LogoutView(LogoutView):
+class LogoutView(LoginRequiredMixin, LogoutView):
     pass
