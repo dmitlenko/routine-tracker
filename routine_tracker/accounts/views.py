@@ -4,7 +4,7 @@ from django.contrib.auth import get_user_model, login
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView
 from django.db.models.query import QuerySet
-from django.http import HttpResponse
+from django.http import HttpRequest, HttpResponse
 from django.urls import reverse_lazy
 from django.views.generic import DetailView, FormView
 
@@ -58,11 +58,29 @@ class ProfileView(LoginRequiredMixin, DetailView):
 class ChangePasswordView(LoginRequiredMixin, PasswordChangeView):
     template_name = "accounts/form.html"
     success_url = reverse_lazy("accounts:profile")
+    is_success = False
     extra_context = {
         "title": "Change Password",
         "submit": "Change Password",
         "layout": "layouts/default.html",
+        "boost": True,
     }
+
+    def form_valid(self, form: Any) -> HttpResponse:
+        # Save the form
+        response = super().form_valid(form)
+        # Set the success flag
+        self.is_success = True
+        # Return the response
+        return response
+
+    def get(self, request: HttpRequest, *args: str, **kwargs: Any) -> HttpResponse:
+        response = super().get(request, *args, **kwargs)
+
+        if self.is_success:
+            response.headers["HX-Redirect"] = self.success_url
+
+        return response
 
 
 class LogoutView(LoginRequiredMixin, LogoutView):
