@@ -2,8 +2,10 @@ from typing import Any
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models.query import QuerySet
-from django.views.generic import DetailView, ListView
+from django.urls import reverse_lazy
+from django.views.generic import CreateView, DetailView, ListView
 
+from .forms import RoutineGroupCreateForm
 from .models import RoutineGroup
 
 
@@ -28,3 +30,14 @@ class RoutineGroupDetailView(LoginRequiredMixin, DetailView):
         context = super().get_context_data(**kwargs)
         context["routines"] = context[self.context_object_name].routines.all()
         return context
+
+
+class RoutineGroupCreateView(LoginRequiredMixin, CreateView):
+    model = RoutineGroup
+    form_class = RoutineGroupCreateForm
+    template_name = 'routines/routine_group_form.html'
+    success_url = reverse_lazy('routines:routine-group-list')
+
+    def form_valid(self, form: RoutineGroupCreateForm) -> Any:
+        form.instance.user = self.request.user
+        return super().form_valid(form)
