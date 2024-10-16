@@ -1,7 +1,7 @@
 {% extends "_base.html" %}
 
 {% block layout %}
-    {% include "includes/navbar.html" %}
+    {% component 'navbar' request=request / %}
 
     {% block content %}{% endblock content %}
 {% endblock layout %}
