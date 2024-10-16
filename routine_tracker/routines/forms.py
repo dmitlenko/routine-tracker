@@ -1,7 +1,9 @@
+from datetime import date
+
 from django import forms
 from django.utils.translation import gettext_lazy as _
 
-from .models import Routine, RoutineGroup
+from .models import Routine, RoutineEntry, RoutineGroup
 
 
 class RoutineGroupCreateForm(forms.ModelForm):
@@ -20,3 +22,13 @@ class RoutineCreateForm(forms.ModelForm):
     class Meta:
         model = Routine
         fields = ['name', 'description', 'icon', 'type', 'has_goal', 'goal', 'measure']
+
+
+class RoutineEntryCreateForm(forms.ModelForm):
+    class Meta:
+        model = RoutineEntry
+        fields = ['date', 'value']
+        widgets = {
+            'date': forms.DateInput(attrs={'type': 'date', 'value': date.today()}, format='%Y-%m-%d'),
+            'value': forms.NumberInput(attrs={'placeholder': _('Value')}),
+        }

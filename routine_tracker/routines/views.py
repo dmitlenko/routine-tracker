@@ -7,8 +7,8 @@ from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DetailView, ListView
 
-from .forms import RoutineCreateForm, RoutineGroupCreateForm
-from .models import Routine, RoutineGroup
+from .forms import RoutineCreateForm, RoutineEntryCreateForm, RoutineGroupCreateForm
+from .models import Routine, RoutineEntry, RoutineGroup
 
 
 class RoutineGroupListView(LoginRequiredMixin, ListView):
@@ -74,4 +74,18 @@ class RoutineCreateView(LoginRequiredMixin, CreateView):
     def form_valid(self, form: RoutineCreateForm) -> Any:
         group = get_object_or_404(RoutineGroup, pk=self.kwargs['pk'], user=self.request.user)
         form.instance.group = group
+        return super().form_valid(form)
+
+
+class EntryCreateView(LoginRequiredMixin, CreateView):
+    model = RoutineEntry
+    form_class = RoutineEntryCreateForm
+    template_name = 'routines/entry_form.html'
+
+    def get_success_url(self) -> str:
+        return reverse_lazy('routines:routine-group-detail', kwargs={'pk': self.kwargs['pk']})
+
+    def form_valid(self, form: RoutineCreateForm) -> Any:
+        routine = get_object_or_404(Routine, pk=self.kwargs['routine_id'], group__user=self.request.user)
+        form.instance.routine = routine
         return super().form_valid(form)

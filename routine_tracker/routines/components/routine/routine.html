@@ -25,4 +25,5 @@
             </li>
         {% endfor %}
     </ul>
+    <a href="{% url 'routines:entry-create' pk=routine.group.id routine_id=routine.id %}">Add Entry</a>
 </div>
