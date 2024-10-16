@@ -5,25 +5,33 @@
             class="navbar-toggler"
             type="button"
             data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
+            data-bs-target="#navbarMenu"
+            aria-controls="navbarMenu"
             aria-expanded="false"
             aria-label="Toggle navigation"
         >
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                {% for link in navlinks %}
+        <div
+            class="collapse navbar-collapse {% if not is_authenticated %}d-flex flex-row-reverse{% endif %}"
+            id="navbarMenu"
+        >
+            {% if is_authenticated %}
+                <ul class="navbar-nav mb-2 mb-lg-0 w-100">
+                    {% for link in navlinks %}
                     <li class="nav-item">
                         <a class="nav-link {{ link.active }}" href="{{ link.url }}">{{ link.text }}</a>
                     </li>
-                {% endfor %}
-            </ul>
-            <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
+                    {% endfor %}
+                </ul>
+                {% component 'userdropdown' / %}
+            {% else %}
+                <ul class="navbar-nav mb-2 mb-lg-0 ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'accounts:login' %}">Log in</a>
+                    </li>
+                </ul>
+            {% endif %}
         </div>
     </div>
 </nav>

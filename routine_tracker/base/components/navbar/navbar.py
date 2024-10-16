@@ -33,6 +33,10 @@ class NavbarComponent(Component):
         # Get the request object from the kwargs
         request: HttpRequest = self.inject('request').request
 
+        # If user is not authenticated, return the context with is_authenticated set to false
+        if not request.user.is_authenticated:
+            return {'is_authenticated': False}
+
         # Create a copy of the navlinks list
         navlinks = NAVLINKS.copy()
 
@@ -52,4 +56,5 @@ class NavbarComponent(Component):
 
         return {
             'navlinks': navlinks,
+            'is_authenticated': True,
         }
