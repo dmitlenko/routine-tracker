@@ -31,7 +31,7 @@ class NavbarComponent(Component):
 
     def get_context_data(self, *args: Any, **kwargs: Unpack[Kwargs]) -> Any:
         # Get the request object from the kwargs
-        request = kwargs['request']
+        request: HttpRequest = self.inject('request').request
 
         # Create a copy of the navlinks list
         navlinks = NAVLINKS.copy()
