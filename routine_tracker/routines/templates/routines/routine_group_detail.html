@@ -1,0 +1,13 @@
+{% extends "layouts/default.html" %}
+
+{% block content %}
+    <h1>{{ group.name }}</h1>
+    <ul>
+        {% for routine in routines %}
+            <li>
+                {% component 'routine' routine=routine / %}
+            </li>
+        {% endfor %}
+    </ul>
+    {% comment %} <a href="{% url 'routines:routine-create' group.id %}">Create a new routine</a> {% endcomment %}
+{% endblock content %}

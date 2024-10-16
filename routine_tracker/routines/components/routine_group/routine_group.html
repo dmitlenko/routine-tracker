@@ -1,0 +1,11 @@
+<div>
+    <h2><a href="{% url 'routines:routine-group-detail' pk=group.id %}">{{ group }}</a></h2>
+    <ul>
+        {% for routine in routines %}
+            <li>
+                {% component 'routine' routine=routine / %}
+            </li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'routines:routine-create' group_id=group.id %}">Add Routine</a>
+</div>

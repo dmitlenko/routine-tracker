@@ -1,0 +1,22 @@
+{% extends "layouts/default.html" %}
+
+{% load routine_extras %}
+
+{% block content %}
+    <h1>Groups</h1>
+    <ul>
+        {% for group in groups %}
+            {% statistics obj=group start=start end=end as stats %}
+            <li>
+                <h2><a href="{% url 'routines:routine-group-detail' pk=group.id %}">{{ group }}</a></h2>
+                {% if stats %}
+                    <p>Number of routines: {{ stats.total_routines }}</p>
+                    <p>Average completion: {{ stats.average_completion }}</p>
+                {% else %}
+                    <p>No routines</p>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'routines:routine-group-create' %}">Create a new group</a>
+{% endblock content %}

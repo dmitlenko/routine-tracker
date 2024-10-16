@@ -1,0 +1,38 @@
+.routine-entries {
+    display: flex;
+    gap: 0.2rem;
+    width: 100%;
+    overflow-x: auto;
+    list-style: none;
+
+    li {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        padding: 0.2rem 0.4rem;
+        width: 2rem;
+
+        p {
+            display: flex;
+            align-items: center;
+
+            width: 100%;
+            writing-mode: vertical-rl;
+            transform: rotate(200deg);
+            text-orientation: sideways;
+            margin: 0;
+            padding: 0;
+        }
+
+        span {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        &:not(:last-child) {
+            border-right: 1px solid lightgray;
+        }
+    }
+}

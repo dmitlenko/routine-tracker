@@ -10,8 +10,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'routine_tracker.core',
+    'routine_tracker.base',
     'routine_tracker.accounts',
     'routine_tracker.routines',
+    'django_components',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [
@@ -33,17 +36,34 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [],
-        'APP_DIRS': True,
         'OPTIONS': {
+            'builtins': [
+                'django_components.templatetags.component_tags',
+            ],
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+            'loaders': [
+                (
+                    'django.template.loaders.cached.Loader',
+                    [
+                        # Default django loader
+                        'django.template.loaders.filesystem.Loader',
+                        'django.template.loaders.app_directories.Loader',
+                        # Components loader
+                        'django_components.template_loader.Loader',
+                    ],
+                )
+            ],
         },
     },
 ]
+
+LOGIN_REDIRECT_URL = 'base:index'
+LOGOUT_REDIRECT_URL = 'base:index'
 
 AUTH_USER_MODEL = 'accounts.User'
 
@@ -74,4 +94,14 @@ STATIC_URL = 'static/'
 
 STATICFILES_DIRS = [
     BASE_DIR / 'static',  # noqa # type: ignore
+]
+
+COMPONENTS = {"dirs": []}
+
+STATICFILES_FINDERS = [
+    # Default finders
+    "django.contrib.staticfiles.finders.FileSystemFinder",
+    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
+    # Django components
+    "django_components.finders.ComponentsFileSystemFinder",
 ]

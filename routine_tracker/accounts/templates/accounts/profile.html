@@ -1,0 +1,10 @@
+{% extends "layouts/default.html" %}
+
+{% block content %}
+    <h1>Hello <i>{{ user.first_name }} {{ user.last_name }}</i></h1>
+    <h2>Profile</h2>
+    <p>Email: {{ user.email }}</p>
+    <p><a href="{% url 'accounts:change-password' %}">Change password</a></p>
+    <p>Timezone: {{ profile.time_zone }} </p>
+    <p>Preffered language: {{ profile.preferred_language }}</p>
+{% endblock content %}
