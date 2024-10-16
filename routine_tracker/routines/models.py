@@ -81,12 +81,14 @@ class RoutineGroup(models.Model):
             if stats is None:
                 continue
 
-            total_completed += stats['completed']
+            stats = stats[0]
 
-            if most_completed is None or stats['completed'] > most_completed['completed']:
+            total_completed += stats['streak']['completeness']
+
+            if most_completed is None or stats['streak']['completeness'] > most_completed['streak']['completeness']:
                 most_completed = stats
 
-            if least_completed is None or stats['completed'] < least_completed['completed']:
+            if least_completed is None or stats['streak']['completeness'] < least_completed['streak']['completeness']:
                 least_completed = stats
 
         average_completion = total_completed / total_routines
