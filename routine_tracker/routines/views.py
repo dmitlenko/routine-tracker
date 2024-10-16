@@ -3,11 +3,12 @@ from typing import Any
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models.query import QuerySet
+from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DetailView, ListView
 
-from .forms import RoutineGroupCreateForm
-from .models import RoutineGroup
+from .forms import RoutineCreateForm, RoutineGroupCreateForm
+from .models import Routine, RoutineGroup
 
 
 class RoutineGroupListView(LoginRequiredMixin, ListView):
@@ -59,4 +60,18 @@ class RoutineGroupCreateView(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form: RoutineGroupCreateForm) -> Any:
         form.instance.user = self.request.user
+        return super().form_valid(form)
+
+
+class RoutineCreateView(LoginRequiredMixin, CreateView):
+    model = Routine
+    form_class = RoutineCreateForm
+    template_name = 'routines/routine_form.html'
+
+    def get_success_url(self) -> str:
+        return reverse_lazy('routines:routine-group-detail', kwargs={'pk': self.kwargs['pk']})
+
+    def form_valid(self, form: RoutineCreateForm) -> Any:
+        group = get_object_or_404(RoutineGroup, pk=self.kwargs['pk'], user=self.request.user)
+        form.instance.group = group
         return super().form_valid(form)

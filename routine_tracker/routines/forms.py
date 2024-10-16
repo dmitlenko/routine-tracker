@@ -1,7 +1,7 @@
 from django import forms
 from django.utils.translation import gettext_lazy as _
 
-from .models import RoutineGroup
+from .models import Routine, RoutineGroup
 
 
 class RoutineGroupCreateForm(forms.ModelForm):
@@ -14,3 +14,9 @@ class RoutineGroupCreateForm(forms.ModelForm):
             'icon': forms.TextInput(attrs={'placeholder': _('Icon')}),
             'color': forms.TextInput(attrs={'placeholder': _('Color')}),
         }
+
+
+class RoutineCreateForm(forms.ModelForm):
+    class Meta:
+        model = Routine
+        fields = ['name', 'description', 'icon', 'type', 'has_goal', 'goal', 'measure']
