@@ -3,5 +3,7 @@
 {% block layout %}
     {% component 'navbar' request=request / %}
 
-    {% block content %}{% endblock content %}
+    <div class="container-xl">
+        {% block content %}{% endblock content %}
+    </div>
 {% endblock layout %}
