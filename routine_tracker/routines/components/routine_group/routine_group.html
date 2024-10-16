@@ -3,7 +3,7 @@
     <ul>
         {% for routine in routines %}
             <li>
-                {{ routine }}
+                {% component 'routine' routine=routine / %}
             </li>
         {% endfor %}
     </ul>

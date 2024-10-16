@@ -1,3 +1,4 @@
+from datetime import date, timedelta
 from typing import Any
 
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -13,6 +14,24 @@ class RoutineGroupListView(LoginRequiredMixin, ListView):
     model = RoutineGroup
     context_object_name = "groups"
     template_name = "routines/routine_group_list.html"
+
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+
+        start_date_str = self.request.GET.get('start', '')
+        end_date_str = self.request.GET.get('end', '')
+
+        start_date = date.fromisoformat(start_date_str) if start_date_str else date.today() - timedelta(days=7)
+        end_date = date.fromisoformat(end_date_str) if end_date_str else None
+
+        context.update(
+            {
+                'start': start_date,
+                'end': end_date,
+            }
+        )
+
+        return context
 
     def get_queryset(self) -> QuerySet[Any]:
         return super().get_queryset().filter(user=self.request.user).prefetch_related("routines")
