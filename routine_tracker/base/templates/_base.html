@@ -1,3 +1,6 @@
+{% load static %}
+{% load django_htmx %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,9 +9,12 @@
     <title>RoutineTracker {% block title %}{% endblock title %}</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎯</text></svg>">
     {% component_css_dependencies %}
+    <script src="{% static 'js/htmx.min.js' %}"></script>
+    <script src="{% static 'js/alpinejs.min.js' %}"></script>
 </head>
-<body>
+<body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
     {% block layout %}{% endblock %}
     {% component_js_dependencies %}
+    {% django_htmx_script %}
 </body>
 </html>

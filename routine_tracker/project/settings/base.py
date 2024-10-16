@@ -15,6 +15,7 @@ INSTALLED_APPS = [
     'routine_tracker.routines',
     'django_components',
     'widget_tweaks',
+    'django_htmx',
 ]
 
 MIDDLEWARE = [
@@ -26,6 +27,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.locale.LocaleMiddleware',
+    'django_htmx.middleware.HtmxMiddleware',
 ]
 
 WSGI_APPLICATION = 'routine_tracker.project.wsgi.application'
