@@ -45,7 +45,9 @@ class NavbarComponent(Component):
             link.active = 'active' if is_active else ''
 
             # Set the url of the link to the reverse_name if the link is not active
-            if not is_active:
+            if is_active:
+                link.url = '#'
+            else:
                 link.url = reverse(link.reverse_name)
 
         return {
