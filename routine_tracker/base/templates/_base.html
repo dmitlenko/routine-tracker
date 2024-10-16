@@ -13,7 +13,7 @@
     <script src="{% static 'js/alpinejs.min.js' %}"></script>
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
 </head>
-<body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
+<body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}' data-bs-theme="{{ request.user.profile.dark_mode|yesno:'dark,light'}}">
     {% provide "request" request=request %}
         {# Provide the request object to all components #}
         {% block layout %}{% endblock %}
