@@ -3,12 +3,11 @@ from typing import Any
 from django.contrib.auth import get_user_model, login
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView
-from django.db.models.query import QuerySet
 from django.http import HttpRequest, HttpResponse
 from django.urls import reverse_lazy
-from django.views.generic import DetailView, FormView
+from django.views.generic import FormView
 
-from routine_tracker.accounts.forms import RegistrationForm
+from routine_tracker.accounts.forms import RegistrationForm, UserForm, UserProfileForm
 from routine_tracker.accounts.models import UserProfile
 
 User = get_user_model()
@@ -44,15 +43,34 @@ class RegistrationView(FormView):
         return super().form_valid(form)
 
 
-class ProfileView(LoginRequiredMixin, DetailView):
-    model = UserProfile
-    context_object_name = "profile"
+class UserEditView(LoginRequiredMixin, FormView):
+    model = User
+    form_class = UserForm
     template_name = "accounts/profile.html"
 
-    def get_object(self, queryset: QuerySet[Any] | None = ...) -> UserProfile:
-        profile, _ = UserProfile.objects.get_or_create(user=self.request.user)
+    def get_success_url(self) -> str:
+        # return back to the requested url
+        return self.request.path
 
-        return profile
+    def get_form_kwargs(self) -> dict[str, Any]:
+        kwargs = super().get_form_kwargs()
+        kwargs["instance"] = self.request.user
+        return kwargs
+
+
+class UserSettingsView(LoginRequiredMixin, FormView):
+    model = UserProfile
+    form_class = UserProfileForm
+    template_name = "accounts/profile.html"
+
+    def get_success_url(self) -> str:
+        # return back to the requested url
+        return self.request.path
+
+    def get_form_kwargs(self) -> dict[str, Any]:
+        kwargs = super().get_form_kwargs()
+        kwargs["instance"] = self.request.user.profile
+        return kwargs
 
 
 class ChangePasswordView(LoginRequiredMixin, PasswordChangeView):

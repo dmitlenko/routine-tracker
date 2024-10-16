@@ -1,10 +1,37 @@
 {% extends "layouts/default.html" %}
 
 {% block content %}
-    <h1>Hello <i>{{ user.first_name }} {{ user.last_name }}</i></h1>
-    <h2>Profile</h2>
-    <p>Email: {{ user.email }}</p>
-    <p><a href="{% url 'accounts:change-password' %}">Change password</a></p>
-    <p>Timezone: {{ profile.time_zone }} </p>
-    <p>Preffered language: {{ profile.preferred_language }}</p>
+    <h1 class="mt-5">Your profile</h1>
+    <div>
+        {% component 'profilenav' / %}
+        <div class="px-3" id="content">
+            <form hx-post="{{ request.path }}" hx-swap="outerHTML" hx-target="#userForm" id="userForm">
+                {% csrf_token %}
+                {% for field in form %}
+                    <div class="row mb-3 justify-content-start" x-data="{showErrors:{{ field.errors|yesno:"true,false" }}}">
+                        <label for="{{field.auto_id}}" class="col-sm-2 col-form-label fw-bold">{{ field.label }}</label>
+                        <div class="col-sm-4">
+                            <input
+                                type="{{field.field.widget.input_type}}"
+                                name="{{field.name}}"
+                                value="{{field.value}}"
+                                default="{{field.value}}"
+                                @keyup="showErrors=false"
+                                x-bind:class="showErrors ? 'is-invalid' : ''"
+                                class="form-control" />
+                            {% if field.errors %}
+                                <div class="invalid-feedback" x-show="showErrors">
+                                    {% for error in field.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+                <button type="submit" class="btn btn-primary btn-sm">Save changes</button>
+                <button type="reset" class="btn btn-dark  btn-sm" >Cancel</button>
+            </form>
+        </div>
+    </div>
 {% endblock content %}
