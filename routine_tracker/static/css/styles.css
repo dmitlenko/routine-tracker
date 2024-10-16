@@ -1,0 +1,10 @@
+
+@media (min-width: 1080px) {
+    .container-lg {
+        max-width: 1040px;
+    }
+}
+
+.containe-lg {
+    margin: 0 auto;
+}
