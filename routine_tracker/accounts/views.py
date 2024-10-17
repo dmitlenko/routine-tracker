@@ -69,6 +69,10 @@ class UserProfileFormView(LoginRequiredMixin, FormView):
         messages.success(self.request, _("Profile updated successfully"))
         return super().form_valid(form)
 
+    def form_invalid(self, form):
+        messages.error(self.request, _("Profile update failed"))
+        return super().form_invalid(form)
+
 
 class UserEditView(UserProfileFormView):
     model = User
@@ -84,6 +88,14 @@ class UserSettingsView(UserProfileFormView):
 
     def get_form_instance(self) -> Any:
         return self.request.user.profile
+
+    def get(self, request: HttpRequest, *args: str, **kwargs: Any) -> HttpResponse:
+        response = super().get(request, *args, **kwargs)
+
+        if not request.headers.get("HX-Navigation") == "true":
+            response.headers["HX-Refresh"] = "true"
+
+        return response
 
 
 class ChangePasswordView(LoginRequiredMixin, PasswordChangeView):
