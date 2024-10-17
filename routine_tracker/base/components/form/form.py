@@ -16,3 +16,6 @@ class FormComponent(Component):
             'boost': boost == 'true',
             'form_attrs': attributes_to_string(kwargs),
         }
+
+    class Media:
+        js = 'script.js'

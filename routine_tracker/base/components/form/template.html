@@ -3,6 +3,8 @@
 
 <form
     method="POST"
+    x-data="{submitting: false, submit() {$nextTick (() => this.submitting = true);}}"
+    @submit.prevent="submit"
     {% if boost %}hx-boost="{{ boost|yesno:"true,false" }}"{%endif%}
     {{ form_attrs }}>
     {% csrf_token %}
@@ -14,13 +16,15 @@
                     <div class="form-check ">
                         {% render_field field|add_class:"form-check-input"|add_error_class:"is-invalid"
                             @change="showErrors=false"
-                            x-bind::class='showErrors ? `is-invalid` : ``' %}
-
+                            x-bind::class='showErrors ? `is-invalid` : ``'
+                            x-bind::disabled='submitting'
+                        %}
                     </div>
                 {% else %}
                     {% render_field field|add_class:"form-control"|add_error_class:"is-invalid"
                         @keyup="showErrors=false"
                         x-bind::class='showErrors ? `is-invalid` : ``'
+                        x-bind::disabled='submitting'
                     %}
                 {% endif %}
             </div>
@@ -40,7 +44,7 @@
             {% endfor %}
         </div>
     {% endif %}
-    <div>
+    <div class="form-controls">
         {% slot "form_controls" %}{% endslot %}
     </div>
 </form>
