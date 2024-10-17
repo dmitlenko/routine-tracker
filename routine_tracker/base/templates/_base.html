@@ -21,8 +21,8 @@
         {# Provide the request object to all components #}
         {% block layout %}{% endblock %}
     {% endprovide %}
-    {% component_js_dependencies %}
     {% django_htmx_script %}
     <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    {% component_js_dependencies %}
 </body>
 </html>
