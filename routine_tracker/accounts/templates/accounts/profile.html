@@ -5,7 +5,7 @@
     <div>
         {% component 'profilenav' / %}
         <div class="px-3" id="content">
-            <form hx-post="{{ request.path }}" hx-swap="outerHTML" hx-target="#userForm" id="userForm">
+            <form hx-post="{{ request.path }}" hx-select="#userForm" hx-swap="outerHTML" id="userForm">
                 {% csrf_token %}
                 {% for field in form %}
                     <div class="row mb-3 justify-content-start" x-data="{showErrors:{{ field.errors|yesno:"true,false" }}}">
@@ -29,8 +29,11 @@
                         </div>
                     </div>
                 {% endfor %}
-                <button type="submit" class="btn btn-primary btn-sm">Save changes</button>
-                <button type="reset" class="btn btn-dark  btn-sm" >Cancel</button>
+                <div>
+                    <button type="submit" class="btn btn-primary btn-sm">Save changes</button>
+                    <button type="reset" class="btn btn-dark  btn-sm" >Cancel</button>
+                </div>
+
             </form>
         </div>
     </div>
