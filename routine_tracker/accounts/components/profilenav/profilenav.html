@@ -1,7 +1,14 @@
 <ul class="nav nav-tabs mb-3">
     {% for link in navlinks %}
         <li>
-            <a href="{{ link.url }}" class="nav-link {{ link.active }}" hx-boost="true">{{ link.text }}</a>
+            <a
+                {% if not link.url == "#" %}hx-get="{{ link.url }}"{% endif %}
+                href="#"
+                class="nav-link {{ link.active }}"
+                hx-headers='{"HX-Navigation": "true"}'
+                {{ attrs }}>
+                {{ link.text }}
+            </a>
         </li>
     {% endfor %}
 </ul>

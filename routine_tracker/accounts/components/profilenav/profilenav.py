@@ -1,6 +1,7 @@
 from typing import Any
 
 from django_components import Component, register
+from django_components.attributes import attributes_to_string
 
 from routine_tracker.base.utils.nav import lks
 
@@ -15,4 +16,5 @@ class ProfileNavComponent(Component):
                 ('accounts:profile', 'Profile'),
                 ('accounts:settings', 'Settings'),
             ).reverse(self.inject('request').request),
+            'attrs': attributes_to_string(kwargs),
         }
