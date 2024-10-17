@@ -1,3 +1,4 @@
+import pytz
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.db import models
 from django.utils.translation import gettext_lazy as _
@@ -71,7 +72,12 @@ class UserProfile(models.Model):
         default=Language.ENGLISH,
         verbose_name=_('Preferred language'),
     )
-    time_zone = models.CharField(max_length=100, default='UTC', verbose_name=_('Time zone'))
+    time_zone = models.CharField(
+        max_length=100,
+        verbose_name=_('Time zone'),
+        default=('UTC', 'UTC'),
+        choices=[(tz, tz) for tz in pytz.all_timezones],
+    )
     profile_completeness = models.PositiveSmallIntegerField(default=0)
 
     def __str__(self):
