@@ -33,4 +33,7 @@ class UserForm(forms.ModelForm):
 class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
-        fields = ['dark_mode', 'preferred_language', 'time_zone']
+        fields = ['preferred_language', 'time_zone', 'dark_mode']
+        widgets = {
+            'dark_mode': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+        }
