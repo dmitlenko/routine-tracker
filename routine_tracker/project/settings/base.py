@@ -2,6 +2,8 @@
 Django settings for routine_tracker project.
 """
 
+from django.contrib import messages
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -108,3 +110,11 @@ STATICFILES_FINDERS = [
     # Django components
     "django_components.finders.ComponentsFileSystemFinder",
 ]
+
+MESSAGE_TAGS = {
+    messages.DEBUG: "bg-light",
+    messages.INFO: "text-white bg-primary",
+    messages.SUCCESS: "text-white bg-success",
+    messages.WARNING: "text-dark bg-warning",
+    messages.ERROR: "text-white bg-danger",
+}
