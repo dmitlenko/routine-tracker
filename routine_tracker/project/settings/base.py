@@ -28,6 +28,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django_htmx.middleware.HtmxMiddleware',
+    'routine_tracker.base.middleware.message_middleware',
 ]
 
 WSGI_APPLICATION = 'routine_tracker.project.wsgi.application'
