@@ -1,40 +1,18 @@
 {% extends "layouts/default.html" %}
 
+{% load widget_tweaks %}
+
 {% block content %}
     <h1 class="mt-5">Your profile</h1>
-    <div>
-        {% component 'profilenav' / %}
-        <div class="px-3" id="content">
-            <form hx-post="{{ request.path }}" hx-select="#userForm" hx-swap="outerHTML" id="userForm">
-                {% csrf_token %}
-                {% for field in form %}
-                    <div class="row mb-3 justify-content-start" x-data="{showErrors:{{ field.errors|yesno:"true,false" }}}">
-                        <label for="{{field.auto_id}}" class="col-sm-2 col-form-label fw-bold">{{ field.label }}</label>
-                        <div class="col-sm-4">
-                            <input
-                                type="{{field.field.widget.input_type}}"
-                                name="{{field.name}}"
-                                value="{{field.value}}"
-                                default="{{field.value}}"
-                                @keyup="showErrors=false"
-                                x-bind:class="showErrors ? 'is-invalid' : ''"
-                                class="form-control" />
-                            {% if field.errors %}
-                                <div class="invalid-feedback" x-show="showErrors">
-                                    {% for error in field.errors %}
-                                        {{ error }}
-                                    {% endfor %}
-                                </div>
-                            {% endif %}
-                        </div>
-                    </div>
-                {% endfor %}
-                <div>
-                    <button type="submit" class="btn btn-primary btn-sm">Save changes</button>
-                    <button type="reset" class="btn btn-dark  btn-sm" >Cancel</button>
-                </div>
-
-            </form>
+    <div id="profile-container">
+        {% component 'profilenav' hx-select="#profile-container" hx-target="#profile-container" hx-swap="outerHTML:#profile-container" / %}
+        <div class="px-3">
+            {% component "form" form horizontal="true" hx-post='{{ request.path }}' hx-select='#userForm' hx-swap='outerHTML' id='userForm' %}
+                {% fill "form_controls" %}
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                    <button type="reset" class="btn btn-dark" >Cancel</button>
+                {% endfill %}
+            {% endcomponent %}
         </div>
     </div>
 {% endblock content %}
