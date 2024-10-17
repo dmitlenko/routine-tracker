@@ -7,7 +7,7 @@ from routine_tracker.base.utils.nav import lks
 
 links = lks(
     ('base:index', 'Home'),
-    ('routines:routine-group-list', 'Routines'),
+    ('routines:group-list', 'Routines'),
 )
 
 
