@@ -1,0 +1,13 @@
+<div
+    x-data="toastComponent()"
+    @hx-show-message.window="handleMessages($event)"
+    class="toast-container position-fixed top-0 end-0 p-3"
+>
+    {% comment %} Template for a new toast {% endcomment %}
+    {% include "includes/toast.html" %}
+
+    {% comment %} Pre-existing toasts (rendered server-side) {% endcomment %}
+    {% for message in messages %}
+        {% include "includes/toast.html" with message=message %}
+    {% endfor %}
+</div>
