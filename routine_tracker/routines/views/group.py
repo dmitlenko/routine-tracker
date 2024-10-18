@@ -4,7 +4,6 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models.query import QuerySet
 from django.http import HttpRequest, HttpResponse
-from django.shortcuts import get_object_or_404
 from django.urls import reverse, reverse_lazy
 from django.utils.translation import gettext as _
 from django.views.generic import CreateView, DeleteView, DetailView, ListView, UpdateView
@@ -13,8 +12,8 @@ from routine_tracker.base.mixins import ModalFormMixin, ModalMixin
 from routine_tracker.base.utils.htmx import custom_swap, forced_htmx_redirect
 from routine_tracker.routines.components.routine_group_item.routine_group_item import RoutineGroupItemComponent
 
-from .forms import RoutineCreateForm, RoutineEntryCreateForm, RoutineGroupForm
-from .models import Routine, RoutineEntry, RoutineGroup
+from ..forms import RoutineGroupForm
+from ..models import RoutineGroup
 
 
 class RoutineGroupListView(LoginRequiredMixin, ListView):
@@ -67,56 +66,6 @@ class RoutineGroupCreateView(LoginRequiredMixin, ModalFormMixin, CreateView):
         return custom_swap(response, 'afterbegin', '#routine-group-list', '.routine-group-item', 201)
 
 
-class RoutineCreateView(LoginRequiredMixin, CreateView):
-    model = Routine
-    form_class = RoutineCreateForm
-    template_name = 'routines/routine_form.html'
-
-    def get_success_url(self) -> str:
-        return reverse_lazy('routines:routine-group-detail', kwargs={'pk': self.kwargs['pk']})
-
-    def form_valid(self, form: RoutineCreateForm) -> Any:
-        group = get_object_or_404(RoutineGroup, pk=self.kwargs['pk'], user=self.request.user)
-        form.instance.group = group
-        return super().form_valid(form)
-
-
-class EntryCreateView(LoginRequiredMixin, CreateView):
-    model = RoutineEntry
-    form_class = RoutineEntryCreateForm
-    template_name = 'routines/entry_form.html'
-
-    def get_success_url(self) -> str:
-        return reverse_lazy('routines:routine-group-detail', kwargs={'pk': self.kwargs['pk']})
-
-    def form_valid(self, form: RoutineCreateForm) -> Any:
-        routine = get_object_or_404(Routine, pk=self.kwargs['routine_id'], group__user=self.request.user)
-        form.instance.routine = routine
-        return super().form_valid(form)
-
-
-class RoutineGroupDeleteView(LoginRequiredMixin, ModalMixin, DeleteView):
-    model = RoutineGroup
-    template_name = 'routines/groups/confirm_delete.html'
-    success_url = reverse_lazy('routines:group-list')
-    context_object_name = 'group'
-
-    def get_queryset(self) -> QuerySet[Any]:
-        return super().get_queryset().filter(user=self.request.user)
-
-    def post(self, request: HttpRequest, *args: str, **kwargs: Any) -> HttpResponse:
-        response = super().post(request, *args, **kwargs)
-        messages.success(request, _("Routine group deleted successfully"))
-
-        if request.headers.get('HX-Origin') == 'detail':
-            response = forced_htmx_redirect(
-                response,
-                reverse('routines:group-list'),
-            )
-
-        return response
-
-
 class RoutineGroupUpdateView(LoginRequiredMixin, ModalFormMixin, UpdateView):
     model = RoutineGroup
     form_class = RoutineGroupForm
@@ -157,3 +106,25 @@ class RoutineGroupUpdateView(LoginRequiredMixin, ModalFormMixin, UpdateView):
             f'[data-group-id="{self.object.pk}"]',
             '.routine-group-item',
         )
+
+
+class RoutineGroupDeleteView(LoginRequiredMixin, ModalMixin, DeleteView):
+    model = RoutineGroup
+    template_name = 'routines/groups/confirm_delete.html'
+    success_url = reverse_lazy('routines:group-list')
+    context_object_name = 'group'
+
+    def get_queryset(self) -> QuerySet[Any]:
+        return super().get_queryset().filter(user=self.request.user)
+
+    def post(self, request: HttpRequest, *args: str, **kwargs: Any) -> HttpResponse:
+        response = super().post(request, *args, **kwargs)
+        messages.success(request, _("Routine group deleted successfully"))
+
+        if request.headers.get('HX-Origin') == 'detail':
+            response = forced_htmx_redirect(
+                response,
+                reverse('routines:group-list'),
+            )
+
+        return response
