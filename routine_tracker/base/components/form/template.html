@@ -7,7 +7,9 @@
     x-data="{submitting: false, submit() {$nextTick (() => this.submitting = true);}}"
     @submit.prevent="submit"
     {% if boost %}hx-boost="{{ boost|yesno:"true,false" }}"{%endif%}
-    {{ form_attrs }}>
+    {{ form_attrs }}
+    {{ attrs }}
+    >
     {% csrf_token %}
     {% for field in form %}
         <div class="mb-3{{ " row justify-content-start"|onlyif:horizontal }}" x-data="{showErrors:{{ field.errors|yesno:"true,false" }}}">
