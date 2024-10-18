@@ -36,22 +36,11 @@ function routineGroupItemComponent() {
       // Only update the color if the icon exists
       if (!icon) return;
 
-      // Get rgb color of the strip
-      const rgbString = getComputedStyle(strip).backgroundColor;
+      // Get the recommended text color
+      const color = getRecomendedTextColor({ element: strip });
 
-      // Convert rgb string to array
-      const rgb = rgbString
-        .slice(4, -1)
-        .split(",")
-        .map((value) => parseInt(value));
-
-      // Calculate the brightness of the color
-      const brightness = Math.round(
-        (rgb[0] * 299 + rgb[1] * 587 + rgb[2] * 114) / 1000
-      );
-
-      // Set the color of the icon based on the brightness
-      strip.style.color = brightness > 125 ? "black" : "white";
+      // Update the icon color
+      icon.style.color = color;
     },
 
     init() {
