@@ -2,6 +2,8 @@
 {% load i18n %}
 
 {% trans "New routine group" as title %}
+{% trans "Create" as submit_text %}
+{% trans "Cancel" as dismiss_text %}
 
 {% component 'modal' title=title hx-select=".modal-body" %}
     {% fill "body" %}
@@ -9,6 +11,10 @@
         {% component 'form' form hx-post=create_url hx-target=".modal-body" hx-swap="outerHTML" id="routine-group-form" / %}
     {% endfill %}
     {% fill "footer" %}
-        {% component 'form-controls' form_id="routine-group-form" in_modal="true" / %}
+        {% component 'form-controls'
+            form_id="routine-group-form"
+            in_modal="true"
+            submit_text=submit_text
+            dismiss_text=dismiss_text / %}
     {% endfill %}
 {% endcomponent %}
