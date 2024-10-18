@@ -9,14 +9,18 @@ function modalComponent() {
         const options = event.detail;
 
         // Create new modal instance
-        const modal = new bootstrap.Modal(this.$el, {
+        this.modal = new bootstrap.Modal(this.$el, {
           ...this.extraOptions,
           ...options,
         });
 
         // Show modal
-        modal.show();
+        this.modal.show();
       });
     },
+
+    closeModal() {
+      this.modal.hide();
+    }
   };
 }
