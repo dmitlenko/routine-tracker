@@ -3,16 +3,18 @@ function modalComponent() {
     extraOptions: {},
 
     handleModal(event) {
+      // Wait for next tick to ensure that the modal is rendered
       this.$nextTick(() => {
-        const { id, options } = event.detail;
+        // Get options from event
+        const options = event.detail;
 
-        const parent = document.getElementById(id).parentElement;
-
-        const modal = new bootstrap.Modal(parent, {
+        // Create new modal instance
+        const modal = new bootstrap.Modal(this.$el, {
           ...this.extraOptions,
           ...options,
         });
 
+        // Show modal
         modal.show();
       });
     },

@@ -7,5 +7,5 @@ from django_components import Component, register
 class ModalComponent(Component):
     template_name = 'modal.html'
 
-    def get_context_data(self, id: str, title: str = '') -> Any:
-        return {'title': title, 'id': id}
+    def get_context_data(self, title: str = '') -> Any:
+        return {'title': title}
