@@ -1,0 +1,13 @@
+{% load widget_tweaks %}
+{% load i18n %}
+
+{% component 'form' form
+    horizontal=True
+    hx-post=form_url
+    hx-target="#routine-group-form"
+    id="routine-group-form"
+    class="m-3" %}
+    {% component 'form-controls' %}
+        {{ button_text }}
+    {% endcomponent %}
+{% endcomponent %}

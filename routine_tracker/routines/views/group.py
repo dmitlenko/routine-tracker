@@ -33,11 +33,6 @@ class RoutineGroupDetailView(LoginRequiredMixin, DetailView):
     def get_queryset(self) -> QuerySet[Any]:
         return super().get_queryset().filter(user=self.request.user).prefetch_related("routines")
 
-    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
-        context = super().get_context_data(**kwargs)
-        context["routines"] = context[self.context_object_name].routines.all()
-        return context
-
 
 class RoutineGroupCreateView(LoginRequiredMixin, ModalFormMixin, CreateView):
     model = RoutineGroup

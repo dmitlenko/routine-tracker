@@ -8,59 +8,7 @@
 {% block content %}
 
 <div class="py-3 vstack gap-3">
-    <div class="card">
-        <div class="card-header d-flex justify-content-between">
-            <div>
-                <h5 class="card-title">{{ group.name }}</h5>
-                <p class="card-text">{{ group.description }}</p>
-            </div>
-            <div>
-                <div class="dropdown dropstart">
-                    <button class="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="bi bi-three-dots-vertical"></i>
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <a
-                            {% hxmodal 'routines:group-edit-modal' pk=group.id %}
-                            class="dropdown-item" href="#">{% trans "Edit" %}</a>
-                        </li>
-                        <li>
-                            <a
-                            {% hxmodal 'routines:group-delete' pk=group.id %}
-                            class="dropdown-item text-danger" href="#"> {% trans "Delete" %} </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="card-body">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aperiam sapiente quas est impedit minima
-            incidunt sequi quos, recusandae doloribus maxime, sed exercitationem magnam numquam libero ab animi
-            facilis similique fugiat.
-        </div>
-    </div>
-    <h2>{% trans "Routines" %}</h2>
-    <div class="card">
-        <div class="card-header">
-            <ul class="nav nav-tabs card-header-tabs overflow-x-auto overflow-y-hidden">
-                {% for routine in group.routines.all %}
-                    <li class="nav-item">
-                        <a class="nav-link" aria-current="true" href="#">{{ routine.name }}</a>
-                    </li>
-                {% endfor %}
-                <li class="nav-item">
-                    <a class="nav-link" aria-current="true" href="#">
-                        <i class="bi bi-plus-lg"></i>
-                    </a>
-                </li>
-            </ul>
-        </div>
-        <div class="card-body">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aperiam sapiente quas est impedit minima
-            incidunt sequi quos, recusandae doloribus maxime, sed exercitationem magnam numquam libero ab animi
-            facilis similique fugiat.
-        </div>
-    </div>
+    {% component 'routine-group' group / %}
+    {% component 'routines' group / %}
 </div>
 {% endblock content %}

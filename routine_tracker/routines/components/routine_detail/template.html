@@ -1,0 +1,34 @@
+{% load i18n %}
+{% load modal %}
+
+{% component 'loader' id="routine-detail-loader" / %}
+
+<div>
+    <div class="card-body border-bottom d-flex gap-3 justify-content-between align-items-center">
+        <div>
+            <button class="btn btn-dark">Add new</button>
+        </div>
+        <div class="dropdown dropstart mb-0">
+            <button class="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-three-dots-vertical"></i>
+            </button>
+            <ul class="dropdown-menu">
+                <li>
+                    <a
+                    class="dropdown-item" href="#">{% trans "Edit" %}</a>
+                </li>
+                <li>
+                    <a
+                    class="dropdown-item text-danger" href="#"> {% trans "Delete" %} </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div>
+        <ul>
+            {% for entry in entries %}
+                <li>{{entry}}</li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>

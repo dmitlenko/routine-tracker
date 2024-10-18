@@ -1,0 +1,51 @@
+{% load i18n %}
+
+<div>
+    <h2>{% trans "Routines" %}</h2>
+    <div class="card" id="routines-card">
+        <div class="card-header">
+            <ul
+                class="nav nav-tabs card-header-tabs overflow-x-auto overflow-y-hidden"
+                x-data="routinesNavigationComponent({{current_routine.id}})"
+            >
+                {% for routine in routines %}
+                    <li class="nav-item">
+                        <a
+                            class="nav-link"
+                            :class="getActiveClass({{routine.id}})"
+                            :aria-current="ariaCurrent({{routine.id}})"
+                            @click="setActive({{routine.id}})"
+                            hx-get="{% url 'routines:routine-detail' group_id=group.id pk=routine.id %}"
+                            hx-swap="innerHTML"
+                            hx-target="#routine-card-body"
+                            hx-push-url="{% url 'routines:group-detail' pk=group.id %}?routine={{routine.id}}"
+                            hx-indicator="#routine-detail-loader"
+                            href="#"
+                        >
+                            {{ routine.name }}
+                        </a>
+                    </li>
+                {% endfor %}
+                <li class="nav-item">
+                    <a
+                        class="nav-link"
+                        :class="getActiveClass('create')"
+                        :aria-current="ariaCurrent('create')"
+                        @click="setActive('create')"
+                        aria-current="true"
+                        href="#"
+                        hx-get="{% url 'routines:routine-create' pk=group.id %}"
+                        hx-swap="innerHTML"
+                        hx-target="#routine-card-body"
+                        hx-indicator="#routine-detail-loader"
+                    >
+                        <i class="bi bi-plus-lg"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="card-body p-0" id="routine-card-body">
+            {% component 'routine-detail' current_routine / %}
+        </div>
+    </div>
+</div>
