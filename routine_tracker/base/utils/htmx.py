@@ -1,19 +1,21 @@
 from django.http import HttpResponse
 
 
-def forced_htmx_redirect(response: HttpResponse, url: str, code: int = 200) -> HttpResponse:
+def forced_htmx_redirect(response: HttpResponse, url: str, code: int = 200, soft: bool = False) -> HttpResponse:
     """Forces an htmx redirect by setting the status code to 200 and adding the htmx redirect header.
 
     Args:
         response (HttpResponse): Response object.
         url (str): URL to redirect
         code (int, optional): Response code. Defaults to 200.
+        soft (bool, optional): If True, uses HX-Location header instead of HX-Redirect. Defaults to False.
 
     Returns:
         HttpResponse: Response object.
     """
+    header = 'HX-Redirect' if not soft else 'HX-Location'
 
-    response['HX-Redirect'] = url
+    response[header] = url
     response.status_code = code
     return response
 
