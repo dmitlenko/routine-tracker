@@ -1,3 +1,5 @@
+from typing import Any
+
 from routine_tracker.base.utils.modal import ModalOptions, trigger_modal
 
 
@@ -15,3 +17,23 @@ class ModalMixin:
         if self.trigger_on_response:
             return trigger_modal(response, self.get_modal_options())
         return response
+
+
+class ModalFormMixin(ModalMixin):
+    title: str = ""
+    button_text: str = ""
+    form_url: str = ""
+
+    def get_form_url(self) -> str:
+        return self.form_url
+
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        context.update(
+            {
+                "title": self.title,
+                "button_text": self.button_text,
+                "form_url": self.get_form_url(),
+            }
+        )
+        return context
