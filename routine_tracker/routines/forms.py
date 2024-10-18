@@ -3,18 +3,24 @@ from datetime import date
 from django import forms
 from django.utils.translation import gettext_lazy as _
 
+from routine_tracker.base.utils.common import icon_choices
+
 from .models import Routine, RoutineEntry, RoutineGroup
 
 
-class RoutineGroupCreateForm(forms.ModelForm):
+class RoutineGroupForm(forms.ModelForm):
+    icon = forms.ChoiceField(
+        choices=[('', _('None'))] + icon_choices(),
+        widget=forms.Select(attrs={'class': 'form-select'}),
+    )
+
     class Meta:
         model = RoutineGroup
         fields = ['name', 'description', 'icon', 'color']
         widgets = {
             'name': forms.TextInput(attrs={'placeholder': _('Name')}),
             'description': forms.Textarea(attrs={'placeholder': _('Description')}),
-            'icon': forms.TextInput(attrs={'placeholder': _('Icon')}),
-            'color': forms.TextInput(attrs={'placeholder': _('Color')}),
+            'color': forms.TextInput(attrs={'placeholder': _('Color'), 'type': 'color'}),
         }
 
 

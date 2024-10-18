@@ -1,0 +1,18 @@
+{% load widget_tweaks %}
+{% load i18n %}
+
+{% component 'modal' title=title hx-select=".modal-body" %}
+    {% fill "body" %}
+        {% component 'form' form
+            attrs='@htmx:after-request.camel="closeModal();"'
+            hx-post=form_url
+            hx-target=".modal-body"
+            hx-swap=hx_swap
+            id="routine-group-form" / %}
+    {% endfill %}
+    {% fill "footer" %}
+        {% component 'form-controls' form_id="routine-group-form" in_modal="true" %}
+            {{ button_text }}
+        {% endcomponent %}
+    {% endfill %}
+{% endcomponent %}

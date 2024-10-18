@@ -1,0 +1,21 @@
+{% extends "layouts/default.html" %}
+
+{% load modal %}
+{% load i18n %}
+
+{% block content %}
+    <div class="my-3 d-flex justify-content-between align-items-center">
+        <h2 class="mb-0">{% trans "Your routine groups" %}</h2>
+        <a
+            {% hxmodal 'routines:group-create' %}
+            href='#'
+            class="btn btn-success d-flex align-items-center">
+            {% trans "Create new" %}
+        </a>
+    </div>
+    <div id="routine-group-list">
+        {% for group in groups %}
+            {% component "routine_group_item" routine_group=group fade="false" / %}
+        {% endfor %}
+    </div>
+{% endblock content %}

@@ -4,8 +4,10 @@ from .views import (
     EntryCreateView,
     RoutineCreateView,
     RoutineGroupCreateView,
+    RoutineGroupDeleteView,
     RoutineGroupDetailView,
     RoutineGroupListView,
+    RoutineGroupUpdateView,
 )
 
 app_name = "routines"
@@ -19,6 +21,8 @@ urlpatterns = [
 
 htmx_patterns = [
     path("groups/create/", RoutineGroupCreateView.as_view(), name="group-create"),
+    path("groups/<int:pk>/delete", RoutineGroupDeleteView.as_view(), name="group-delete"),
+    path("groups/<int:pk>/edit-modal", RoutineGroupUpdateView.as_view(), name="group-edit-modal"),
 ]
 
 urlpatterns += htmx_patterns

@@ -1,0 +1,27 @@
+{% load widget_tweaks %}
+{% load i18n %}
+
+{% trans "Delete routine group?" as title %}
+
+{% component 'modal' title=title hx-select=".modal-body" %}
+    {% fill "body" %}
+        {% url "routines:group-delete" pk=group.id as delete_url %}
+        {% component 'form' form
+            attrs='@htmx:after-request.camel="closeModal(); deleteRoutineGroup({{ group.id }})"'
+            hx-post=delete_url
+            hx-target=".modal-body"
+            hx-swap="none"
+            id="routine-group-delete-form"
+        %}
+            {% trans "Are you sure you want to delete this routine group?" %}
+        {% endcomponent %}
+    {% endfill %}
+    {% fill "footer" %}
+        {% component 'form-controls' form_id="routine-group-delete-form" in_modal="true" %}
+            {% fill "submit-class" %}btn-danger{% endfill %}
+            {% fill "submit" %}
+                {% trans "Delete" %}
+            {% endfill %}
+        {% endcomponent %}
+    {% endfill %}
+{% endcomponent %}
