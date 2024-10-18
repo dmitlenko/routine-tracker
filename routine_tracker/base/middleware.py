@@ -18,6 +18,14 @@ def message_middleware(get_response: Callable[..., HttpResponse]) -> Callable[..
         if 300 <= response.status_code < 400:
             return response
 
+        # Ignore if response is not successful
+        if not 200 <= response.status_code < 300:
+            return response
+
+        # Ignore if response contains redirect or refresh headers
+        if response.has_header('HX-Redirect') or response.has_header('HX-Refresh'):
+            return response
+
         # Get request messages
         messages_ = messages.get_messages(request)
 
