@@ -1,26 +1,14 @@
-{% extends "layouts/default.html" %}
-
 {% load widget_tweaks %}
+{% load i18n %}
 
-{% block content %}
-<div>
-    <h1>New routine group</h1>
-    <form method="post">
-        {% csrf_token %}
-        {% for field in form %}
-            <div>
-                {{ field.label_tag }}
-                {% render_field field %}
-                {% if field.errors %}
-                    <ul>
-                        {% for error in field.errors %}
-                            <li>{{ error }}</li>
-                        {% endfor %}
-                    </ul>
-                {% endif %}
-            </div>
-        {% endfor %}
-        <button type="submit">Submit</button>
-    </form>
-</div>
-{% endblock content %}
+{% trans "New routine group" as title %}
+
+{% component 'modal' title=title hx-select=".modal-body" %}
+    {% fill "body" %}
+        {% url "routines:group-create" as create_url %}
+        {% component 'form' form hx-post=create_url hx-target=".modal-body" hx-swap="outerHTML" id="routine-group-form" / %}
+    {% endfill %}
+    {% fill "footer" %}
+        {% component 'form-controls' form_id="routine-group-form" in_modal="true" / %}
+    {% endfill %}
+{% endcomponent %}

@@ -1,11 +1,15 @@
 from datetime import date, timedelta
 from typing import Any
 
+from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models.query import QuerySet
 from django.shortcuts import get_object_or_404
-from django.urls import reverse_lazy
+from django.urls import reverse, reverse_lazy
 from django.views.generic import CreateView, DetailView, ListView
+
+from routine_tracker.base.mixins import ModalMixin
+from routine_tracker.base.utils.htmx import forced_htmx_redirect
 
 from .forms import RoutineCreateForm, RoutineEntryCreateForm, RoutineGroupCreateForm
 from .models import Routine, RoutineEntry, RoutineGroup
@@ -52,15 +56,21 @@ class RoutineGroupDetailView(LoginRequiredMixin, DetailView):
         return context
 
 
-class RoutineGroupCreateView(LoginRequiredMixin, CreateView):
+class RoutineGroupCreateView(LoginRequiredMixin, ModalMixin, CreateView):
     model = RoutineGroup
     form_class = RoutineGroupCreateForm
     template_name = 'routines/routine_group_form.html'
-    success_url = reverse_lazy('routines:routine-group-list')
+    modal_options = {'backdrop': True}
+
+    def get_success_url(self) -> str:
+        return reverse('routines:group-detail', kwargs={'pk': self.object.pk})
 
     def form_valid(self, form: RoutineGroupCreateForm) -> Any:
         form.instance.user = self.request.user
-        return super().form_valid(form)
+
+        messages.success(self.request, "Routine group created successfully")
+
+        return forced_htmx_redirect(super().form_valid(form), self.get_success_url(), 201)
 
 
 class RoutineCreateView(LoginRequiredMixin, CreateView):
