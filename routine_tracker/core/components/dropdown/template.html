@@ -1,0 +1,10 @@
+<div class="dropdown {{ class }}" {{ attrs }}>
+    <button class="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        {% slot "icon" %}
+            <i class="bi bi-three-dots-vertical"></i>
+        {% endslot %}
+    </button>
+    <ul class="dropdown-menu">
+        {% slot "menu" default %}{% endslot %}
+    </ul>
+</div>

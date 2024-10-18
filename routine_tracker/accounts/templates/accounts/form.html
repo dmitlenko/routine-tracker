@@ -6,10 +6,8 @@
     <div class="card my-3 w-50 mx-auto">
         <div class="card-body">
             <h1>{{ title }}</h1>
-            {% component "form" form %}
-                {% fill "form_controls" %}
-                    <button type="submit" class="btn btn-primary">{{ submit }}</button>
-                {% endfill %}
+            {% component 'form' form %}
+                <button type="submit" class="btn btn-primary">{{ submit }}</button>
             {% endcomponent %}
         </div>
     </div>

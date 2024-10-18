@@ -1,15 +1,20 @@
 {% extends "layouts/default.html" %}
 
 {% load widget_tweaks %}
+{% load i18n %}
 
 {% block content %}
     <h1 class="mt-5">Your profile</h1>
     <div id="profile-container">
         {% component 'profilenav' hx-select="#profile-container" hx-target="#profile-container" hx-swap="outerHTML:#profile-container" / %}
         <div class="px-3">
-            {% component "form" form horizontal="true" hx-post='{{ request.path }}' hx-select='#userForm' hx-swap='outerHTML' id='userForm' %}
-                <button type="submit" class="btn btn-primary">Save changes</button>
-                <button type="reset" class="btn btn-dark" >Cancel</button>
+            {% component 'form' form horizontal="true" hx-post='{{ request.path }}' hx-select='#userForm' hx-swap='outerHTML' id='userForm' %}
+                {% component 'form-controls' wrap=True class="d-flex w-100 justify-content-end gap-1" %}
+                    {% fill "submit-class" %}btn-success{% endfill %}
+                    {% fill "submit" %}
+                        {% trans "Save changes" %}
+                    {% endfill %}
+                {% endcomponent %}
             {% endcomponent %}
         </div>
     </div>
