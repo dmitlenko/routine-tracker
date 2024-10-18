@@ -1,4 +1,13 @@
-function toastComponent() {
+/**
+ * @typedef {{ tags: string, message: string }} Message
+ */
+
+/**
+ * Create a toast component
+ * @param {{messages: Message[]}} param0 initial messages
+ * @returns
+ */
+function toastComponent({ messages }) {
   return {
     toastOptions: {
       delay: 3000,
@@ -8,6 +17,10 @@ function toastComponent() {
       event.detail.messages.forEach((message) => this.createToast(message));
     },
 
+    /**
+     * Create a toast element
+     * @param {Message} message
+     */
     createToast(message) {
       const toastElement = this.$refs.toastTemplate.cloneNode(true);
       toastElement.classList.remove("d-none"); // Show the new toast
@@ -22,16 +35,7 @@ function toastComponent() {
     },
 
     init() {
-      // Wait until the component is mounted to the DOM
-      this.$nextTick(() =>
-        // Initialize any pre-rendered toasts on page load
-        this.$el
-          .querySelectorAll('.toast:not([x-ref="toastTemplate"])')
-          .forEach((element) => {
-            const toast = new bootstrap.Toast(element, this.toastOptions);
-            toast.show();
-          })
-      );
+      this.$nextTick(() => messages.forEach((message) => this.createToast(message)));
     },
   };
 }
