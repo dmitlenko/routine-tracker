@@ -21,7 +21,13 @@ def forced_htmx_redirect(response: HttpResponse, url: str, code: int = 200, soft
 
 
 def custom_swap(
-    response: HttpResponse, swap: str = None, target: str = None, select: str = None, status_code: int = 200
+    response: HttpResponse,
+    swap: str = None,
+    target: str = None,
+    select: str = None,
+    *,
+    status_code: int = 200,
+    headers: dict = None,
 ) -> HttpResponse:
     """Custom htmx swap response.
 
@@ -40,6 +46,8 @@ def custom_swap(
             Defaults to None.
         status_code (int, optional):
             Response status code. Defaults to 200.
+        headers (dict, optional):
+            Additional headers to add to the response. Defaults to None.
 
     Returns:
         HttpResponse: Updated response object.
@@ -53,6 +61,10 @@ def custom_swap(
 
     if select:
         response.headers.setdefault('HX-Reselect', select)
+
+    if headers:
+        for key, value in headers.items():
+            response.headers.setdefault(key, value)
 
     response.status_code = status_code
     return response
