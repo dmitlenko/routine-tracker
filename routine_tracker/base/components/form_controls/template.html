@@ -1,6 +1,4 @@
-{% load strutils %}
-
 {% if wrap %}<div {{ attrs }}>{% endif %}
-    <button type="button" class="btn btn-secondary" {{ 'data-bs-dismiss="modal"'|onlyif:in_modal }}>{{ dismiss_text }}</button>
+    <input type="reset" class="btn btn-secondary" value="{{ dismiss_text }}" {{ in_modal }} {{ form_id }} />
     <input type="submit" class="btn btn-primary" value="{{ submit_text }}" {{ form_id }} />
 {% if wrap %}</div>{% endif %}
