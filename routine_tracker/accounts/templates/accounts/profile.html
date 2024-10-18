@@ -8,10 +8,8 @@
         {% component 'profilenav' hx-select="#profile-container" hx-target="#profile-container" hx-swap="outerHTML:#profile-container" / %}
         <div class="px-3">
             {% component "form" form horizontal="true" hx-post='{{ request.path }}' hx-select='#userForm' hx-swap='outerHTML' id='userForm' %}
-                {% fill "form_controls" %}
-                    <button type="submit" class="btn btn-primary">Save changes</button>
-                    <button type="reset" class="btn btn-dark" >Cancel</button>
-                {% endfill %}
+                <button type="submit" class="btn btn-primary">Save changes</button>
+                <button type="reset" class="btn btn-dark" >Cancel</button>
             {% endcomponent %}
         </div>
     </div>

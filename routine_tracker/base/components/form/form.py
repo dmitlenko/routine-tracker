@@ -14,7 +14,7 @@ class FormComponent(Component):
             'form': form,
             'horizontal': horizontal == 'true',
             'boost': boost == 'true',
-            'form_attrs': attributes_to_string(kwargs),
+            'form_attrs': attributes_to_string(kwargs) if kwargs else '',
         }
 
     class Media:

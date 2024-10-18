@@ -1,5 +1,6 @@
 {% load widget_tweaks %}
 {% load strutils %}
+{% load form %}
 
 <form
     method="POST"
@@ -11,7 +12,8 @@
     {% for field in form %}
         <div class="mb-3{{ " row justify-content-start"|onlyif:horizontal }}" x-data="{showErrors:{{ field.errors|yesno:"true,false" }}}">
             <label for="{{field.auto_id}}" class="{{ horizontal|yesno:"col-sm-2 col-form-label,form-label"}}">{{ field.label }}</label>
-            <div class="{{ 'col-sm-4'|onlyif:horizontal }}{{ ' d-flex align-items-center'|onlyif:field.field.widget.input_type }}">
+            {% with is_checkbox=field|isfieldtype:"checkbox" %}
+            <div class="{{ 'col-sm-4'|onlyif:horizontal }}{{ ' d-flex align-items-center'|onlyif:is_checkbox }}">{% endwith %}
                 {% if field.field.widget.input_type == "checkbox" %}
                     <div class="form-check ">
                         {% render_field field|add_class:"form-check-input"|add_error_class:"is-invalid"
@@ -45,6 +47,6 @@
         </div>
     {% endif %}
     <div class="form-controls">
-        {% slot "form_controls" %}{% endslot %}
+        {% slot "form_controls" default %}{% endslot %}
     </div>
 </form>
