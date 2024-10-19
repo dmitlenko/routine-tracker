@@ -3,7 +3,8 @@ from typing import Dict, Tuple, TypedDict, Union
 
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
-from django.db import models
+from django.db import models, transaction
+from django.db.models import OuterRef, Subquery
 from django.utils.translation import gettext_lazy as _
 
 User = get_user_model()
@@ -99,6 +100,43 @@ class RoutineGroup(models.Model):
             'average_completion': average_completion,
             'total_routines': total_routines,
         }, routines
+
+    def get_latest_entry(self) -> Union['RoutineEntry', None]:
+        """Get the latest entry for this group.
+
+        Returns:
+            Union[RoutineEntry, None]: The latest entry for the group, or None if there are no entries.
+        """
+
+        with transaction.atomic():
+            latest_entry = (
+                RoutineEntry.objects.filter(
+                    routine=OuterRef('pk'),
+                )
+                .order_by('-date')
+                .values('id', 'date')[:1]
+            )
+
+            routines_with_latest_entry = (
+                Routine.objects.filter(
+                    group=self,
+                )
+                .annotate(
+                    latest_entry_id=Subquery(latest_entry.values('id')),
+                    latest_entry_date=Subquery(latest_entry.values('date')),
+                )
+                .select_related('group')
+                .order_by('-latest_entry_date')
+            )
+
+            latest_entries = RoutineEntry.objects.filter(
+                id__in=[routine.latest_entry_id for routine in routines_with_latest_entry]
+            )
+
+        if not latest_entries:
+            return None
+
+        return latest_entries.first()
 
     def __str__(self):
         return self.name

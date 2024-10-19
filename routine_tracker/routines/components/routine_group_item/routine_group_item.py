@@ -18,9 +18,10 @@ class RoutineGroupItemComponent(Component[Any, Kwargs, Any, Any]):
 
     def lastupdated(self, value: RoutineGroup) -> str:
         if value.routines.exists():
-            date = value.routines.first().entries.first().date
+            entry = value.get_latest_entry()
 
-            return _('Last updated {date} ago').format(date=timesince(date))
+            if entry:
+                return _('Last updated {date} ago').format(date=timesince(entry.date))
 
         return _('Never updated')
 
