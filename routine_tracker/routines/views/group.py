@@ -58,7 +58,13 @@ class RoutineGroupCreateView(LoginRequiredMixin, ModalFormMixin, CreateView):
             }
         )
 
-        return custom_swap(response, 'afterbegin', '#routine-group-list', '.routine-group-item', 201)
+        return custom_swap(
+            response,
+            'afterbegin',
+            '#routine-group-list',
+            '.routine-group-item',
+            status_code=201,
+        )
 
 
 class RoutineGroupUpdateView(LoginRequiredMixin, ModalFormMixin, UpdateView):
