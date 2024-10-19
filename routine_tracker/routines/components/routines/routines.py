@@ -3,6 +3,7 @@ from typing import Any, NotRequired, Optional, Tuple, TypedDict
 from django.http import HttpRequest
 from django_components import Component, register
 
+from routine_tracker.routines.forms import RoutineCreateForm
 from routine_tracker.routines.models import Routine, RoutineGroup
 
 Args = Tuple[RoutineGroup]
@@ -51,7 +52,5 @@ class RoutinesComponent(Component[Args, Kwargs, Any, Any]):
             'group': group,
             'routines': routines,
             'current_routine': current_routine,
+            'form': RoutineCreateForm,
         }
-
-    class Media:
-        js = 'script.js'

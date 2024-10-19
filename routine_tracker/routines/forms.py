@@ -19,7 +19,7 @@ class RoutineGroupForm(forms.ModelForm):
         fields = ['name', 'description', 'icon', 'color']
         widgets = {
             'name': forms.TextInput(attrs={'placeholder': _('Name')}),
-            'description': forms.Textarea(attrs={'placeholder': _('Description')}),
+            'description': forms.Textarea(attrs={'placeholder': _('Description'), 'rows': 3}),
             'color': forms.TextInput(attrs={'placeholder': _('Color'), 'type': 'color'}),
         }
 
@@ -28,6 +28,9 @@ class RoutineCreateForm(forms.ModelForm):
     class Meta:
         model = Routine
         fields = ['name', 'description', 'icon', 'type', 'has_goal', 'goal', 'measure']
+        widgets = {
+            'description': forms.Textarea(attrs={'placeholder': _('Description'), 'rows': 3}),
+        }
 
 
 class RoutineEntryCreateForm(forms.ModelForm):

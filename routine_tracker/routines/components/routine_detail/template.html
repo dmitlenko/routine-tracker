@@ -6,23 +6,20 @@
 <div>
     <div class="card-body border-bottom d-flex gap-3 justify-content-between align-items-center">
         <div>
-            <button class="btn btn-dark">Add new</button>
+            <i>Placeholder for routine actions</i>
         </div>
-        <div class="dropdown dropstart mb-0">
-            <button class="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <i class="bi bi-three-dots-vertical"></i>
-            </button>
-            <ul class="dropdown-menu">
-                <li>
-                    <a
-                    class="dropdown-item" href="#">{% trans "Edit" %}</a>
-                </li>
-                <li>
-                    <a
-                    class="dropdown-item text-danger" href="#"> {% trans "Delete" %} </a>
-                </li>
-            </ul>
-        </div>
+        {% component 'dropdown' %}
+            <li>
+                <a
+                {% hxmodal 'routines:routine-edit-modal' pk=routine.pk group_id=routine.group.pk %}
+                class="dropdown-item" href="#">{% trans "Edit" %}</a>
+            </li>
+            <li>
+                <a
+                {% hxmodal 'routines:routine-delete' pk=routine.pk group_id=routine.group.pk %}
+                class="dropdown-item text-danger" href="#"> {% trans "Delete" %} </a>
+            </li>
+        {% endcomponent %}
     </div>
     <div>
         <ul>

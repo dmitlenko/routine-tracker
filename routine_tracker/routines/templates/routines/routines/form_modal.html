@@ -1,0 +1,18 @@
+{% load widget_tweaks %}
+{% load i18n %}
+
+{% trans "Edit routine" as title %}
+
+{% component 'modal' title=title hx-select=".modal-body" %}
+    {% fill "body" %}
+        {% include "routines/routines/form.html" with modal=True %}
+    {% endfill %}
+    {% fill "footer" %}
+        {% component 'form-controls' form_id="routine-update-form" in_modal="true" %}
+            {% fill "submit-class" %}btn-success{% endfill %}
+            {% fill "submit" %}
+                {% trans "Save changes" %}
+            {% endfill %}
+        {% endcomponent %}
+    {% endfill %}
+{% endcomponent %}

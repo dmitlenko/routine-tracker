@@ -1,0 +1,20 @@
+<ul
+    class="nav nav-tabs card-header-tabs overflow-y-hidden flex-nowrap"
+    x-data="routinesNavigationComponent({{component_settings}})"
+    @delete-routine.window="deleteRoutine($event.detail)"
+>
+    <li class="nav-item">
+        <a
+            class="nav-link"
+            x-bind="linkAttributes({pk:'create'})"
+            hx-get="{% url 'routines:routine-create' pk=group.id %}"
+        >
+            <i class="bi bi-plus-lg"></i>
+        </a>
+    </li>
+    {% for routine in routines %}
+        <li class="nav-item">
+            <a class="nav-link" x-bind="linkAttributes({{ routine.attrs }})"> {{ routine.obj.name }} </a>
+        </li>
+    {% endfor %}
+</ul>

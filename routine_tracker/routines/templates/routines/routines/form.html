@@ -1,13 +1,53 @@
 {% load widget_tweaks %}
 {% load i18n %}
+{% load strutils %}
+{% load form %}
+
+{% component 'loader' id="routine-detail-loader" / %}
 
 {% component 'form' form
-    horizontal=True
+    exclude='has_goal,goal,measure,type'
     hx-post=form_url
-    hx-target="#routine-group-form"
-    id="routine-group-form"
-    class="m-3" %}
-    {% component 'form-controls' %}
-        {{ button_text }}
-    {% endcomponent %}
+    hx-target="{{modal|yesno:'.modal-body,#routine-create-form'}}"
+    hx-swap="{{modal|yesno:'outerHTML,innerHTML'}}"
+    id="{{modal|yesno:'routine-update-form,routine-create-form'}}"
+    class="{{modal|yesno:',m-3'}}" %}
+    {% fill 'form-controls' %}
+        {% if not modal %}
+            {% component 'form-controls' %}
+                {{ button_text }}
+            {% endcomponent %}
+        {% endif %}
+    {% endfill %}
+    {% fill 'fields' %}
+        <div class="d-flex flex-column gap-3" x-data="{
+            enabled: {{ form.has_goal.value|yesno:"true,false" }},
+            isCheck: {% if form.type.value == "check" %}true{% else %}false{% endif %},
+        }">
+            <div>
+                <label for="{{ form.type.auto_id }}" class="form-label">{{ form.type.label }}</label>
+                {% render_field form.type
+                    class+="form-control"
+                    @change="isCheck = event.target.value == `check`; enabled = !isCheck;" %}
+            </div>
+            <div class="input-group d-flex" :class="isCheck ? 'd-none' : ''">
+                <div class="input-group-text d-flex gap-2">
+                    {% render_field form.has_goal
+                        class+="form-check-input mt-0"
+                        x-bind::checked="enabled"
+                        @change="enabled = $event.target.checked" %}
+                    <label for="{{ form.has_goal.auto_id }}">
+                        {{ form.has_goal.label }}
+                    </label>
+                </div>
+                {% render_field form.goal
+                    class+="form-control flex-grow-1"
+                    ::disabled="!enabled" %}
+                {% render_field form.measure
+                    class+="form-control flex-shrink-1"
+                    style="min-width: 0px;"
+                    ::disabled="!enabled" %}
+            </div>
+        </div>
+    {% endfill %}
 {% endcomponent %}

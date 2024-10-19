@@ -1,14 +1,17 @@
 from typing import Any
 
+from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models.query import QuerySet
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404
 from django.urls import reverse, reverse_lazy
 from django.utils.translation import gettext as _
-from django.views.generic import CreateView, DetailView
+from django.views.generic import CreateView, DeleteView, DetailView, UpdateView
 
+from routine_tracker.base.mixins import ModalFormMixin, ModalMixin
 from routine_tracker.base.utils.htmx import custom_swap
+from routine_tracker.base.utils.modal import close_modal
 from routine_tracker.routines.components.routine_detail.routine_detail import RoutineDetailComponent
 from routine_tracker.routines.components.routines.routines import RoutinesComponent
 
@@ -66,4 +69,59 @@ class RoutineDetailView(LoginRequiredMixin, DetailView):
             kwargs={
                 'routine': self.get_object(),
             },
+        )
+
+
+class RoutineDeleteView(LoginRequiredMixin, ModalMixin, DeleteView):
+    model = Routine
+    template_name = 'routines/routines/confirm_delete.html'
+    context_object_name = 'routine'
+
+    def get_success_url(self) -> str:
+        return reverse('routines:group-detail', kwargs={'pk': self.get_object().group.pk})
+
+    def get_queryset(self) -> QuerySet[Any]:
+        return super().get_queryset().filter(group__user=self.request.user)
+
+    def post(self, request: HttpRequest, *args: str, **kwargs: Any) -> HttpResponse:
+        response = super().post(request, *args, **kwargs)
+        response.status_code = 204
+
+        messages.success(request, _("Routine group deleted successfully"))
+
+        return close_modal(response)
+
+
+class RoutineUpdateView(LoginRequiredMixin, ModalFormMixin, UpdateView):
+    model = Routine
+    form_class = RoutineCreateForm
+    template_name = 'routines/routines/form_modal.html'
+    context_object_name = 'routine'
+    extra_context = {
+        'button_text': _('Save changes'),
+    }
+
+    def get_form_url(self) -> str:
+        return reverse('routines:routine-edit-modal', kwargs={'pk': self.object.pk, 'group_id': self.object.group.pk})
+
+    def get_queryset(self) -> QuerySet[Any]:
+        return super().get_queryset().filter(group__user=self.request.user)
+
+    def form_valid(self, form: RoutineCreateForm) -> Any:
+        messages.success(self.request, _("Routine '{routine}' updated successfully").format(routine=self.object.name))
+        form.save()
+
+        return close_modal(
+            custom_swap(
+                RoutinesComponent.render_to_response(
+                    args=(self.object.group,),
+                    kwargs={
+                        'request': self.request,
+                        'current': self.object,
+                    },
+                ),
+                'outerHTML',
+                '#routines-card',
+                '#routines-card',
+            )
         )

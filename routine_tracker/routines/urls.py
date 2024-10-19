@@ -3,12 +3,14 @@ from django.urls import path
 from .views import (
     EntryCreateView,
     RoutineCreateView,
+    RoutineDeleteView,
     RoutineDetailView,
     RoutineGroupCreateView,
     RoutineGroupDeleteView,
     RoutineGroupDetailView,
     RoutineGroupListView,
     RoutineGroupUpdateView,
+    RoutineUpdateView,
 )
 
 app_name = "routines"
@@ -25,6 +27,8 @@ htmx_patterns = [
     path("groups/<int:pk>/edit-modal", RoutineGroupUpdateView.as_view(), name="group-edit-modal"),
     path("groups/<int:pk>/routine/create", RoutineCreateView.as_view(), name="routine-create"),
     path("groups/<int:group_id>/routine/<int:pk>/", RoutineDetailView.as_view(), name="routine-detail"),
+    path("groups/<int:group_id>/routine/<int:pk>/edit", RoutineUpdateView.as_view(), name="routine-edit-modal"),
+    path("groups/<int:group_id>/routine/<int:pk>/delete", RoutineDeleteView.as_view(), name="routine-delete"),
 ]
 
 urlpatterns += htmx_patterns
