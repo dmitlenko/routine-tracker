@@ -11,36 +11,38 @@
     {{ attrs }}
     >
     {% csrf_token %}
-    {% for field in form %}
-        <div class="mb-3{{ " row justify-content-start"|onlyif:horizontal }}" x-data="{showErrors:{{ field.errors|yesno:"true,false" }}}">
-            <label for="{{field.auto_id}}" class="{{ horizontal|yesno:"col-sm-2 col-form-label,form-label"}}">{{ field.label }}</label>
-            {% with is_checkbox=field|isfieldtype:"checkbox" %}
-            <div class="{{ 'col-sm-4'|onlyif:horizontal }}{{ ' d-flex align-items-center'|onlyif:is_checkbox }}">{% endwith %}
-                {% if field.field.widget.input_type == "checkbox" %}
-                    <div class="form-check ">
-                        {% render_field field|add_class:"form-check-input"|add_error_class:"is-invalid"
-                            @change="showErrors=false"
+    <div class="{{ horizontal|yesno:'d-grid mb-3 gap-3,d-flex flex-column gap-3 mb-3'}}" style="{{ grid_style }}">
+        {% for field in form %}
+        <div class="{{ " row justify-content-start"|onlyif:horizontal_labels }}" x-data="{showErrors:{{ field.errors|yesno:"true,false" }}}">
+            <label for="{{field.auto_id}}" class="{{ horizontal_labels|yesno:"col-sm-4 col-form-label,form-label"}}">{{ field.label }}</label>
+                {% with is_checkbox=field|isfieldtype:"checkbox" %}
+                <div class="{{ 'col-sm-8'|onlyif:horizontal_labels }}{{ ' d-flex align-items-center'|onlyif:is_checkbox }}">{% endwith %}
+                    {% if field.field.widget.input_type == "checkbox" %}
+                        <div class="form-check ">
+                            {% render_field field|add_class:"form-check-input"|add_error_class:"is-invalid"
+                                @change="showErrors=false"
+                                x-bind::class='showErrors ? `is-invalid` : ``'
+                                x-bind::disabled='submitting'
+                            %}
+                        </div>
+                    {% else %}
+                        {% render_field field|add_class:"form-control"|add_error_class:"is-invalid"
+                            @keyup="showErrors=false"
                             x-bind::class='showErrors ? `is-invalid` : ``'
                             x-bind::disabled='submitting'
                         %}
+                    {% endif %}
+                </div>
+                {% if field.errors %}
+                    <div class="invalid-feedback" x-show="showErrors">
+                        {% for error in field.errors %}
+                            {{ error }}
+                        {% endfor %}
                     </div>
-                {% else %}
-                    {% render_field field|add_class:"form-control"|add_error_class:"is-invalid"
-                        @keyup="showErrors=false"
-                        x-bind::class='showErrors ? `is-invalid` : ``'
-                        x-bind::disabled='submitting'
-                    %}
                 {% endif %}
             </div>
-            {% if field.errors %}
-                <div class="invalid-feedback" x-show="showErrors">
-                    {% for error in field.errors %}
-                        {{ error }}
-                    {% endfor %}
-                </div>
-            {% endif %}
-        </div>
-    {% endfor %}
+        {% endfor %}
+    </div>
     {% if form.non_field_errors  %}
         <div class="alert alert-danger">
             {% for error in form.non_field_errors %}

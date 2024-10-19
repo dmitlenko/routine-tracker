@@ -10,15 +10,21 @@ class FormComponent(Component):
     template_name = 'template.html'
 
     def get_context_data(
-        self, form: Form, *, horizontal: bool = False, boost: str = '', attrs: str = '', **kwargs
+        self,
+        form: Form,
+        *,
+        horizontal: bool = False,
+        horizontal_labels: bool = False,
+        cols: int = 2,
+        attrs: str = '',
+        **kwargs,
     ) -> Dict:
         return {
             'form': form,
             'horizontal': horizontal,
-            'boost': boost == 'true',
+            'horizontal_labels': horizontal_labels,
+            'grid_style': f'grid-template-columns: repeat({cols}, 1fr);' if cols else '',
+            'cols': cols,
             'attrs': attrs,
             'form_attrs': attributes_to_string(kwargs) if kwargs else '',
         }
-
-    class Media:
-        js = 'script.js'
