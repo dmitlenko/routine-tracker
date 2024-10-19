@@ -4,44 +4,30 @@
 
 <form
     method="POST"
-    x-data="{submitting: false, submit() {$nextTick (() => this.submitting = true);}}"
-    @submit.prevent="submit"
-    {% if boost %}hx-boost="{{ boost|yesno:"true,false" }}"{%endif%}
+    x-data="formComponent()"
     {{ form_attrs }}
-    {{ attrs }}
-    >
+    {{ attrs }}>
     {% csrf_token %}
     <div class="{{ horizontal|yesno:'d-grid mb-3 gap-3,d-flex flex-column gap-3 mb-3'}}" style="{{ grid_style }}">
         {% for field in form %}
-        <div class="{{ " row justify-content-start"|onlyif:horizontal_labels }}" x-data="{showErrors:{{ field.errors|yesno:"true,false" }}}">
-            <label for="{{field.auto_id}}" class="{{ horizontal_labels|yesno:"col-sm-4 col-form-label,form-label"}}">{{ field.label }}</label>
-                {% with is_checkbox=field|isfieldtype:"checkbox" %}
-                <div class="{{ 'col-sm-8'|onlyif:horizontal_labels }}{{ ' d-flex align-items-center'|onlyif:is_checkbox }}">{% endwith %}
-                    {% if field.field.widget.input_type == "checkbox" %}
-                        <div class="form-check ">
-                            {% render_field field|add_class:"form-check-input"|add_error_class:"is-invalid"
-                                @change="showErrors=false"
-                                x-bind::class='showErrors ? `is-invalid` : ``'
-                                x-bind::disabled='submitting'
-                            %}
+            {% if not field.name in exclude_fields %}
+                {% fieldbind field as field_bind %}
+                <div class="{{ " row justify-content-start"|onlyif:horizontal_labels }}" x-data="{{ field_bind }}">
+                    <label for="{{field.auto_id}}" class="{{ horizontal_labels|yesno:"col-sm-4 col-form-label,form-label"}}">{{ field.label }}</label>
+                    {% with is_checkbox=field|isfieldtype:"checkbox" %}
+                        <div class="{{ 'col-sm-8'|onlyif:horizontal_labels }}{{ ' d-flex align-items-center'|onlyif:is_checkbox }}">
+                            {% with field_classname=is_checkbox|yesno:"form-check-input,form-control" %}
+                                {% render_field
+                                    field|add_class:field_classname|add_error_class:"is-invalid"
+                                    x-bind="bindField($data)" %}
+                            {% endwith %}
+                            <div class="invalid-feedback" x-text="getErrorText($data)"></div>
                         </div>
-                    {% else %}
-                        {% render_field field|add_class:"form-control"|add_error_class:"is-invalid"
-                            @keyup="showErrors=false"
-                            x-bind::class='showErrors ? `is-invalid` : ``'
-                            x-bind::disabled='submitting'
-                        %}
-                    {% endif %}
+                    {% endwith %}
                 </div>
-                {% if field.errors %}
-                    <div class="invalid-feedback" x-show="showErrors">
-                        {% for error in field.errors %}
-                            {{ error }}
-                        {% endfor %}
-                    </div>
-                {% endif %}
-            </div>
+            {% endif %}
         {% endfor %}
+        {% slot "fields" %}{% endslot %}
     </div>
     {% if form.non_field_errors  %}
         <div class="alert alert-danger">
@@ -51,6 +37,6 @@
         </div>
     {% endif %}
     <div class="form-controls">
-        {% slot "form_controls" default %}{% endslot %}
+        {% slot "form-controls" default %}{% endslot %}
     </div>
 </form>
