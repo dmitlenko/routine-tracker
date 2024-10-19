@@ -1,6 +1,7 @@
 <div
     x-data="modalComponent()"
     @hx-show-modal.window="handleModal($event)"
+    @hx-close-modal.window="closeModal()"
     class="modal fade"
     tabindex="-1"
     id="modalContainer"

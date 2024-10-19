@@ -7,13 +7,15 @@
     {% fill "body" %}
         {% url "routines:group-delete" pk=group.id as delete_url %}
         {% component 'form' form
-            attrs='@htmx:after-request.camel="closeModal(); deleteRoutineGroup({{ group.id }})"'
+            attrs='@htmx:after-request.camel="deleteRoutineGroup({{ group.id }})"'
             hx-post=delete_url
             hx-target=".modal-body"
             hx-swap="none"
             id="routine-group-delete-form"
         %}
-            {% trans "Are you sure you want to delete this routine group?" %}
+            {% fill "fields" %}
+                {% trans "Are you sure you want to delete this routine group?" %}
+            {% endfill %}
         {% endcomponent %}
     {% endfill %}
     {% fill "footer" %}

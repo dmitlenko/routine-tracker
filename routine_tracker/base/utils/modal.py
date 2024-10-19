@@ -23,3 +23,15 @@ def trigger_modal(response: HttpResponse, options: ModalOptions = None):
     options = options or {}
 
     return trigger_client_event(response, 'hx-show-modal', options)
+
+
+def close_modal(response: HttpResponse):
+    """Triggers a modal to close
+
+    Args:
+        response (HttpResponse): Response object
+
+    Returns:
+        HttpResponse: Response object
+    """
+    return trigger_client_event(response, 'hx-close-modal')

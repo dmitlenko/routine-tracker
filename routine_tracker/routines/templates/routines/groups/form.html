@@ -4,7 +4,6 @@
 {% component 'modal' title=title hx-select=".modal-body" %}
     {% fill "body" %}
         {% component 'form' form
-            attrs='@htmx:after-request.camel="closeModal();"'
             hx-post=form_url
             hx-target=".modal-body"
             hx-swap=hx_swap

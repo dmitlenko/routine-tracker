@@ -1,6 +1,6 @@
 from typing import Any
 
-from routine_tracker.base.utils.modal import ModalOptions, trigger_modal
+from routine_tracker.base.utils.modal import ModalOptions, close_modal, trigger_modal
 
 
 class ModalMixin:
@@ -37,3 +37,6 @@ class ModalFormMixin(ModalMixin):
             }
         )
         return context
+
+    def form_valid(self, form) -> Any:
+        return close_modal(super().form_valid(form))
