@@ -4,7 +4,7 @@
 
 <form
     method="POST"
-    x-data="formComponent()"
+    x-data="formComponent({callSubmit:{{ call_submit|yesno:'true,false' }} })"
     {{ form_attrs }}
     {{ attrs }}>
     {% csrf_token %}

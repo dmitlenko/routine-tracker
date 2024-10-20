@@ -13,6 +13,7 @@ class FormComponent(Component):
         self,
         form: Form,
         *,
+        call_submit: bool = False,
         exclude: str = '',
         horizontal: bool = False,
         horizontal_labels: bool = False,
@@ -24,6 +25,7 @@ class FormComponent(Component):
 
         return {
             'form': form,
+            'call_submit': call_submit,
             'exclude_fields': exclude_fields,
             'horizontal': horizontal,
             'horizontal_labels': horizontal_labels,

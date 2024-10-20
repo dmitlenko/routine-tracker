@@ -2,11 +2,15 @@
  * @typedef {{ field: string, errors: string[] }} Context
  */
 
-function formComponent() {
+function formComponent({ callSubmit = false }) {
   return {
     submitting: false,
     submit() {
-      this.$nextTick(() => (this.submitting = true));
+      this.$nextTick(() => {
+        this.submitting = true;
+
+        if (callSubmit) this.$el.submit();
+      });
     },
     init() {
       this.$el.addEventListener("submit", (e) => {
