@@ -33,10 +33,10 @@ class RoutineCreateForm(forms.ModelForm):
         }
 
 
-class RoutineEntryCreateForm(forms.ModelForm):
+class RoutineEntryForm(forms.ModelForm):
     class Meta:
         model = RoutineEntry
-        fields = ['date', 'value']
+        fields = ['date', 'value', 'notes']
         widgets = {
             'date': forms.DateInput(attrs={'type': 'date', 'value': date.today()}, format='%Y-%m-%d'),
             'value': forms.NumberInput(attrs={'placeholder': _('Value')}),

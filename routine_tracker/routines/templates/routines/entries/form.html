@@ -1,0 +1,63 @@
+{% load widget_tweaks %}
+{% load i18n %}
+{% load routine_extras %}
+{% load strutils %}
+
+{% component 'modal' title=title hx-select=".modal-body" %}
+    {% fill "body" %}
+        {% component 'form' form
+            exclude="value"
+            hx-post=form_url
+            hx-target=".modal-body"
+            hx-swap="outerHTML"
+            id="routine-entry-update-form"
+        %}
+            {% fill "fields" %}
+                {% with value=form.value %}
+                    <div class="input-group" {% if routine.type == "time" %}x-data="{% time_entry_data form.instance %}"{% endif %}>
+                        {% if routine.type == "check" %}
+                            <label class="input-group-text" for="{{ value.auto_id }}">{{ value.label }}</label>
+                            <select class="form-select form-select-sm"
+                                aria-label="{{ value.label }}"
+                                name="{{ value.name }}"
+                                value="{{value.value}}">
+                                <option value="0" {% if not value.value %}selected{%endif%}>{% trans "Unchecked" %}</option>
+                                <option value="1" {% if value.value %}selected{%endif%}>{% trans "Checked" %}</option>
+                            </select>
+                        {% elif routine.type == "count" %}
+                            <label class="input-group-text" for="{{ value.auto_id }}">{{ value.label }}</label>
+                            <input type="number" class="form-control form-control-sm"
+                                id="{{ value.auto_id }}"
+                                name="{{ value.name }}"
+                                value="{{ value.value }}"
+                                step="1">
+                        {% elif routine.type == "time" %}
+                            <div class="form-floating mb-3">
+                                <input type="number" id="hours" x-model="hours" class="form-control" placeholder="0" @change="console.log($data)"/>
+                                <label for="hours">{% trans "Hours" %}</label>
+                            </div>
+                            <input type="hidden"
+                                id="{{ value.auto_id }}"
+                                name="{{ value.name }}"
+                                value="{{ value.value }}"
+                                :value="parseInt(hours) * 3600 + parseInt(minutes) * 60 + parseInt(seconds)">
+                            <div class="form-floating mb-3">
+                                <input type="number" id="minutes" x-model="minutes" class="form-control" placeholder="0" @change="console.log($data)"/>
+                                <label for="minutes">{% trans "Minutes" %}</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="number" id="seconds" x-model="seconds" class="form-control" placeholder="0" @change="console.log($data)"/>
+                                <label for="seconds">{% trans "Seconds" %}</label>
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endwith %}
+            {% endfill %}
+        {% endcomponent %}
+    {% endfill %}
+    {% fill "footer" %}
+        {% component 'form-controls' form_id="routine-entry-update-form" in_modal="true" %}
+            {{ button_text }}
+        {% endcomponent %}
+    {% endfill %}
+{% endcomponent %}

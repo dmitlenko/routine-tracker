@@ -1,9 +1,16 @@
+import json
 from datetime import date, datetime
 from typing import Union
 
 from django import template
 
-from routine_tracker.routines.models import Routine, RoutineGroup, RoutineGroupStatistics, RoutineStatistics
+from routine_tracker.routines.models import (
+    Routine,
+    RoutineEntry,
+    RoutineGroup,
+    RoutineGroupStatistics,
+    RoutineStatistics,
+)
 
 register = template.Library()
 
@@ -29,3 +36,16 @@ def statistics(
         return stats[0]
 
     return None
+
+
+@register.simple_tag
+def time_entry_data(entry: RoutineEntry) -> str:
+    dt = datetime.fromtimestamp(entry.value if entry.value is not None else 0)
+
+    return json.dumps(
+        {
+            "hours": dt.hour,
+            "minutes": dt.minute,
+            "seconds": dt.second,
+        }
+    )
