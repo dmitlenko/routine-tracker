@@ -1,0 +1,18 @@
+{% provide "table_data" ...table_data %}
+    <div class="responsive-table {{ classes }}">
+        <table class="table table-sm" {{ attrs }}>
+            <thead>
+                <tr>
+                    {% slot "head" %}{% endslot %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in table_data.rows %}
+                    {% provide "row_data" ...row %}
+                        {% slot "row" %}{% endslot %}
+                    {% endprovide %}
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endprovide %}
