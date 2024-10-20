@@ -102,7 +102,7 @@ class RoutineUpdateView(LoginRequiredMixin, ModalFormMixin, UpdateView):
     }
 
     def get_form_url(self) -> str:
-        return reverse('routines:routine-edit-modal', kwargs={'pk': self.object.pk, 'group_id': self.object.group.pk})
+        return reverse('routines:routine-edit-modal', kwargs={'pk': self.object.pk})
 
     def get_queryset(self) -> QuerySet[Any]:
         return super().get_queryset().filter(group__user=self.request.user)

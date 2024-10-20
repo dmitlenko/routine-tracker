@@ -14,12 +14,12 @@
         {% component 'dropdown' %}
             <li>
                 <a
-                {% hxmodal 'routines:routine-edit-modal' pk=routine.pk group_id=routine.group.pk %}
+                {% hxmodal 'routines:routine-edit-modal' pk=routine.pk %}
                 class="dropdown-item" href="#">{% trans "Edit" %}</a>
             </li>
             <li>
                 <a
-                {% hxmodal 'routines:routine-delete' pk=routine.pk group_id=routine.group.pk %}
+                {% hxmodal 'routines:routine-delete' pk=routine.pk %}
                 class="dropdown-item text-danger" href="#"> {% trans "Delete" %} </a>
             </li>
         {% endcomponent %}

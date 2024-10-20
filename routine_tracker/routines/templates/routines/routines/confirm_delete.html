@@ -5,7 +5,7 @@
 
 {% component 'modal' title=title hx-select=".modal-body" %}
     {% fill "body" %}
-        {% url "routines:routine-delete" pk=routine.pk group_id=routine.group.pk as delete_url %}
+        {% url "routines:routine-delete" pk=routine.pk as delete_url %}
         {% component 'form' form
             attrs='@htmx:after-request.camel="$dispatch(`delete-routine`, {{ routine.pk }})"'
             hx-post=delete_url

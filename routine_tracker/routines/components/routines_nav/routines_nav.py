@@ -37,10 +37,7 @@ class RoutinesNavigationComponent(Component):
                             'pk': routine.pk,
                             'get': reverse(
                                 'routines:routine-detail',
-                                kwargs={
-                                    'pk': routine.pk,
-                                    'group_id': group.pk,
-                                },
+                                kwargs={'pk': routine.pk},
                             ),
                             'push': f'{reverse("routines:group-detail", kwargs={"pk": group.pk})}?routine={routine.pk}',
                         }
