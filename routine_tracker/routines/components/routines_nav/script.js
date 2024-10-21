@@ -72,8 +72,13 @@ function routinesNavigationComponent({ initialId, targetId, loaderId }) {
         // Delete the routine
         obj.parentElement.remove();
 
+        // Remove the routine from the links
+        this.links = this.links.filter((link) => link.pk !== id);
+
         // Set the first routine as active
-        let pk = this.links.filter((link) => link.pk !== id && link.pk !== "create").at(0)?.pk;
+        let pk = this.links
+          .filter((link) => link.pk !== id && link.pk !== "create")
+          .at(0)?.pk;
 
         // if pk is undefined, set to create
         if (!pk) pk = "create";
@@ -84,6 +89,6 @@ function routinesNavigationComponent({ initialId, targetId, loaderId }) {
         // Click the active
         this.$refs[`nav-${pk}`].click();
       }
-    }
+    },
   };
 }
