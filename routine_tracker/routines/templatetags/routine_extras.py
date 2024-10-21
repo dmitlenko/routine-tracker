@@ -39,8 +39,19 @@ def statistics(
 
 
 @register.simple_tag
-def time_entry_data(entry: RoutineEntry) -> str:
-    dt = datetime.fromtimestamp(entry.value if entry.value is not None else 0)
+def time_entry_data(obj: Union[RoutineEntry, Routine, None] = None) -> str:
+    value = 0
+
+    if isinstance(obj, Routine):
+        value = obj.goal or 0
+    elif isinstance(obj, RoutineEntry):
+        value = obj.value or 0
+    elif obj is None:
+        pass
+    else:
+        raise ValueError("obj must be an instance of Routine or RoutineEntry")
+
+    dt = datetime.fromtimestamp(value)
 
     return json.dumps(
         {

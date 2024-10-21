@@ -14,7 +14,7 @@ from routine_tracker.base.utils.htmx import custom_swap
 from routine_tracker.base.utils.modal import close_modal
 from routine_tracker.routines.components.entry_table.entry_table import EntryTableComponent
 
-from ..forms import RoutineCreateForm, RoutineEntryForm
+from ..forms import RoutineEntryForm, RoutineForm
 from ..models import Routine, RoutineEntry
 
 
@@ -39,7 +39,7 @@ class EntryCreateView(LoginRequiredMixin, ModalFormMixin, CreateView):
         context['routine'] = get_object_or_404(Routine, pk=self.kwargs['pk'], group__user=self.request.user)
         return context
 
-    def form_valid(self, form: RoutineCreateForm) -> Any:
+    def form_valid(self, form: RoutineForm) -> Any:
         routine = self.get_routine()
         form.instance.routine = routine
         entry = form.save()

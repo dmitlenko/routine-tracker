@@ -15,13 +15,13 @@ from routine_tracker.base.utils.modal import close_modal
 from routine_tracker.routines.components.routine_detail.routine_detail import RoutineDetailComponent
 from routine_tracker.routines.components.routines.routines import RoutinesComponent
 
-from ..forms import RoutineCreateForm
+from ..forms import RoutineForm
 from ..models import Routine, RoutineGroup
 
 
 class RoutineCreateView(LoginRequiredMixin, CreateView):
     model = Routine
-    form_class = RoutineCreateForm
+    form_class = RoutineForm
     template_name = 'routines/routines/form.html'
     extra_context = {
         'button_text': _('Create routine'),
@@ -35,7 +35,7 @@ class RoutineCreateView(LoginRequiredMixin, CreateView):
     def get_success_url(self, obj: Routine) -> str:
         return f"{reverse('routines:group-detail', kwargs={'pk': self.kwargs['pk']})}?routine={obj.pk}"
 
-    def form_valid(self, form: RoutineCreateForm) -> Any:
+    def form_valid(self, form: RoutineForm) -> Any:
         group = get_object_or_404(RoutineGroup, pk=self.kwargs['pk'], user=self.request.user)
         form.instance.group = group
         form.save()
@@ -94,7 +94,7 @@ class RoutineDeleteView(LoginRequiredMixin, ModalMixin, DeleteView):
 
 class RoutineUpdateView(LoginRequiredMixin, ModalFormMixin, UpdateView):
     model = Routine
-    form_class = RoutineCreateForm
+    form_class = RoutineForm
     template_name = 'routines/routines/form_modal.html'
     context_object_name = 'routine'
     extra_context = {
@@ -107,7 +107,7 @@ class RoutineUpdateView(LoginRequiredMixin, ModalFormMixin, UpdateView):
     def get_queryset(self) -> QuerySet[Any]:
         return super().get_queryset().filter(group__user=self.request.user)
 
-    def form_valid(self, form: RoutineCreateForm) -> Any:
+    def form_valid(self, form: RoutineForm) -> Any:
         messages.success(self.request, _("Routine '{routine}' updated successfully").format(routine=self.object.name))
         form.save()
 

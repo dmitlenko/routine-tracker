@@ -161,7 +161,7 @@ class Routine(models.Model):
         TIME = 'time', _('Time')
         COUNT = 'count', _('Count')
 
-    class Measure(models.TextChoices):
+    class DefaultMeasures(models.TextChoices):
         """
         Routine measure choices.
         """
@@ -180,9 +180,7 @@ class Routine(models.Model):
     type = models.CharField(_('Type'), max_length=5, choices=Type.choices, default=Type.CHECK)
     has_goal = models.BooleanField(_('Has a goal'), default=False)
     goal = models.PositiveIntegerField(_('Goal'), blank=True, null=True)
-    measure = models.CharField(
-        _('Measure'), max_length=50, blank=True, choices=Measure.choices, default=Measure.SECONDS
-    )
+    measure = models.CharField(_('Measure'), max_length=50, blank=True, default=DefaultMeasures.SECONDS)
 
     def _calculate_general_statistics(self, entries: 'models.QuerySet[RoutineEntry]') -> Dict[str, Union[int, float]]:
         total = len(entries)

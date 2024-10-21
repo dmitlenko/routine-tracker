@@ -24,7 +24,12 @@ class RoutineGroupForm(forms.ModelForm):
         }
 
 
-class RoutineCreateForm(forms.ModelForm):
+class RoutineForm(forms.ModelForm):
+    icon = forms.ChoiceField(
+        choices=[('', _('None'))] + icon_choices(),
+        widget=forms.Select(attrs={'class': 'form-select'}),
+    )
+
     class Meta:
         model = Routine
         fields = ['name', 'description', 'icon', 'type', 'has_goal', 'goal', 'measure']

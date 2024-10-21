@@ -54,7 +54,7 @@ class Command(BaseCommand):
                         type=routine_type,
                         has_goal=random.choice([True, False]),
                         goal=random.randint(10, 100) if random.choice([True, False]) else None,
-                        measure=random.choice(Routine.Measure.values),
+                        measure=random.choice(Routine.DefaultMeasures.values),
                     )
                     self.stdout.write(self.style.SUCCESS(f"  Created Routine: {routine.name}"))
 

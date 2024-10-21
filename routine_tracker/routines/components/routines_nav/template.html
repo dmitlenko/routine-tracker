@@ -14,7 +14,12 @@
     </li>
     {% for routine in routines %}
         <li class="nav-item">
-            <a class="nav-link" x-bind="linkAttributes({{ routine.attrs }})"> {{ routine.obj.name }} </a>
+            <a class="nav-link" x-bind="linkAttributes({{ routine.attrs }})">
+                {% if routine.obj.icon %}
+                    <i class="bi {{ routine.obj.icon }}"></i>
+                {% endif %}
+                {{ routine.obj.name }}
+            </a>
         </li>
     {% endfor %}
 </ul>
