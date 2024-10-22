@@ -9,14 +9,31 @@ from django.urls import reverse, reverse_lazy
 from django.utils.translation import gettext as _
 from django.views.generic import CreateView, DeleteView, DetailView, UpdateView
 
-from routine_tracker.base.mixins import ModalFormMixin, ModalMixin
 from routine_tracker.base.utils.htmx import custom_swap
 from routine_tracker.base.utils.modal import close_modal
+from routine_tracker.core.mixins import ModalDeleteMixin, ModalFormMixin
 from routine_tracker.routines.components.routine_detail.routine_detail import RoutineDetailComponent
 from routine_tracker.routines.components.routines.routines import RoutinesComponent
 
 from ..forms import RoutineForm
 from ..models import Routine, RoutineGroup
+
+
+class RoutineDetailView(LoginRequiredMixin, DetailView):
+    model = Routine
+    context_object_name = "routine"
+    template_name = "routines/routines/detail.html"
+
+    def get_queryset(self) -> QuerySet[Any]:
+        return super().get_queryset().filter(group__user=self.request.user)
+
+    def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
+        return RoutineDetailComponent.render_to_response(
+            context={'request': request},
+            kwargs={
+                'routine': self.get_object(),
+            },
+        )
 
 
 class RoutineCreateView(LoginRequiredMixin, CreateView):
@@ -55,43 +72,6 @@ class RoutineCreateView(LoginRequiredMixin, CreateView):
         )
 
 
-class RoutineDetailView(LoginRequiredMixin, DetailView):
-    model = Routine
-    context_object_name = "routine"
-    template_name = "routines/routines/detail.html"
-
-    def get_queryset(self) -> QuerySet[Any]:
-        return super().get_queryset().filter(group__user=self.request.user)
-
-    def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
-        return RoutineDetailComponent.render_to_response(
-            context={'request': request},
-            kwargs={
-                'routine': self.get_object(),
-            },
-        )
-
-
-class RoutineDeleteView(LoginRequiredMixin, ModalMixin, DeleteView):
-    model = Routine
-    template_name = 'routines/routines/confirm_delete.html'
-    context_object_name = 'routine'
-
-    def get_success_url(self) -> str:
-        return reverse('routines:group-detail', kwargs={'pk': self.get_object().group.pk})
-
-    def get_queryset(self) -> QuerySet[Any]:
-        return super().get_queryset().filter(group__user=self.request.user)
-
-    def post(self, request: HttpRequest, *args: str, **kwargs: Any) -> HttpResponse:
-        response = super().post(request, *args, **kwargs)
-        response.status_code = 204
-
-        messages.success(request, _("Routine group deleted successfully"))
-
-        return close_modal(response)
-
-
 class RoutineUpdateView(LoginRequiredMixin, ModalFormMixin, UpdateView):
     model = Routine
     form_class = RoutineForm
@@ -125,3 +105,27 @@ class RoutineUpdateView(LoginRequiredMixin, ModalFormMixin, UpdateView):
                 '#routines-card',
             )
         )
+
+
+class RoutineDeleteView(LoginRequiredMixin, ModalDeleteMixin, DeleteView):
+    model = Routine
+    context_object_name = 'routine'
+    form_id = 'delete-routine-form'
+    title = _("Delete routine")
+    message = _("Are you sure you want to delete this routine?")
+
+    def get_success_url(self) -> str:
+        return reverse('routines:group-detail', kwargs={'pk': self.get_object().group.pk})
+
+    def get_callback(self) -> str:
+        return f'$dispatch(`delete-routine`, {self.get_object().pk})'
+
+    def get_queryset(self) -> QuerySet[Any]:
+        return super().get_queryset().filter(group__user=self.request.user)
+
+    def post(self, request: HttpRequest, *args: str, **kwargs: Any) -> HttpResponse:
+        response = super().post(request, *args, **kwargs)
+
+        messages.success(request, _("Routine group deleted successfully"))
+
+        return response

@@ -30,6 +30,11 @@ class RoutineForm(forms.ModelForm):
         widget=forms.Select(attrs={'class': 'form-select'}),
     )
 
+    measure = forms.ChoiceField(
+        choices=Routine.DefaultMeasures.choices,
+        widget=forms.TextInput(),
+    )
+
     class Meta:
         model = Routine
         fields = ['name', 'description', 'icon', 'type', 'has_goal', 'goal', 'measure']

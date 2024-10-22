@@ -9,9 +9,9 @@ from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import CreateView, DeleteView, UpdateView
 
-from routine_tracker.base.mixins import ModalFormMixin
 from routine_tracker.base.utils.htmx import custom_swap
 from routine_tracker.base.utils.modal import close_modal
+from routine_tracker.core.mixins import ModalDeleteMixin, ModalFormMixin
 from routine_tracker.routines.components.entry_table.entry_table import EntryTableComponent
 
 from ..forms import RoutineEntryForm, RoutineForm
@@ -98,21 +98,25 @@ class EntryUpdateView(LoginRequiredMixin, ModalFormMixin, UpdateView):
         )
 
 
-class EntryDeleteView(LoginRequiredMixin, ModalFormMixin, DeleteView):
+class EntryDeleteView(LoginRequiredMixin, ModalDeleteMixin, DeleteView):
     model = RoutineEntry
-    template_name = 'routines/entries/confirm_delete.html'
     context_object_name = 'entry'
+    form_id = 'delete-entry-form'
+    title = _("Delete Entry")
+    message = _("Are you sure you want to delete this entry?")
 
     def get_success_url(self) -> str:
         return reverse('routines:group-detail', kwargs={'pk': self.get_object().routine.group.pk})
+
+    def get_callback(self) -> str:
+        return f'deleteRoutineEntry({self.get_object().pk})'
 
     def get_queryset(self) -> QuerySet[Any]:
         return super().get_queryset().filter(routine__group__user=self.request.user)
 
     def post(self, request: HttpRequest, *args: str, **kwargs: Any) -> HttpResponse:
         response = super().post(request, *args, **kwargs)
-        response.status_code = 204
 
         messages.success(request, _("Routine entry deleted successfully"))
 
-        return close_modal(response)
+        return response

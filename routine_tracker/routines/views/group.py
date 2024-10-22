@@ -8,9 +8,9 @@ from django.urls import reverse, reverse_lazy
 from django.utils.translation import gettext as _
 from django.views.generic import CreateView, DeleteView, DetailView, ListView, UpdateView
 
-from routine_tracker.base.mixins import ModalFormMixin, ModalMixin
 from routine_tracker.base.utils.htmx import custom_swap, forced_htmx_redirect
 from routine_tracker.base.utils.modal import close_modal
+from routine_tracker.core.mixins import ModalDeleteMixin, ModalFormMixin
 from routine_tracker.routines.components.routine_group.routine_group import RoutineGroupComponent
 from routine_tracker.routines.components.routine_group_item.routine_group_item import RoutineGroupItemComponent
 
@@ -121,18 +121,22 @@ class RoutineGroupUpdateView(LoginRequiredMixin, ModalFormMixin, UpdateView):
         )
 
 
-class RoutineGroupDeleteView(LoginRequiredMixin, ModalMixin, DeleteView):
+class RoutineGroupDeleteView(LoginRequiredMixin, ModalDeleteMixin, DeleteView):
     model = RoutineGroup
-    template_name = 'routines/groups/confirm_delete.html'
-    success_url = reverse_lazy('routines:group-list')
     context_object_name = 'group'
+    form_id = 'delete-group-form'
+    success_url = reverse_lazy('routines:group-list')
+    title = _("Delete routine group")
+    message = _("Are you sure you want to delete this routine group?")
 
     def get_queryset(self) -> QuerySet[Any]:
         return super().get_queryset().filter(user=self.request.user)
 
+    def get_callback(self) -> str:
+        return f'deleteRoutineGroup({self.get_object().pk})'
+
     def post(self, request: HttpRequest, *args: str, **kwargs: Any) -> HttpResponse:
         response = super().post(request, *args, **kwargs)
-        response.status_code = 204
 
         messages.success(request, _("Routine group deleted successfully"))
 
@@ -142,4 +146,4 @@ class RoutineGroupDeleteView(LoginRequiredMixin, ModalMixin, DeleteView):
                 reverse('routines:group-list'),
             )
 
-        return close_modal(response)
+        return response
