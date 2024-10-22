@@ -1,0 +1,22 @@
+{% load i18n %}
+{% load strutils %}
+
+{% trans "Cancel" as dismiss %}
+{% trans "Submit" as submit %}
+
+{% if wrap %}<div {{ attrs }}>{% endif %}
+    <input
+        type="reset"
+        class="btn {% trim %}{% slot "dismiss-class" %}btn-secondary{% endslot %}{% endtrim %}"
+        value="{% trim %}{% slot "dismiss" %}{{ dismiss }}{% endslot %}{% endtrim %}"
+        {{ in_modal }}
+        {{ form_id }}
+    />
+
+    <input
+        type="submit"
+        class="btn {% trim %}{% slot "submit-class" %}btn-primary{% endslot %}{% endtrim %}"
+        value="{% trim %}{% slot "submit" default %}{{ submit }}{% endslot %}{% endtrim %}"
+        {{ form_id }}
+    />
+{% if wrap %}</div>{% endif %}

@@ -2,6 +2,8 @@
 Django settings for routine_tracker project.
 """
 
+from django.contrib import messages
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -28,6 +30,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django_htmx.middleware.HtmxMiddleware',
+    'routine_tracker.base.middleware.message_middleware',
 ]
 
 WSGI_APPLICATION = 'routine_tracker.project.wsgi.application'
@@ -107,3 +110,11 @@ STATICFILES_FINDERS = [
     # Django components
     "django_components.finders.ComponentsFileSystemFinder",
 ]
+
+MESSAGE_TAGS = {
+    messages.DEBUG: "bg-light",
+    messages.INFO: "text-white bg-primary",
+    messages.SUCCESS: "text-white bg-success",
+    messages.WARNING: "text-dark bg-warning",
+    messages.ERROR: "text-white bg-danger",
+}

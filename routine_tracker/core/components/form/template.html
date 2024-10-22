@@ -1,0 +1,42 @@
+{% load widget_tweaks %}
+{% load strutils %}
+{% load form %}
+
+<form
+    method="POST"
+    x-data="formComponent({callSubmit:{{ call_submit|yesno:'true,false' }} })"
+    {{ form_attrs }}
+    {{ attrs }}>
+    {% csrf_token %}
+    <div class="{{ horizontal|yesno:'d-grid mb-3 gap-3,d-flex flex-column gap-3 mb-3'}}" style="{{ grid_style }}">
+        {% for field in form %}
+            {% if not field.name in exclude_fields %}
+                {% fieldbind field as field_bind %}
+                <div class="{{ " row justify-content-start"|onlyif:horizontal_labels }}" x-data="{{ field_bind }}">
+                    <label for="{{field.auto_id}}" class="{{ horizontal_labels|yesno:"col-sm-4 col-form-label,form-label"}}">{{ field.label }}</label>
+                    {% with is_checkbox=field|isfieldtype:"checkbox" %}
+                        <div class="{{ 'col-sm-8'|onlyif:horizontal_labels }}{{ ' d-flex align-items-center'|onlyif:is_checkbox }}">
+                            {% with field_classname=is_checkbox|yesno:"form-check-input,form-control" %}
+                                {% render_field
+                                    field|add_class:field_classname|add_error_class:"is-invalid"
+                                    x-bind="bindField($data)" %}
+                            {% endwith %}
+                            <div class="invalid-feedback" x-text="getErrorText($data)"></div>
+                        </div>
+                    {% endwith %}
+                </div>
+            {% endif %}
+        {% endfor %}
+        {% slot "fields" %}{% endslot %}
+    </div>
+    {% if form.non_field_errors  %}
+        <div class="alert alert-danger">
+            {% for error in form.non_field_errors %}
+                {{ error }}
+            {% endfor %}
+        </div>
+    {% endif %}
+    <div class="form-controls">
+        {% slot "form-controls" default %}{% endslot %}
+    </div>
+</form>

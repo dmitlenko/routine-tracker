@@ -1,0 +1,14 @@
+{% extends "layouts/default.html" %}
+
+{% load i18n %}
+{% load modal %}
+
+{% block headers %},"HX-Origin":"detail"{% endblock headers %}
+
+{% block content %}
+
+<div class="py-3 vstack gap-3">
+    {% component 'routine-group' group / %}
+    {% component 'routines' group / %}
+</div>
+{% endblock content %}

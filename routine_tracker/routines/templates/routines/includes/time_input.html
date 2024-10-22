@@ -1,0 +1,15 @@
+{% load routine_extras %}
+{% load i18n %}
+
+<div class="form-floating" {{ attrs }}>
+    <input type="number" id="hours" x-model="hours" class="form-control" placeholder="0" {{ input_attrs }} />
+    <label for="hours">{% trans "Hours" %}</label>
+</div>
+<div class="form-floating" {{ attrs }}>
+    <input type="number" id="minutes" x-model="minutes" class="form-control" placeholder="0" {{ input_attrs }} />
+    <label for="minutes">{% trans "Minutes" %}</label>
+</div>
+<div class="form-floating" {{ attrs }}>
+    <input type="number" id="seconds" x-model="seconds" class="form-control" placeholder="0" {{ input_attrs }} />
+    <label for="seconds">{% trans "Seconds" %}</label>
+</div>

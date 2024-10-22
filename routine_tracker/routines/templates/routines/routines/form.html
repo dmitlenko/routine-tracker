@@ -1,0 +1,82 @@
+{% load widget_tweaks %}
+{% load i18n %}
+{% load strutils %}
+{% load routine_extras %}
+{% load form %}
+
+{% component 'loader' id="routine-detail-loader" / %}
+
+{% component 'form' form
+    exclude='has_goal,goal,measure,type'
+    hx-post=form_url
+    hx-target="{{modal|yesno:'.modal-body,#routine-create-form'}}"
+    hx-swap="outerHTML"
+    id="{{modal|yesno:'routine-update-form,routine-create-form'}}"
+    class="{{modal|yesno:',m-3'}}" %}
+    {% fill 'form-controls' %}
+        {% if not modal %}
+            <div class="d-flex w-100 justify-content-end gap-1">
+                {% component 'form-controls' %}
+                    {% fill "submit-class" %}btn-success{% endfill %}
+                    {% fill "submit" %}
+                        {{ button_text }}
+                    {% endfill %}
+                {% endcomponent %}
+            </div>
+        {% endif %}
+    {% endfill %}
+    {% fill 'fields' %}
+        <div class="d-flex flex-column gap-3" x-data="{
+            hasGoal: {{ form.has_goal.value|yesno:"true,false" }},
+            type: '{{ form.type.value }}',
+        }">
+            <div>
+                <label for="{{ form.type.auto_id }}" class="form-label">{{ form.type.label }}</label>
+                {% render_field form.type
+                    class+="form-control"
+                    @change="type = event.target.value; hasGoal = type !== `check`;" %}
+            </div>
+            <div class="input-group d-flex" :class="type === 'check' ? 'd-none' : ''" x-data="{% time_entry_data form.instance %}">
+                <div class="input-group-text rounded-end-0 flex-shrink-1">
+                    <div class="d-flex gap-2 align-items-center">
+                        {% render_field form.has_goal
+                            class+="form-check-input m-0"
+                            x-bind::checked="hasGoal"
+                            @change="hasGoal = $event.target.checked" %}
+                        <label for="{{ form.has_goal.auto_id }}">
+                            {{ form.has_goal.label }}
+                        </label>
+                    </div>
+                </div>
+                <div class="form-floating" x-show="type !== 'time'">
+                    {% render_field form.goal|add_error_class:"is-invalid"
+                        class+="form-control flex-grow-1"
+                        ::value="parseInt(hours) * 3600 + parseInt(minutes) * 60 + parseInt(seconds)"
+                        ::disabled="!hasGoal" %}
+                        <label for="{{ form.goal.auto_id }}">{{ form.goal.label }}</label>
+                </div>
+                <div class="form-floating" x-show="type !== 'time'">
+                    {% render_field form.measure|add_error_class:"is-invalid"
+                        class+="form-control flex-shrink-1 rounded-end"
+                        style="min-width: 0px;"
+                        list="measureChoices" %}
+                    <datalist id="measureChoices">
+                        {% for value, text in measure_choices %}
+                            <option value="{{ text }}">
+                        {% endfor %}
+                    </datalist>
+                    <label for="{{ form.measure.auto_id }}">{{ form.measure.label }}</label>
+                </div>
+                {% include "routines/includes/time_input.html" with attrs="x-show='type === `time`'" input_attrs="x-bind:disabled='!hasGoal'" %}
+            </div>
+        </div>
+        {% if form.errors %}
+            <div class="alert alert-danger" role="alert">
+                {% for field, errors in form.errors.items %}
+                    {{ field|title }}: {{ errors.0 }}
+                    {% if not forloop.last %}<br>{% endif %}
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endfill %}
+{% endcomponent %}

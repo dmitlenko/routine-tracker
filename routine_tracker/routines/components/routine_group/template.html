@@ -1,0 +1,44 @@
+{% load modal %}
+{% load i18n %}
+
+<div class="card" x-data="routineGroupComponent()" id="routine-group-card">
+    <div class="card-header p-0 d-flex">
+        <div
+            class="col-1 rounded-top rounded-end-0 d-flex align-items-center justify-content-center"
+            style="background-color: {{group.color}}"
+            id="colorStrip"
+            >
+            <i class="bi {{group.icon}} fs-3"></i>
+        </div>
+        <div class="d-flex justify-content-between py-2 px-3 pe-2 flex-grow-1">
+            <div>
+                <h5 class="card-title">{{ group.name }}</h5>
+                <p class="card-text">{{ group.description }}</p>
+            </div>
+            <div>
+                <div class="dropdown dropstart">
+                    <button class="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-three-dots-vertical"></i>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a
+                            {% hxmodal 'routines:group-edit-modal' pk=group.id %}
+                            class="dropdown-item" href="#">{% trans "Edit" %}</a>
+                        </li>
+                        <li>
+                            <a
+                            {% hxmodal 'routines:group-delete' pk=group.id %}
+                            class="dropdown-item text-danger" href="#"> {% trans "Delete" %} </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aperiam sapiente quas est impedit minima
+        incidunt sequi quos, recusandae doloribus maxime, sed exercitationem magnam numquam libero ab animi
+        facilis similique fugiat.
+    </div>
+</div>

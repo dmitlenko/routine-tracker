@@ -1,0 +1,26 @@
+{% load widget_tweaks %}
+{% load i18n %}
+
+{% component 'modal' title=title hx-select=".modal-body" %}
+    {% fill "body" %}
+        {% component 'form' form
+            attrs='@htmx:after-request.camel="{{ callback }}"'
+            hx-post=form_url
+            hx-target=".modal-body"
+            hx-swap="none"
+            id=form_id
+        %}
+            {% fill "fields" %}
+                {{ message}}
+            {% endfill %}
+        {% endcomponent %}
+    {% endfill %}
+    {% fill "footer" %}
+        {% component 'form-controls' form_id=form_id in_modal="true" %}
+            {% fill "submit-class" %}btn-danger{% endfill %}
+            {% fill "submit" %}
+                {% trans "Delete" %}
+            {% endfill %}
+        {% endcomponent %}
+    {% endfill %}
+{% endcomponent %}

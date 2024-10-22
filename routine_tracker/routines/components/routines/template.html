@@ -1,0 +1,20 @@
+{% load i18n %}
+
+<div>
+    <h2>{% trans "Routines" %}</h2>
+    <div class="card" id="routines-card">
+        <div class="card-header">
+            {% component 'routines-nav' group routines current_routine loader_id="routine-detail-loader" / %}
+        </div>
+        <div class="card-body p-0" id="routines-card-body">
+            {% if current_routine %}
+                {% component 'routine-detail' current_routine / %}
+            {% else %}
+                {% component 'loader' loader_id="routine-detail-loader" / %}
+                <div class="d-flex align-items-center justify-content-center" style="height: 10rem">
+                    {% trans "No routines found. To create new routine click a \"+\" button." %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>

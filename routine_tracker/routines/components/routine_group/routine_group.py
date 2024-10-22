@@ -1,23 +1,16 @@
-from typing import Any, TypedDict, Unpack
+from typing import Any
 
 from django_components import Component, register
 
 from routine_tracker.routines.models import RoutineGroup
 
 
-class Kwargs(TypedDict):
-    group: RoutineGroup
-
-
-@register('routine_group')
+@register('routine-group')
 class RoutineGroupComponent(Component):
-    template_name = 'routine_group.html'
+    template_name = 'template.html'
 
-    def get_context_data(self, *_: Any, **kwargs: Unpack[Kwargs]) -> Any:
-        group = kwargs['group']
-        routines = group.routines.all()[:3]
+    def get_context_data(self, group: RoutineGroup) -> Any:
+        return {'group': group}
 
-        return {
-            'group': group,
-            'routines': routines,
-        }
+    class Media:
+        js = 'script.js'

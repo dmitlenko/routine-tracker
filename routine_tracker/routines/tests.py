@@ -48,7 +48,7 @@ class RoutineModelTest(TestCase):
     def test_routine_default_type_and_measure(self):
         routine = Routine.objects.create(group=self.group, name='Check In')
         self.assertEqual(routine.type, Routine.Type.CHECK)
-        self.assertEqual(routine.measure, Routine.Measure.SECONDS)
+        self.assertEqual(routine.measure, Routine.DefaultMeasures.SECONDS)
 
     def test_invalid_type_choice(self):
         routine = Routine(group=self.group, name='Invalid Routine', type='invalid')
@@ -59,7 +59,7 @@ class RoutineModelTest(TestCase):
         routine = Routine.objects.create(group=self.group, name='Jogging', has_goal=True, goal=5000, measure='min')
         self.assertTrue(routine.has_goal)
         self.assertEqual(routine.goal, 5000)
-        self.assertEqual(routine.measure, Routine.Measure.MINUTES)
+        self.assertEqual(routine.measure, Routine.DefaultMeasures.MINUTES)
 
     def test_null_goal_when_has_goal_false(self):
         routine = Routine.objects.create(group=self.group, name='Stretching', has_goal=False, goal=None)
@@ -127,7 +127,7 @@ class RoutineStatisticsTest(TestCase):
         self.user = User.objects.create_user(email='test@email.com', password='pass123')
         self.group = RoutineGroup.objects.create(user=self.user, name='Morning Routine')
         self.routine = Routine.objects.create(
-            group=self.group, name='Push-ups', has_goal=True, goal=14, measure=Routine.Measure.REPS
+            group=self.group, name='Push-ups', has_goal=True, goal=14, measure=Routine.DefaultMeasures.REPS
         )
 
         # Create entries for the routine

@@ -1,0 +1,69 @@
+{% load i18n %}
+{% load modal %}
+{% load routine_extras %}
+{% load strutils %}
+
+{% component 'table'
+    id='entry-table'
+    rows=entries
+    columns='date,value,notes,actions'
+%}
+    {% fill 'head' %}
+        {% component 'column-header' name='date' sort=True class="ps-3" %}
+            {% trans "Date" %}
+        {% endcomponent %}
+        {% component 'column-header' name='value' sort=True %}
+            {% trans "Value" %}
+        {% endcomponent %}
+        {% component 'column-header' name='notes' %}
+            {% trans "Notes" %}
+        {% endcomponent %}
+        {% component 'column-header' name='actions' / %}
+    {% endfill %}
+    {% fill 'row' %}
+        {% component 'table-row'
+            col:date:class="px-3"
+            col:actions:class="pe-3 text-end"
+            data-entry-id=row.object.pk
+        %}
+            {% fill 'date' %}
+                {{ row.object.date|date:"d.m.Y" }}
+            {% endfill %}
+            {% fill 'value' data="row" %}
+                {% if row.object.routine.type == "check" %}
+                    <input type="checkbox"
+                        class="form-check-input"
+                        x-data="{checked:{{row.object.value}}}"
+                        :checked="checked"
+                        @change="($event) => $event.target.checked = checked" />
+                {% elif row.object.routine.type == "count" %}
+                    <span class="badge rounded-pill text-bg-primary">
+                        {{ row.object.value }}
+                        {% if row.object.routine.measure %}
+                            {{ ' '|add:row.object.routine.measure }}
+                        {% endif %}
+                    </span>
+                {% elif row.object.routine.type == "time" %}
+                    <span class="badge rounded-pill text-bg-primary">{{ row.object.value|duration }}</span>
+                {% endif %}
+            {% endfill %}
+            {% fill 'notes' %}
+                {{ row.object.notes }}
+            {% endfill %}
+            {% fill 'actions' %}
+                {% component 'dropdown' %}
+                    <li>
+                        <a
+                        {% hxmodal 'routines:entry-edit-modal' pk=row.object.pk %}
+                        class="dropdown-item" href="#">{% trans "Edit" %}</a>
+                    </li>
+                    <li>
+                        <a
+                        {% hxmodal 'routines:entry-delete' pk=row.object.pk %}
+                        class="dropdown-item text-danger" href="#"> {% trans "Delete" %} </a>
+                    </li>
+                {% endcomponent %}
+            {% endfill %}
+        {% endcomponent %}
+    {% endfill %}
+{% endcomponent %}

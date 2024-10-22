@@ -1,0 +1,27 @@
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
+
+@media (min-width: 1080px) {
+  .container-lg {
+    max-width: 1040px;
+  }
+}
+
+.containe-lg {
+  margin: 0 auto;
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease 0s 1 normal forwards;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
