@@ -42,6 +42,7 @@ class RoutineCreateView(LoginRequiredMixin, CreateView):
     template_name = 'routines/routines/form.html'
     extra_context = {
         'button_text': _('Create routine'),
+        'measure_choices': Routine.DefaultMeasures.choices,
     }
 
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
@@ -79,6 +80,7 @@ class RoutineUpdateView(LoginRequiredMixin, ModalFormMixin, UpdateView):
     context_object_name = 'routine'
     extra_context = {
         'button_text': _('Save changes'),
+        'measure_choices': Routine.DefaultMeasures.choices,
     }
 
     def get_form_url(self) -> str:

@@ -11,7 +11,10 @@
     {% endfill %}
     {% fill "footer" %}
         {% component 'form-controls' form_id="routine-group-form" in_modal="true" %}
-            {{ button_text }}
+            {% fill "submit-class" %}btn-success{% endfill %}
+            {% fill "submit" %}
+                {{ button_text }}
+            {% endfill %}
         {% endcomponent %}
     {% endfill %}
 {% endcomponent %}

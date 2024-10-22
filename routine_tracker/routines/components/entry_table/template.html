@@ -1,6 +1,7 @@
 {% load i18n %}
 {% load modal %}
 {% load routine_extras %}
+{% load strutils %}
 
 {% component 'table'
     id='entry-table'
@@ -36,7 +37,12 @@
                         :checked="checked"
                         @change="($event) => $event.target.checked = checked" />
                 {% elif row.object.routine.type == "count" %}
-                    <span class="badge rounded-pill text-bg-primary">{{ row.object.value }}</span>
+                    <span class="badge rounded-pill text-bg-primary">
+                        {{ row.object.value }}
+                        {% if row.object.routine.measure %}
+                            {{ ' '|add:row.object.routine.measure }}
+                        {% endif %}
+                    </span>
                 {% elif row.object.routine.type == "time" %}
                     <span class="badge rounded-pill text-bg-primary">{{ row.object.value|duration }}</span>
                 {% endif %}

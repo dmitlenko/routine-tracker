@@ -34,9 +34,9 @@
                         {% elif routine.type == "time" %}
                             <input type="hidden"
                                 class="d-none"
-                                id="{{ field.auto_id }}"
-                                name="{{ field.name }}"
-                                value="{{ field.value }}"
+                                id="{{ value.auto_id }}"
+                                name="{{ value.name }}"
+                                value="{{ value.value }}"
                                 :value="parseInt(hours) * 3600 + parseInt(minutes) * 60 + parseInt(seconds)">
                             {% include "routines/includes/time_input.html" %}
                         {% endif %}
@@ -47,7 +47,10 @@
     {% endfill %}
     {% fill "footer" %}
         {% component 'form-controls' form_id="routine-entry-update-form" in_modal="true" %}
-            {{ button_text }}
+            {% fill "submit-class" %}btn-success{% endfill %}
+            {% fill "submit" %}
+                {{ button_text }}
+            {% endfill %}
         {% endcomponent %}
     {% endfill %}
 {% endcomponent %}

@@ -10,14 +10,19 @@
     exclude='has_goal,goal,measure,type'
     hx-post=form_url
     hx-target="{{modal|yesno:'.modal-body,#routine-create-form'}}"
-    hx-swap="{{modal|yesno:'outerHTML,innerHTML'}}"
+    hx-swap="outerHTML"
     id="{{modal|yesno:'routine-update-form,routine-create-form'}}"
     class="{{modal|yesno:',m-3'}}" %}
     {% fill 'form-controls' %}
         {% if not modal %}
-            {% component 'form-controls' %}
-                {{ button_text }}
-            {% endcomponent %}
+            <div class="d-flex w-100 justify-content-end gap-1">
+                {% component 'form-controls' %}
+                    {% fill "submit-class" %}btn-success{% endfill %}
+                    {% fill "submit" %}
+                        {{ button_text }}
+                    {% endfill %}
+                {% endcomponent %}
+            </div>
         {% endif %}
     {% endfill %}
     {% fill 'fields' %}
@@ -44,21 +49,34 @@
                     </div>
                 </div>
                 <div class="form-floating" x-show="type !== 'time'">
-                    {% render_field form.goal
+                    {% render_field form.goal|add_error_class:"is-invalid"
                         class+="form-control flex-grow-1"
                         ::value="parseInt(hours) * 3600 + parseInt(minutes) * 60 + parseInt(seconds)"
                         ::disabled="!hasGoal" %}
                         <label for="{{ form.goal.auto_id }}">{{ form.goal.label }}</label>
                 </div>
                 <div class="form-floating" x-show="type !== 'time'">
-                    {% render_field form.measure
-                        class+="form-control flex-shrink-1"
+                    {% render_field form.measure|add_error_class:"is-invalid"
+                        class+="form-control flex-shrink-1 rounded-end"
                         style="min-width: 0px;"
-                        ::disabled="!hasGoal" %}
+                        list="measureChoices" %}
+                    <datalist id="measureChoices">
+                        {% for value, text in measure_choices %}
+                            <option value="{{ text }}">
+                        {% endfor %}
+                    </datalist>
                     <label for="{{ form.measure.auto_id }}">{{ form.measure.label }}</label>
                 </div>
                 {% include "routines/includes/time_input.html" with attrs="x-show='type === `time`'" input_attrs="x-bind:disabled='!hasGoal'" %}
             </div>
         </div>
+        {% if form.errors %}
+            <div class="alert alert-danger" role="alert">
+                {% for field, errors in form.errors.items %}
+                    {{ field|title }}: {{ errors.0 }}
+                    {% if not forloop.last %}<br>{% endif %}
+                {% endfor %}
+            </div>
+        {% endif %}
     {% endfill %}
 {% endcomponent %}

@@ -12,6 +12,7 @@ class RoutineGroupForm(forms.ModelForm):
     icon = forms.ChoiceField(
         choices=[('', _('None'))] + icon_choices(),
         widget=forms.Select(attrs={'class': 'form-select'}),
+        required=False,
     )
 
     class Meta:
@@ -28,11 +29,12 @@ class RoutineForm(forms.ModelForm):
     icon = forms.ChoiceField(
         choices=[('', _('None'))] + icon_choices(),
         widget=forms.Select(attrs={'class': 'form-select'}),
+        required=False,
     )
 
-    measure = forms.ChoiceField(
-        choices=Routine.DefaultMeasures.choices,
-        widget=forms.TextInput(),
+    measure = forms.CharField(
+        label=_('Measure'),
+        required=False,
     )
 
     class Meta:
