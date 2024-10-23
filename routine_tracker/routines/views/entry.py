@@ -7,6 +7,7 @@ from django.http import HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
+from django.views import View
 from django.views.generic import CreateView, DeleteView, UpdateView
 
 from routine_tracker.base.utils.htmx import custom_swap
@@ -120,3 +121,15 @@ class EntryDeleteView(LoginRequiredMixin, ModalDeleteMixin, DeleteView):
         messages.success(request, _("Routine entry deleted successfully"))
 
         return response
+
+
+class EntryTableView(LoginRequiredMixin, View):
+    def get(self, request: HttpRequest, pk: int) -> HttpResponse:
+        routine = get_object_or_404(Routine, pk=pk, group__user=request.user)
+
+        return EntryTableComponent.render_to_response(
+            kwargs={
+                'entries': routine.entries.all(),
+                'page': request.GET.get('page', 1),
+            }
+        )
