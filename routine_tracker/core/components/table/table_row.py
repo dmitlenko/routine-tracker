@@ -19,11 +19,12 @@ class TableRowComponent(Component):
 
         table_data = get_table_data(self)
         columns = table_data['columns']
-        attrs = context.get('attrs', '')
+        attrs = context['attrs']
+        last = context['last']
 
         slots = ''.join(map(lambda column: self.get_cell(context, column), columns))
 
-        return f"<tr {attrs}>{slots}</tr>"
+        return f"<tr {attrs} {{% if forloop.last %}}{last}{{% endif %}}>{slots}</tr>"
 
     def get_cell(self, context: Context, column: str) -> str:
         col_attrs = context.get('col_attrs', {})
@@ -39,10 +40,12 @@ class TableRowComponent(Component):
         row_data = get_row_data(self)
         table_data = get_table_data(self)
         col_attrs = kwargs.pop('col', {})
+        last_row_attrs = kwargs.pop('last', {})
 
         return {
             'row': row_data,
             'columns': table_data['columns'],
             'attrs': attributes_to_string(kwargs),
+            'last': attributes_to_string(last_row_attrs),
             'col_attrs': col_attrs,
         }
