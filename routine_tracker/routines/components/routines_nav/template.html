@@ -1,11 +1,11 @@
 <ul
-    class="nav nav-tabs card-header-tabs overflow-y-hidden flex-nowrap"
+    class="nav nav-tabs card-header-tabs overflow-y-hidden flex-nowrap gap-1"
     x-data="routinesNavigationComponent({{component_settings}})"
     @delete-routine.window="deleteRoutine($event.detail)"
 >
     <li class="nav-item">
         <a
-            class="nav-link"
+            class="nav-link h-100 d-flex align-items-center"
             x-bind="linkAttributes({pk:'create'})"
             hx-get="{% url 'routines:routine-create' pk=group.id %}"
         >
@@ -14,7 +14,7 @@
     </li>
     {% for routine in routines %}
         <li class="nav-item">
-            <a class="nav-link" x-bind="linkAttributes({{ routine.attrs }})">
+            <a class="nav-link text-center h-100" x-bind="linkAttributes({{ routine.attrs }})">
                 {% if routine.obj.icon %}
                     <i class="bi {{ routine.obj.icon }}"></i>
                 {% endif %}

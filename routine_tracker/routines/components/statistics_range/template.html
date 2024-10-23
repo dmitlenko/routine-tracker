@@ -1,0 +1,19 @@
+{% load i18n %}
+
+<div class="{{class}}">
+    <div class="input-group input-group-sm w-100" x-data="dateRangeComponent({{ component_settings }})">
+        <input type="date"
+            class="form-control"
+            value="{{ start|date:'Y-m-d' }}"
+            x-ref="from"
+            aria-label="{% trans "from" %}"
+            x-bind="bind()">
+        <span class="input-group-text">{% trans "to" %}</span>
+        <input type="date"
+            class="form-control"
+            value="{{ end|date:'Y-m-d' }}"
+            x-ref="to"
+            aria-label="{% trans "to" %}"
+            x-bind="bind()">
+    </div>
+</div>

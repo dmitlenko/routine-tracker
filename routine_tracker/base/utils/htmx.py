@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 
 
-def forced_htmx_redirect(response: HttpResponse, url: str, code: int = 200, soft: bool = False) -> HttpResponse:
+def htmx_redirect(response: HttpResponse, url: str, code: int = 200, soft: bool = False) -> HttpResponse:
     """Forces an htmx redirect by setting the status code to 200 and adding the htmx redirect header.
 
     Args:

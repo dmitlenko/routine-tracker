@@ -8,7 +8,7 @@ from django.urls import reverse, reverse_lazy
 from django.utils.translation import gettext as _
 from django.views.generic import CreateView, DeleteView, DetailView, ListView, UpdateView
 
-from routine_tracker.base.utils.htmx import custom_swap, forced_htmx_redirect
+from routine_tracker.base.utils.htmx import custom_swap, htmx_redirect
 from routine_tracker.base.utils.modal import close_modal
 from routine_tracker.core.mixins import ModalDeleteMixin, ModalFormMixin
 from routine_tracker.routines.components.routine_group.routine_group import RoutineGroupComponent
@@ -141,7 +141,7 @@ class RoutineGroupDeleteView(LoginRequiredMixin, ModalDeleteMixin, DeleteView):
         messages.success(request, _("Routine group deleted successfully"))
 
         if request.headers.get('HX-Origin') == 'detail':
-            response = forced_htmx_redirect(
+            response = htmx_redirect(
                 response,
                 reverse('routines:group-list'),
             )

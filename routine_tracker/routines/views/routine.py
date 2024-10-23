@@ -7,11 +7,13 @@ from django.http import HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404
 from django.urls import reverse, reverse_lazy
 from django.utils.translation import gettext as _
-from django.views.generic import CreateView, DeleteView, DetailView, UpdateView
+from django.views.generic import CreateView, DeleteView, DetailView, UpdateView, View
 
 from routine_tracker.base.utils.htmx import custom_swap
 from routine_tracker.base.utils.modal import close_modal
 from routine_tracker.core.mixins import ModalDeleteMixin, ModalFormMixin
+from routine_tracker.core.utils.date import get_daterange
+from routine_tracker.routines.components.routine_chart.routine_chart import RoutineChartComponent
 from routine_tracker.routines.components.routine_detail.routine_detail import RoutineDetailComponent
 from routine_tracker.routines.components.routines.routines import RoutinesComponent
 
@@ -60,6 +62,7 @@ class RoutineCreateView(LoginRequiredMixin, CreateView):
 
         return custom_swap(
             RoutinesComponent.render_to_response(
+                context={'request': self.request},
                 args=(group,),
                 kwargs={
                     'request': self.request,
@@ -96,6 +99,7 @@ class RoutineUpdateView(LoginRequiredMixin, ModalFormMixin, UpdateView):
         return close_modal(
             custom_swap(
                 RoutinesComponent.render_to_response(
+                    context={'request': self.request},
                     args=(self.object.group,),
                     kwargs={
                         'request': self.request,
@@ -131,3 +135,15 @@ class RoutineDeleteView(LoginRequiredMixin, ModalDeleteMixin, DeleteView):
         messages.success(request, _("Routine group deleted successfully"))
 
         return response
+
+
+class RoutineChartView(LoginRequiredMixin, View):
+    def get(self, request: HttpRequest, pk: int) -> HttpResponse:
+        routine = get_object_or_404(Routine, pk=pk, group__user=request.user)
+
+        return RoutineChartComponent.render_to_response(
+            kwargs={
+                'routine': routine,
+                'daterange': get_daterange(request),
+            }
+        )

@@ -34,7 +34,7 @@ class UserProfileModelTest(TestCase):
         # Profile should be created with default values
         self.assertEqual(UserProfile.objects.count(), 1)
         self.assertEqual(self.profile.preferred_language, UserProfile.Language.ENGLISH)
-        self.assertEqual(self.profile.time_zone, 'UTC')
+        self.assertEqual(self.profile.time_zone, ('UTC', 'UTC'))
         self.assertEqual(self.profile.profile_completeness, 0)
 
     def test_profile_one_to_one_constraint(self):
