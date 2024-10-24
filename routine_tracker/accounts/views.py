@@ -1,5 +1,6 @@
 from typing import Any
 
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import get_user_model, login
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -65,9 +66,24 @@ class UserProfileFormView(LoginRequiredMixin, FormView):
         return self.request.path
 
     def form_valid(self, form: UserProfileForm) -> HttpResponse:
-        form.save()
+        instance = form.save()
+        response = super().form_valid(form)
+
+        if isinstance(instance, UserProfile):
+            # code snippet straight from django.views.i18n.set_language
+            response.set_cookie(
+                settings.LANGUAGE_COOKIE_NAME,
+                instance.preferred_language,
+                max_age=settings.LANGUAGE_COOKIE_AGE,
+                path=settings.LANGUAGE_COOKIE_PATH,
+                domain=settings.LANGUAGE_COOKIE_DOMAIN,
+                secure=settings.LANGUAGE_COOKIE_SECURE,
+                httponly=settings.LANGUAGE_COOKIE_HTTPONLY,
+                samesite=settings.LANGUAGE_COOKIE_SAMESITE,
+            )
+
         messages.success(self.request, _("Profile updated successfully"))
-        return super().form_valid(form)
+        return response
 
     def form_invalid(self, form):
         messages.error(self.request, _("Profile update failed"))
