@@ -15,7 +15,7 @@
         {% component 'column-header' name='value' sort=True %}
             {% trans "Value" %}
         {% endcomponent %}
-        {% component 'column-header' name='notes' %}
+        {% component 'column-header' name='notes' class="d-none d-md-table-cell" %}
             {% trans "Notes" %}
         {% endcomponent %}
         {% component 'column-header' name='actions' / %}
@@ -24,7 +24,9 @@
         {% component 'table-row'
             col:date:class="px-3"
             col:actions:class="pe-3 text-end"
+            col:notes:class="d-none d-md-table-cell"
             data-entry-id=row.object.pk
+            last=last
         %}
             {% fill 'date' %}
                 {{ row.object.date|date:"d.m.Y" }}

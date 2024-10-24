@@ -1,0 +1,16 @@
+{% load i18n %}
+
+<div class="row row-cols-1 row-cols-md-4 g-3">
+    <div class="col">
+        {% component 'stat-card' value=total_routines description="{% trans 'Total routines' %}" icon="backpack" / %}
+    </div>
+    <div class="col">
+        {% component 'stat-card' value=total_entries description="{% trans 'Total entries' %}" icon="award" color="warning" / %}
+    </div>
+    <div class="col">
+        {% component 'stat-card' value=most_entries description="{% trans 'Most entries' %}" icon="bar-chart" color="success" / %}
+    </div>
+    <div class="col">
+        {% component 'stat-card' value=average_value description="{% trans 'Average value' %}" icon="graph-up" color="danger" / %}
+    </div>
+</div>

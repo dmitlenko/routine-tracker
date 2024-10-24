@@ -1,0 +1,10 @@
+{% load chart %}
+{% load i18n %}
+
+{% if chart %}
+    {% render_chart chart id="routine-statistics-chart" class="w-100" %}
+{% else %}
+    <div class="alert alert-info" id="routine-statistics-chart">
+        {% trans "No entries found in selected range." %}
+    </div>
+{% endif %}

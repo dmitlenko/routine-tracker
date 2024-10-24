@@ -126,6 +126,19 @@ class EntryDeleteView(LoginRequiredMixin, ModalDeleteMixin, DeleteView):
         return response
 
 
+
+class EntryTableView(LoginRequiredMixin, View):
+    def get(self, request: HttpRequest, pk: int) -> HttpResponse:
+        routine = get_object_or_404(Routine, pk=pk, group__user=request.user)
+
+        return EntryTableComponent.render_to_response(
+            kwargs={
+                'entries': routine.entries.all(),
+                'page': request.GET.get('page', 1),
+            }
+        )
+
+
 class EntryExportView(LoginRequiredMixin, View):
     export_formats = ['csv', 'json']
     field_names = ['date', 'value', 'notes']
@@ -162,3 +175,4 @@ class EntryExportView(LoginRequiredMixin, View):
             self.get_json(response, entries)
 
         return response
+
