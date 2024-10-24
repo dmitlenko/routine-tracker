@@ -4,7 +4,7 @@ from django_components import Component, register
 
 from routine_tracker.core.utils.date import daterange, get_daterange
 from routine_tracker.routines.models import Routine
-from routine_tracker.routines.utils import routine_statistics_chart
+from routine_tracker.routines.utils.statistics import routine_statistics_chart
 
 
 @register("routine-chart")

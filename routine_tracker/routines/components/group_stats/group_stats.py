@@ -1,7 +1,7 @@
 from django_components import Component, register
 
 from routine_tracker.routines.models import RoutineGroup
-from routine_tracker.routines.utils import routine_group_statistics
+from routine_tracker.routines.utils.statistics import routine_group_statistics
 
 
 @register("group-stats")
