@@ -1,6 +1,7 @@
 from typing import List, TypedDict, Union
 
 from django.db import models
+from django.http import HttpResponse
 from django.utils.translation import gettext as _
 
 from routine_tracker.core.utils.chart import ChartOptions, chart
@@ -92,3 +93,9 @@ def routine_group_statistics(group: RoutineGroup) -> RoutineGroupStatistics:
         'most_entries': most_entries,
         'average_value': round(average_value, 2) if average_value else 0,
     }
+
+
+def file_response(file_name: str, content_type: str) -> HttpResponse:
+    response = HttpResponse(content_type=content_type)
+    response['Content-Disposition'] = f'attachment;filename={file_name}'
+    return response

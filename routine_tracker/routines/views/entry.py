@@ -1,4 +1,6 @@
-from typing import Any
+import csv
+import json
+from typing import Any, List
 
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -14,6 +16,7 @@ from routine_tracker.base.utils.htmx import custom_swap
 from routine_tracker.base.utils.modal import close_modal
 from routine_tracker.core.mixins import ModalDeleteMixin, ModalFormMixin
 from routine_tracker.routines.components.entry_table.entry_table import EntryTableComponent
+from routine_tracker.routines.utils import file_response
 
 from ..forms import RoutineEntryForm, RoutineForm
 from ..models import Routine, RoutineEntry
@@ -133,3 +136,41 @@ class EntryTableView(LoginRequiredMixin, View):
                 'page': request.GET.get('page', 1),
             }
         )
+
+
+class EntryExportView(LoginRequiredMixin, View):
+    export_formats = ['csv', 'json']
+    field_names = ['date', 'value', 'notes']
+
+    def get_export_format(self, request: HttpRequest) -> str:
+        export_format = request.GET.get('format', 'csv')
+        if export_format not in self.export_formats:
+            export_format = 'csv'
+
+        return export_format
+
+    def get_csv(self, response: HttpResponse, entries: List[RoutineEntry]) -> None:
+        writer = csv.writer(response)
+        writer.writerow(self.field_names)
+
+        for obj in entries:
+            writer.writerow([getattr(obj, field) for field in self.field_names])
+
+    def get_json(self, response: HttpResponse, entries: List[RoutineEntry]) -> None:
+        data = [{field: str(getattr(obj, field)) for field in self.field_names} for obj in entries]
+
+        json.dump(data, response)
+
+    def get(self, request: HttpRequest, pk: int) -> HttpResponse:
+        routine = get_object_or_404(Routine, pk=pk, group__user=request.user)
+        entries = routine.entries.all()
+        export_format = self.get_export_format(request)
+
+        response = file_response(f'{routine.name}.{export_format}', f'text/{export_format}')
+
+        if export_format == 'csv':
+            self.get_csv(response, entries)
+        elif export_format == 'json':
+            self.get_json(response, entries)
+
+        return response

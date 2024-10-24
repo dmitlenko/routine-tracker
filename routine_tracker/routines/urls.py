@@ -4,6 +4,7 @@ from routine_tracker.routines.views.entry import EntryDeleteView, EntryUpdateVie
 
 from .views import (
     EntryCreateView,
+    EntryExportView,
     EntryTableView,
     RoutineChartView,
     RoutineCreateView,
@@ -35,6 +36,7 @@ htmx_patterns = [
     path("routine/<int:pk>/edit", RoutineUpdateView.as_view(), name="routine-edit-modal"),
     path("routine/<int:pk>/delete", RoutineDeleteView.as_view(), name="routine-delete"),
     path("routine/<int:pk>/entires", EntryTableView.as_view(), name="entry-table"),
+    path("routine/<int:pk>/export", EntryExportView.as_view(), name="entry-export"),
     # Entries
     path("routine/<int:pk>/entry/create", EntryCreateView.as_view(), name="entry-create"),
     path("entry/<int:pk>/edit", EntryUpdateView.as_view(), name="entry-edit-modal"),
