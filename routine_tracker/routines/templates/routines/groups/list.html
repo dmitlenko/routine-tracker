@@ -4,7 +4,7 @@
 {% load i18n %}
 
 {% block content %}
-    <div class="my-3 d-flex justify-content-between align-items-center">
+    <div class="my-3 d-flex justify-content-between align-items-center mt-5">
         <h2 class="mb-0">{% trans "Your routine groups" %}</h2>
         <a
             {% hxmodal 'routines:group-create' %}
@@ -13,7 +13,7 @@
             {% trans "Create new" %}
         </a>
     </div>
-    <div id="routine-group-list">
+    <div id="routine-group-list" class="d-flex flex-column gap-3">
         {% for group in groups %}
             {% component "routine_group_item" routine_group=group fade="false" / %}
         {% endfor %}
