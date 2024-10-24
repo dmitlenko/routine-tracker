@@ -31,6 +31,7 @@ MIDDLEWARE = [
     'django.middleware.locale.LocaleMiddleware',
     'django_htmx.middleware.HtmxMiddleware',
     'routine_tracker.base.middleware.message_middleware',
+    'routine_tracker.base.middleware.query_params_middleware',
 ]
 
 WSGI_APPLICATION = 'routine_tracker.project.wsgi.application'
