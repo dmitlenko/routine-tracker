@@ -16,7 +16,7 @@ from routine_tracker.base.utils.htmx import custom_swap
 from routine_tracker.base.utils.modal import close_modal
 from routine_tracker.core.mixins import ModalDeleteMixin, ModalFormMixin
 from routine_tracker.routines.components.entry_table.entry_table import EntryTableComponent
-from routine_tracker.routines.utils import file_response
+from routine_tracker.routines.utils.export import file_response
 
 from ..forms import RoutineEntryForm, RoutineForm
 from ..models import Routine, RoutineEntry
@@ -126,7 +126,6 @@ class EntryDeleteView(LoginRequiredMixin, ModalDeleteMixin, DeleteView):
         return response
 
 
-
 class EntryTableView(LoginRequiredMixin, View):
     def get(self, request: HttpRequest, pk: int) -> HttpResponse:
         routine = get_object_or_404(Routine, pk=pk, group__user=request.user)
@@ -175,4 +174,3 @@ class EntryExportView(LoginRequiredMixin, View):
             self.get_json(response, entries)
 
         return response
-
