@@ -6,6 +6,7 @@ from .views import (
     EntryCreateView,
     EntryTableView,
     RoutineChartView,
+    EntryExportView,
     RoutineCreateView,
     RoutineDeleteView,
     RoutineDetailView,
@@ -35,6 +36,7 @@ htmx_patterns = [
     path("routine/<int:pk>/edit", RoutineUpdateView.as_view(), name="routine-edit-modal"),
     path("routine/<int:pk>/delete", RoutineDeleteView.as_view(), name="routine-delete"),
     path("routine/<int:pk>/entires", EntryTableView.as_view(), name="entry-table"),
+    path("routine/<int:pk>/export", EntryExportView.as_view(), name="entry-export"),
     # Entries
     path("routine/<int:pk>/entry/create", EntryCreateView.as_view(), name="entry-create"),
     path("entry/<int:pk>/edit", EntryUpdateView.as_view(), name="entry-edit-modal"),
