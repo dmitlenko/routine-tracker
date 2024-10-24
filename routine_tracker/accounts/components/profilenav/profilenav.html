@@ -1,12 +1,13 @@
-<ul class="nav nav-tabs mb-3">
+<ul class="nav nav-tabs card-header-tabs d-flex gap-1">
     {% for link in navlinks %}
-        <li>
+        <li class="nav-item">
             <a
                 {% if not link.url == "#" %}hx-get="{{ link.url }}"{% endif %}
                 href="#"
                 class="nav-link {{ link.active }}"
                 hx-headers='{"HX-Navigation": "true"}'
                 hx-push-url="true"
+                hx-swap="outerHTML"
                 {{ attrs }}>
                 {{ link.text }}
             </a>
