@@ -13,7 +13,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div
-            class="collapse navbar-collapse {% if not is_authenticated %}d-flex flex-row-reverse{% endif %}"
+            class="collapse navbar-collapse"
             id="navbarMenu"
         >
             {% if is_authenticated %}
@@ -26,9 +26,15 @@
                 </ul>
                 {% component 'userdropdown' / %}
             {% else %}
-                <ul class="navbar-nav mb-2 mb-lg-0 ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'accounts:login' %}">Log in</a>
+                <ul class="navbar-nav mb-0 mb-lg-0 ms-auto">
+                    <li class="nav-item d-flex gap-2 justify-content-end">
+                        <a href="https://github.com/dmitlenko/routine-tracker" class="nav-link text-light" target="_blank">
+                            <i class="bi bi-git"></i>
+                        </a>
+                        <a href="https://github.com/dmitlenko/routine-tracker/issues" class="nav-link text-light" target="_blank">
+                            <i class="bi bi-bug"></i>
+                        </a>
+                        <a class="btn btn-outline-light ms-2" href="{% url 'accounts:login' %}">Log in</a>
                     </li>
                 </ul>
             {% endif %}

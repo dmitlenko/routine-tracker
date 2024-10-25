@@ -1,5 +1,39 @@
-{% extends "layouts/default.html" %}
+{% extends "layouts/empty.html" %}
+
+{% load i18n %}
+{% load static %}
 
 {% block content %}
-<h1>Welcome to RoutineTracker</h1>
+    {% component 'navbar' / %}
+
+    <div class="container-lg mt-5">
+        <div class="row">
+            <div class="col-md-8">
+                <h1 class="display-1">
+                    {% blocktrans %}
+                        Welcome to <b>RoutineTracker!</b>
+                    {% endblocktrans %}
+                </h1>
+                <p class="lead">
+                    {% blocktrans %}
+                        This is an app that helps you track your daily routines.
+                        Create a routine, add tasks to it, and track your progress.
+                        Stay motivated and achieve your goals!
+                    {% endblocktrans %}
+                </p>
+                <div class="d-flex gap-3 align-items-center">
+                    <a href="{% url "accounts:register" %}" class="btn btn-primary btn-lg">
+                        {% trans "Get started" %}
+                    </a>
+                    <a href="{% url "accounts:login" %}" class="btn btn-link">
+                        {% trans "Already have an account" %}
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-4 d-none d-md-block">
+                <img class="img-fluid p-5" src="{% static "img/target.png" %}" alt="target">
+            </div>
+        </div>
+    </div>
+
 {% endblock %}
