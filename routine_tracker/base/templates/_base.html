@@ -10,6 +10,7 @@
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎯</text></svg>">
     {% component_css_dependencies %}
     <script src="{% static 'js/htmx.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}" defer></script>
     <script src="https://unpkg.com/htmx.org@1.9.12/dist/ext/alpine-morph.js"></script>
     <script src="{% static 'js/common.js' %}"></script>
     <script src="{% static 'js/toast.js' %}" defer></script>
@@ -26,7 +27,6 @@
         {% block layout %}{% endblock %}
     {% endprovide %}
     {% django_htmx_script %}
-    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
     {% component_js_dependencies %}
     {% include "includes/modal.html" %}
 </body>

@@ -1,0 +1,104 @@
+{% load i18n %}
+{% load chart %}
+
+{% if new_user %}
+
+<div class="alert alert-info">
+    {% trans "To see dashboard create the routine group first." %}
+    <a href=""></a>
+</div>
+
+
+{% else %}
+<div class="row gap-3 gap-sm-0 pb-4">
+    <div class="col-sm-4">
+        <div class="d-flex flex-column gap-3 gap-sm-4">
+            {% component 'stat-card' value=streak
+                description="{% trans 'Streak' %}"
+                icon='lightning' color='warning'
+                horizontal=True class="shadow-sm" / %}
+            {% if show_entries_chart %}
+                <div class="card shadow-sm">
+                    <h5 class="card-header">{% trans "Group entries" %}</h5>
+                    <div class="card-body p-0 pb-3">
+                        {% render_chart entries_chart id="entries-chart" %}
+                    </div>
+                </div>
+            {% endif %}
+            <div class="card shadow-sm">
+                <h5 class="card-header">{% trans "Routine groups" %}</h5>
+                <div class="card-body p-0">
+                    <ul class="list-group list-group-flush rounded">
+                        {% for group in groups %}
+                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                            <div class="me-auto">
+                                <div class="fw-bold">
+                                    <a href="{% url 'routines:group-detail' pk=group.pk %}" hx-boost="true">{{ group.name }}</a>
+                                </div>
+                                {{ group.description }}
+                            </div>
+                            <span class="badge text-bg-primary rounded-pill">{{ group.routines.count }}</span>
+                        </li>
+                        {% endfor %}
+                        {% if total_groups > 3 %}
+                        <li class="list-group-item d-flex justify-content-center align-items-start">
+                            <a href="{% url "routines:group-list" %}" hx-boost="true">{% trans "Show more..." %}</a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-8 d-flex flex-column gap-3 gap-sm-4">
+        <div class="card shadow-sm">
+            {% if latest_routine %}
+                <h5 class="card-header d-flex justify-content-between align-items-center">
+                    {{ latest_routine.name }}
+                    <a href="{% url 'routines:group-detail' pk=latest_routine.group.pk %}?routine={{ latest_routine.pk }}"
+                        hx-boost="true" class="fs-6">
+                        {% trans "Details" %}
+                    </a>
+                </h5>
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="text-truncate">{{ latest_routine.description }}</span>
+                        <span class="badge bg-primary rounded-pill">{{ latest_routine.type }}</span>
+                    </div>
+                </div>
+                <div class="card-body border-top">
+                    {% render_chart lr_chart id="latest-routine-chart" class="w-100" %}
+                </div>
+            {% else %}
+                <div class="card-body">
+                    {% trans "No routines found" %}
+                </div>
+            {% endif %}
+        </div>
+        {% if top_routines %}
+        <div class="card shadow-sm">
+            <h5 class="card-header">
+                {% trans "Top routines" %}
+            </h5>
+            <div class="card-body p-0">
+                <ul class="list-group list-group-flush rounded">
+                    {% for routine in top_routines %}
+                    <li class="list-group-item">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="text-truncate">
+                                <a href="{% url 'routines:group-detail' pk=routine.group.pk %}?routine={{ routine.pk }}">{{ routine.name }}</a>
+                            </span>
+                            <span class="badge bg-primary rounded-pill">
+                                {{ routine.entries.count }}
+                                {% trans "entries" %}
+                            </span>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endif %}

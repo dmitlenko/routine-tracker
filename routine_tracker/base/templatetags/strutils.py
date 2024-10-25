@@ -10,6 +10,11 @@ def onlyif[T: str](value: T, arg: Any) -> Union[Literal[''], T]:
     return value if bool(arg) else ''
 
 
+@register.filter
+def ifnot[T: str](value: T, arg: Any) -> Union[Literal[''], T]:
+    return '' if bool(arg) else value
+
+
 @register.tag(name='trim')
 def do_trim(parser, token):
     nodelist = parser.parse(('endtrim',))

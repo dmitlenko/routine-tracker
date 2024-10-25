@@ -6,7 +6,7 @@ from django_components import Component, register
 from routine_tracker.base.utils.nav import lks
 
 links = lks(
-    ('base:index', 'Home'),
+    ('base:index', 'Dashboard'),
     ('routines:group-list', 'Routines'),
 )
 
