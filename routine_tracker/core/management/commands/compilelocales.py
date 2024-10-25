@@ -8,7 +8,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         # Compile locale files for the project
-        locales = [item[0] for item in settings.LANGUAGES]
+        locales = [item[0] for item in settings.LANGUAGES if item[0] != settings.LANGUAGE_CODE]
 
         # Call the makemessages command for each locale
         call_command(
