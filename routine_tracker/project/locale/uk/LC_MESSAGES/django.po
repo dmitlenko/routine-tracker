@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-25 14:59+0000\n"
+"POT-Creation-Date: 2024-10-25 15:16+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -32,6 +32,20 @@ msgstr "Дозволи"
 #: routine_tracker/accounts/admin.py:27
 msgid "Important dates"
 msgstr "Важливі дати"
+
+#: routine_tracker/accounts/components/profilenav/profilenav.py:17
+#, fuzzy
+#| msgid "User profile"
+msgid "Profile"
+msgstr "Профіль користувача"
+
+#: routine_tracker/accounts/components/profilenav/profilenav.py:18
+msgid "Settings"
+msgstr "Налаштування"
+
+#: routine_tracker/accounts/components/userdropdown/userdropdown.html:15
+msgid "Log out"
+msgstr "Вийти"
 
 #: routine_tracker/accounts/models.py:10
 msgid "The Email field must be set"
@@ -186,9 +200,19 @@ msgstr "Топ рутин"
 msgid "entries"
 msgstr "Записи"
 
+#: routine_tracker/base/components/navbar/navbar.html:33
+msgid "Log in"
+msgstr "Увійти"
+
+#: routine_tracker/base/components/navbar/navbar.py:10
 #: routine_tracker/base/templates/base/dashboard.html:6
 msgid "Dashboard"
 msgstr "Панель керування"
+
+#: routine_tracker/base/components/navbar/navbar.py:11
+#: routine_tracker/routines/models.py:66
+msgid "Routine Groups"
+msgstr "Групи рутин"
 
 #: routine_tracker/core/components/form_controls/template.html:4
 msgid "Cancel"
@@ -317,10 +341,6 @@ msgstr "Значок"
 #: routine_tracker/routines/models.py:65
 msgid "Routine Group"
 msgstr "Група рутин"
-
-#: routine_tracker/routines/models.py:66
-msgid "Routine Groups"
-msgstr "Групи рутин"
 
 #: routine_tracker/routines/models.py:79
 msgid "Check"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-25 14:59+0000\n"
+"POT-Creation-Date: 2024-10-25 15:16+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -28,6 +28,18 @@ msgstr ""
 
 #: routine_tracker/accounts/admin.py:27
 msgid "Important dates"
+msgstr ""
+
+#: routine_tracker/accounts/components/profilenav/profilenav.py:17
+msgid "Profile"
+msgstr ""
+
+#: routine_tracker/accounts/components/profilenav/profilenav.py:18
+msgid "Settings"
+msgstr ""
+
+#: routine_tracker/accounts/components/userdropdown/userdropdown.html:15
+msgid "Log out"
 msgstr ""
 
 #: routine_tracker/accounts/models.py:10
@@ -167,8 +179,18 @@ msgstr ""
 msgid "entries"
 msgstr ""
 
+#: routine_tracker/base/components/navbar/navbar.html:33
+msgid "Log in"
+msgstr ""
+
+#: routine_tracker/base/components/navbar/navbar.py:10
 #: routine_tracker/base/templates/base/dashboard.html:6
 msgid "Dashboard"
+msgstr ""
+
+#: routine_tracker/base/components/navbar/navbar.py:11
+#: routine_tracker/routines/models.py:66
+msgid "Routine Groups"
 msgstr ""
 
 #: routine_tracker/core/components/form_controls/template.html:4
@@ -295,10 +317,6 @@ msgstr ""
 
 #: routine_tracker/routines/models.py:65
 msgid "Routine Group"
-msgstr ""
-
-#: routine_tracker/routines/models.py:66
-msgid "Routine Groups"
 msgstr ""
 
 #: routine_tracker/routines/models.py:79

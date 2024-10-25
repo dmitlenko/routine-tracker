@@ -1,13 +1,14 @@
 from typing import Any
 
 from django.http import HttpRequest
+from django.utils.translation import gettext_lazy as _
 from django_components import Component, register
 
 from routine_tracker.base.utils.nav import lks
 
 links = lks(
-    ('base:index', 'Dashboard'),
-    ('routines:group-list', 'Routines'),
+    ('base:index', _('Dashboard')),
+    ('routines:group-list', _('Routine Groups')),
 )
 
 
