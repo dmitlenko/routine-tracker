@@ -109,6 +109,9 @@ class UserEditView(UserProfileFormView):
 class UserSettingsView(UserProfileFormView):
     model = UserProfile
     form_class = UserProfileForm
+    extra_context = {
+        'is_settings': True,
+    }
 
     def get_form_instance(self) -> Any:
         return UserProfile.objects.get_or_create(user=self.request.user)[0]

@@ -2,6 +2,7 @@
 
 {% load widget_tweaks %}
 {% load i18n %}
+{% load webpush_notifications %}
 
 {% block content %}
     <h2 class="mt-5">{% trans "Your profile" %}</h2>
@@ -11,12 +12,19 @@
         </div>
         <div class="card-body">
             {% component 'form' form horizontal="true" hx-post='{{ request.path }}' hx-select='#userForm' hx-swap='outerHTML' id='userForm' %}
-                {% component 'form-controls' wrap=True class="d-flex w-100 justify-content-end gap-1" %}
-                    {% fill "submit-class" %}btn-success{% endfill %}
-                    {% fill "submit" %}
-                        {% trans "Save changes" %}
-                    {% endfill %}
-                {% endcomponent %}
+                {% fill 'fields' %}
+                    {% if is_settings %}
+                        {% webpush_button with_class="btn btn-outline-secondary" %}
+                    {% endif %}
+                {% endfill %}
+                {% fill 'form-controls' %}
+                    {% component 'form-controls' wrap=True class="d-flex w-100 justify-content-end gap-1" %}
+                        {% fill "submit-class" %}btn-success{% endfill %}
+                        {% fill "submit" %}
+                            {% trans "Save changes" %}
+                        {% endfill %}
+                    {% endcomponent %}
+                {% endfill %}
             {% endcomponent %}
         </div>
     </div>

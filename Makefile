@@ -77,3 +77,9 @@ compile-translations: translations
 .PHONY: translations
 translations:
 	$(MANAGE) makelocales
+
+
+# celery
+.PHONY: celery
+celery:
+	celery -A routine_tracker.project worker --beat --scheduler django --loglevel=info
