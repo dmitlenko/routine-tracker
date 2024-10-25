@@ -1,14 +1,29 @@
-{% extends layout %}
+{% extends '_base.html' %}
 
 {% load widget_tweaks %}
+{% load i18n %}
 
-{% block content %}
-    <div class="card my-3 w-50 mx-auto">
-        <div class="card-body">
-            <h1>{{ title }}</h1>
-            {% component 'form' form call_submit=True %}
-                <button type="submit" class="btn btn-primary">{{ submit }}</button>
-            {% endcomponent %}
+{% block layout %}
+<div class="d-flex align-items-center justify-content-center bg-dark p-3" style="min-height: 100dvh;">
+    <div class="col col-sm-4">
+        <h1 class="display-4 text-light">{% trans "RoutineTracker" %}</h1>
+        <div class="card">
+            <div class="card-body" id="authentication_form">
+                <h1>{{ title }}</h1>
+                {% component 'form' form call_submit=True  %}
+                    <div class="d-flex justify-content-between">
+                        <button type="submit" class="btn btn-primary">{{ submit }}</button>
+                        <a href="#"
+                           hx-get="{{ link.url }}"
+                           hx-select="#authentication_form"
+                           hx-target="#authentication_form"
+                           hx-swap="outerHTML"
+                           hx-push-url="true"
+                           class="btn btn-link">{{ link.text }}</a>
+                    </div>
+                {% endcomponent %}
+            </div>
         </div>
     </div>
-{% endblock content %}
+</div>
+{% endblock layout %}
