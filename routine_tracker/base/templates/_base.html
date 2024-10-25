@@ -1,5 +1,6 @@
 {% load static %}
 {% load django_htmx %}
+{% load webpush_notifications %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -19,6 +20,7 @@
     <script src="{% static 'js/chart.js' %}"></script>
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    {% webpush_header %}
 </head>
 <body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"{% block headers %}{% endblock headers %}}' data-bs-theme="{{ request.user.profile.dark_mode|yesno:'dark,light'}}">
     {% include "base/messages.html" %}
