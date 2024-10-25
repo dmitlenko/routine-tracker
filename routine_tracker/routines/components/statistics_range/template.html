@@ -5,6 +5,7 @@
         <input type="date"
             class="form-control"
             value="{{ start|date:'Y-m-d' }}"
+            max="{{ end|date:'Y-m-d' }}"
             x-ref="from"
             aria-label="{% trans "from" %}"
             x-bind="bind()">
@@ -12,6 +13,7 @@
         <input type="date"
             class="form-control"
             value="{{ end|date:'Y-m-d' }}"
+            min="{{ start|date:'Y-m-d' }}"
             x-ref="to"
             aria-label="{% trans "to" %}"
             x-bind="bind()">

@@ -8,13 +8,14 @@
             class="nav-link h-100 d-flex align-items-center"
             x-bind="linkAttributes({pk:'create'})"
             hx-get="{% url 'routines:routine-create' pk=group.id %}"
+            hx-headers='{"HX-Navigation": "true"}'
         >
             <i class="bi bi-plus-lg"></i>
         </a>
     </li>
     {% for routine in routines %}
         <li class="nav-item">
-            <a class="nav-link text-center h-100" x-bind="linkAttributes({{ routine.attrs }})">
+            <a class="nav-link text-center h-100" x-bind="linkAttributes({{ routine.attrs }})" hx-headers='{"HX-Navigation": "true"}'>
                 {% if routine.obj.icon %}
                     <i class="bi {{ routine.obj.icon }}"></i>
                 {% endif %}

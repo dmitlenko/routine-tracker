@@ -59,7 +59,7 @@ def routine_statistics_chart(routine: Routine, range: daterange) -> Union[ChartO
         }
     )
 
-    if routine.has_goal:
+    if routine.has_goal and routine.goal:
         chrt['options']['scales']['y']['max'] = max(routine.goal, max_value) + padding
         chrt['data']['datasets'].append(
             {

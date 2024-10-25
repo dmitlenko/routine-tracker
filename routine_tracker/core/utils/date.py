@@ -1,5 +1,6 @@
 from datetime import datetime, timedelta
 from typing import Any, Optional, Union
+from urllib.parse import parse_qs
 
 from django.http import HttpRequest
 from django.utils.timezone import make_aware
@@ -35,7 +36,12 @@ class daterange:
         return self.start <= item <= self.end
 
     def __len__(self) -> int:
-        return (self.end - self.start).days + 1
+        difference = (self.end - self.start).days + 1
+
+        if difference < 0:
+            return 0
+
+        return difference
 
 
 def get_default_daterange() -> daterange:
@@ -43,8 +49,16 @@ def get_default_daterange() -> daterange:
 
 
 def get_daterange(request: HttpRequest) -> daterange:
-    start = request.GET.get('from')
-    end = request.GET.get('to')
+    if request.htmx:
+        if request.headers.get('HX-Navigation') == 'true':
+            return get_default_daterange()
+
+        query_params = parse_qs(request.headers.get('HX-Current-Url', '').split('?')[-1])
+        start = query_params.get('from', [None])[0]
+        end = query_params.get('to', [None])[0]
+    else:
+        start = request.GET.get('from')
+        end = request.GET.get('to')
 
     if not start:
         return get_default_daterange()

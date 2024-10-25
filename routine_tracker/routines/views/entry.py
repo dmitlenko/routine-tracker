@@ -16,6 +16,7 @@ from routine_tracker.base.utils.htmx import custom_swap
 from routine_tracker.base.utils.modal import close_modal
 from routine_tracker.core.mixins import ModalDeleteMixin, ModalFormMixin
 from routine_tracker.routines.components.entry_table.entry_table import EntryTableComponent
+from routine_tracker.routines.utils.chart import update_chart
 from routine_tracker.routines.utils.export import file_response
 
 from ..forms import RoutineEntryForm, RoutineForm
@@ -48,16 +49,18 @@ class EntryCreateView(LoginRequiredMixin, ModalFormMixin, CreateView):
         form.instance.routine = routine
         entry = form.save()
         messages.success(self.request, _("Entry created successfully"))
-        return close_modal(
-            custom_swap(
-                EntryTableComponent.render_to_response(
-                    kwargs={
-                        'entries': [entry],
-                    }
-                ),
-                'afterbegin',
-                '#entry-table tbody',
-                f'[data-entry-id="{entry.pk}"]',
+        return update_chart(
+            close_modal(
+                custom_swap(
+                    EntryTableComponent.render_to_response(
+                        kwargs={
+                            'entries': [entry],
+                        }
+                    ),
+                    'afterbegin',
+                    '#entry-table tbody',
+                    f'[data-entry-id="{entry.pk}"]',
+                )
             )
         )
 
@@ -88,16 +91,18 @@ class EntryUpdateView(LoginRequiredMixin, ModalFormMixin, UpdateView):
         selector = f'[data-entry-id="{entry.pk}"]'
         messages.success(self.request, _("Entry updated successfully"))
 
-        return close_modal(
-            custom_swap(
-                EntryTableComponent.render_to_response(
-                    kwargs={
-                        'entries': [entry],
-                    }
-                ),
-                'outerHTML',
-                selector,
-                selector,
+        return update_chart(
+            close_modal(
+                custom_swap(
+                    EntryTableComponent.render_to_response(
+                        kwargs={
+                            'entries': [entry],
+                        }
+                    ),
+                    'outerHTML',
+                    selector,
+                    selector,
+                )
             )
         )
 
@@ -123,17 +128,22 @@ class EntryDeleteView(LoginRequiredMixin, ModalDeleteMixin, DeleteView):
 
         messages.success(request, _("Routine entry deleted successfully"))
 
-        return response
+        return update_chart(response)
 
 
 class EntryTableView(LoginRequiredMixin, View):
     def get(self, request: HttpRequest, pk: int) -> HttpResponse:
         routine = get_object_or_404(Routine, pk=pk, group__user=request.user)
 
+        try:
+            page = int(request.GET.get('page', [1])[0])
+        except ValueError:
+            page = 1
+
         return EntryTableComponent.render_to_response(
             kwargs={
                 'entries': routine.entries.all(),
-                'page': request.GET.get('page', 1),
+                'page': page,
             }
         )
 

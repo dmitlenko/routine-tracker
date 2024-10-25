@@ -25,3 +25,7 @@
     transform: translateY(0);
   }
 }
+
+body, html {
+  height: 100%;
+}
