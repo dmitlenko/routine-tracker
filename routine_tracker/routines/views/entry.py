@@ -130,10 +130,15 @@ class EntryTableView(LoginRequiredMixin, View):
     def get(self, request: HttpRequest, pk: int) -> HttpResponse:
         routine = get_object_or_404(Routine, pk=pk, group__user=request.user)
 
+        try:
+            page = int(request.GET.get('page', [1])[0])
+        except ValueError:
+            page = 1
+
         return EntryTableComponent.render_to_response(
             kwargs={
                 'entries': routine.entries.all(),
-                'page': request.GET.get('page', 1),
+                'page': page,
             }
         )
 
