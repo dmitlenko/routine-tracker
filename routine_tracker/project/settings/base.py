@@ -19,6 +19,7 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'django_htmx',
     'webpush',
+    'django_celery_beat',
 ]
 
 MIDDLEWARE = [
