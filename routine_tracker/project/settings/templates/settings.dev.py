@@ -30,3 +30,9 @@ LOGGING['formatters']['colored'] = {  # noqa # type: ignore
 LOGGING['loggers']['routine_tracker']['level'] = 'DEBUG'  # noqa # type: ignore
 LOGGING['handlers']['console']['level'] = 'DEBUG'  # noqa # type: ignore
 LOGGING['handlers']['console']['formatter'] = 'colored'  # noqa # type: ignore
+
+WEBPUSH_SETTINGS = {
+    'VAPID_PUBLIC_KEY': 'VAPID_PUBLIC_KEY',
+    'VAPID_PRIVATE_KEY': 'VAPID_PRIVATE_KEY',
+    'VAPID_ADMIN_EMAIL': 'VAPID_ADMIN_EMAIL',
+}

@@ -33,6 +33,7 @@ include(
     'custom.py',
     'logging.py',
     'locale.py',
+    'push.py',
     optional(str(LOCAL_SETTINGS_PATH)),
     'env.py',
 )

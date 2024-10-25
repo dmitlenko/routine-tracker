@@ -23,4 +23,5 @@ urlpatterns = [
     path('', include('routine_tracker.base.urls')),
     path('accounts/', include('routine_tracker.accounts.urls')),
     path('routines/', include('routine_tracker.routines.urls')),
+    path('webpush/', include('webpush.urls')),
 ]

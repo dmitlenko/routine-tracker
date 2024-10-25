@@ -18,6 +18,7 @@ INSTALLED_APPS = [
     'django_components',
     'widget_tweaks',
     'django_htmx',
+    'webpush',
 ]
 
 MIDDLEWARE = [
