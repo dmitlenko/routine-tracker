@@ -1,3 +1,5 @@
+{% load i18n %}
+
 <nav class="navbar sticky-top navbar-dark navbar-expand-lg bg-dark">
     <div class="container-lg">
         <a class="navbar-brand mb-0 h1" href="#">RoutineTracker</a>
@@ -34,7 +36,7 @@
                         <a href="https://github.com/dmitlenko/routine-tracker/issues" class="nav-link text-light" target="_blank">
                             <i class="bi bi-bug"></i>
                         </a>
-                        <a class="btn btn-outline-light ms-2" href="{% url 'accounts:login' %}">Log in</a>
+                        <a class="btn btn-outline-light ms-2" href="{% url 'accounts:login' %}">{% trans "Log in" %}</a>
                     </li>
                 </ul>
             {% endif %}

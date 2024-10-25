@@ -4,7 +4,7 @@
 {% load i18n %}
 
 {% block content %}
-    <h2 class="mt-5">Your profile</h2>
+    <h2 class="mt-5">{% trans "Your profile" %}</h2>
     <div class="card shadow-sm" id="profile-container">
         <div class="card-header">
             {% component 'profilenav' hx-select="#profile-container" hx-target="#profile-container" hx-swap="outerHTML:#profile-container" / %}

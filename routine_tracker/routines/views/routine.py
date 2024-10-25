@@ -6,7 +6,8 @@ from django.db.models.query import QuerySet
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404
 from django.urls import reverse, reverse_lazy
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext
+from django.utils.translation import gettext_lazy as _
 from django.views.generic import CreateView, DeleteView, DetailView, UpdateView, View
 
 from routine_tracker.base.utils.htmx import custom_swap
@@ -93,7 +94,9 @@ class RoutineUpdateView(LoginRequiredMixin, ModalFormMixin, UpdateView):
         return super().get_queryset().filter(group__user=self.request.user)
 
     def form_valid(self, form: RoutineForm) -> Any:
-        messages.success(self.request, _("Routine '{routine}' updated successfully").format(routine=self.object.name))
+        messages.success(
+            self.request, gettext("Routine '{routine}' updated successfully").format(routine=self.object.name)
+        )
         form.save()
 
         return close_modal(
@@ -132,7 +135,7 @@ class RoutineDeleteView(LoginRequiredMixin, ModalDeleteMixin, DeleteView):
     def post(self, request: HttpRequest, *args: str, **kwargs: Any) -> HttpResponse:
         response = super().post(request, *args, **kwargs)
 
-        messages.success(request, _("Routine group deleted successfully"))
+        messages.success(request, gettext("Routine group deleted successfully"))
 
         return response
 

@@ -3,7 +3,6 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
@@ -32,6 +31,20 @@ msgstr "Дозволи"
 #: routine_tracker/accounts/admin.py:27
 msgid "Important dates"
 msgstr "Важливі дати"
+
+#: routine_tracker/accounts/components/profilenav/profilenav.py:17
+#: routine_tracker/accounts/components/userdropdown/userdropdown.html:9
+msgid "Profile"
+msgstr "Профіль"
+
+#: routine_tracker/accounts/components/profilenav/profilenav.py:18
+#: routine_tracker/accounts/components/userdropdown/userdropdown.html:10
+msgid "Settings"
+msgstr "Налаштування"
+
+#: routine_tracker/accounts/components/userdropdown/userdropdown.html:15
+msgid "Log out"
+msgstr "Вийти"
 
 #: routine_tracker/accounts/models.py:10
 msgid "The Email field must be set"
@@ -93,10 +106,12 @@ msgid "User profiles"
 msgstr "Профілі користувачів"
 
 #: routine_tracker/accounts/templates/accounts/form.html:9
-#, fuzzy
-#| msgid "Routine"
 msgid "RoutineTracker"
-msgstr "Рутина"
+msgstr "RoutineTracker"
+
+#: routine_tracker/accounts/templates/accounts/profile.html:7
+msgid "Your profile"
+msgstr "Ваш профіль"
 
 #: routine_tracker/accounts/templates/accounts/profile.html:17
 #: routine_tracker/routines/templates/routines/routines/form_modal.html:14
@@ -104,91 +119,31 @@ msgstr "Рутина"
 #: routine_tracker/routines/views/group.py:81
 #: routine_tracker/routines/views/routine.py:85
 msgid "Save changes"
-msgstr ""
+=======
+msgstr "Зберегти зміни"
 
 #: routine_tracker/accounts/views.py:22 routine_tracker/accounts/views.py:23
 #: routine_tracker/accounts/views.py:41
 msgid "Login"
-msgstr ""
+msgstr "Увійти"
 
 #: routine_tracker/accounts/views.py:26 routine_tracker/accounts/views.py:37
 #: routine_tracker/accounts/views.py:38
 msgid "Register"
-msgstr ""
+msgstr "Реєстрація"
 
 #: routine_tracker/accounts/views.py:93
 msgid "Profile updated successfully"
-msgstr ""
+msgstr "Профіль успішно оновлено"
 
 #: routine_tracker/accounts/views.py:97
 msgid "Profile update failed"
-msgstr ""
+msgstr "Профіль не оновлено"
 
 #: routine_tracker/base/components/dashboard/dashboard.py:60
 msgid "No streak"
-msgstr ""
+msgstr "Немає серії"
 
-#: routine_tracker/base/components/dashboard/dashboard.py:62
-#, python-brace-format
-msgid "{days} day"
-msgid_plural "{days} days"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-
-#: routine_tracker/base/components/dashboard/dashboard.py:74
-#: routine_tracker/routines/components/routine_detail/template.html:63
-#, fuzzy
-#| msgid "Routine Entries"
-msgid "Entries"
-msgstr "Записи ретини"
-
-#: routine_tracker/base/components/dashboard/template.html:7
-msgid "To see dashboard create the routine group first."
-msgstr ""
-
-#: routine_tracker/base/components/dashboard/template.html:22
-#, fuzzy
-#| msgid "Routine Entries"
-msgid "Group entries"
-msgstr "Записи ретини"
-
-#: routine_tracker/base/components/dashboard/template.html:29
-#, fuzzy
-#| msgid "Routine Groups"
-msgid "Routine groups"
-msgstr "Групи рутин"
-
-#: routine_tracker/base/components/dashboard/template.html:45
-msgid "Show more..."
-msgstr ""
-
-#: routine_tracker/base/components/dashboard/template.html:60
-msgid "Details"
-msgstr ""
-
-#: routine_tracker/base/components/dashboard/template.html:74
-#, fuzzy
-#| msgid "Routine Group"
-msgid "No routines found"
-msgstr "Група рутин"
-
-#: routine_tracker/base/components/dashboard/template.html:81
-#, fuzzy
-#| msgid "Routines"
-msgid "Top routines"
-msgstr "Рутини"
-
-#: routine_tracker/base/components/dashboard/template.html:93
-#, fuzzy
-#| msgid "Routine Entries"
-msgid "entries"
-msgstr "Записи ретини"
-
-#: routine_tracker/base/templates/base/dashboard.html:6
-msgid "Dashboard"
-msgstr ""
 
 #: routine_tracker/base/templates/base/index.html:13
 msgid ""
@@ -401,13 +356,82 @@ msgstr ""
 "захищені.\n"
 "                "
 
+#: routine_tracker/base/components/dashboard/dashboard.py:62
+#, python-brace-format
+msgid "{days} day"
+msgid_plural "{days} days"
+msgstr[0] "{days} день"
+msgstr[1] "{days} дні"
+msgstr[2] "{days} днів"
+msgstr[3] "{days} днів"
+
+#: routine_tracker/base/components/dashboard/dashboard.py:74
+#: routine_tracker/routines/components/routine_detail/template.html:63
+msgid "Entries"
+msgstr "Записи"
+
+#: routine_tracker/base/components/dashboard/dashboard.py:92
+#, python-brace-format
+msgid "{count} entry"
+msgid_plural "{count} entries"
+msgstr[0] "{count} запис"
+msgstr[1] "{count} записи"
+msgstr[2] "{count} записів"
+msgstr[3] "{count} записів"
+
+#: routine_tracker/base/components/dashboard/template.html:7
+msgid "To see dashboard create the routine group first."
+msgstr "Щоб побачити панель керування, спочатку створіть групу рутин."
+
+#: routine_tracker/base/components/dashboard/template.html:16
+msgid "Streak"
+msgstr "Серія"
+
+#: routine_tracker/base/components/dashboard/template.html:23
+msgid "Group entries"
+msgstr "Записи по групам"
+
+#: routine_tracker/base/components/dashboard/template.html:30
+msgid "Routine groups"
+msgstr "Групи рутин"
+
+#: routine_tracker/base/components/dashboard/template.html:46
+msgid "Show more..."
+msgstr "Показати більше..."
+
+#: routine_tracker/base/components/dashboard/template.html:61
+msgid "Details"
+msgstr "Деталі"
+
+#: routine_tracker/base/components/dashboard/template.html:75
+msgid "No routines found"
+msgstr "Рутин не знайдено"
+
+#: routine_tracker/base/components/dashboard/template.html:82
+msgid "Top routines"
+msgstr "Топ рутин"
+
+#: routine_tracker/base/components/navbar/navbar.html:33
+msgid "Log in"
+msgstr "Увійти"
+
+#: routine_tracker/base/components/navbar/navbar.py:10
+#: routine_tracker/base/templates/base/dashboard.html:6
+msgid "Dashboard"
+msgstr "Панель керування"
+
+#: routine_tracker/base/components/navbar/navbar.py:11
+#: routine_tracker/routines/models.py:66
+msgid "Routine Groups"
+msgstr "Групи рутин"
+
 #: routine_tracker/core/components/form_controls/template.html:4
 msgid "Cancel"
-msgstr ""
+msgstr "Відмінити"
 
 #: routine_tracker/core/components/form_controls/template.html:5
 msgid "Submit"
-msgstr ""
+msgstr "Відпарвити"
 
 #: routine_tracker/core/mixins.py:51
 #: routine_tracker/core/templates/core/confirm_delete.html:21
@@ -416,11 +440,11 @@ msgstr ""
 #: routine_tracker/routines/components/routine_group/template.html:32
 #: routine_tracker/routines/components/routine_group_item/template.html:36
 msgid "Delete"
-msgstr ""
+msgstr "Видалити"
 
 #: routine_tracker/core/mixins.py:53
 msgid "Are you sure you want to delete this item?"
-msgstr ""
+msgstr "Ви впевнені, що хочете видалити цей елемент?"
 
 #: routine_tracker/routines/components/entry_table/template.html:12
 #: routine_tracker/routines/models.py:132
@@ -428,7 +452,7 @@ msgid "Date"
 msgstr "Дата"
 
 #: routine_tracker/routines/components/entry_table/template.html:15
-#: routine_tracker/routines/forms.py:54 routine_tracker/routines/models.py:133
+#: routine_tracker/routines/forms.py:56 routine_tracker/routines/models.py:133
 #: routine_tracker/routines/utils/statistics.py:33
 msgid "Value"
 msgstr "Значення"
@@ -443,37 +467,53 @@ msgstr "Нотатки"
 #: routine_tracker/routines/components/routine_group/template.html:27
 #: routine_tracker/routines/components/routine_group_item/template.html:31
 msgid "Edit"
-msgstr ""
+msgstr "Редагувати"
+
+#: routine_tracker/routines/components/group_stats/template.html:5
+msgid "Total routines"
+msgstr "Кількість рутин"
+
+#: routine_tracker/routines/components/group_stats/template.html:9
+msgid "Total entries"
+msgstr "Кількість записів"
+
+#: routine_tracker/routines/components/group_stats/template.html:13
+msgid "Most entries"
+msgstr "Найбільше записів"
+
+#: routine_tracker/routines/components/group_stats/template.html:17
+msgid "Average value"
+msgstr "Середнє значення"
 
 #: routine_tracker/routines/components/routine_chart/template.html:8
 msgid "No entries found in selected range."
-msgstr ""
+msgstr "Не знайдено записів у вибраному діапазоні."
 
 #: routine_tracker/routines/components/routine_detail/template.html:23
 #: routine_tracker/routines/components/routine_detail/template.html:26
 msgid "Export as"
-msgstr ""
+msgstr "Експортувати як"
 
 #: routine_tracker/routines/components/routine_detail/template.html:46
 msgid "Statistics"
-msgstr ""
+msgstr "Статистика"
 
 #: routine_tracker/routines/components/routine_detail/template.html:50
 msgid "Statistics is not available for this type of routine."
-msgstr ""
+msgstr "Статистика недоступна для рутини цього типу."
 
 #: routine_tracker/routines/components/routine_detail/template.html:66
 msgid "Add entry"
-msgstr ""
+msgstr "Додати запис"
 
 #: routine_tracker/routines/components/routine_group_item/routine_group_item.py:24
 #, python-brace-format
 msgid "Last updated {date} ago"
-msgstr ""
+msgstr "Останнє оновлення {date} тому"
 
 #: routine_tracker/routines/components/routine_group_item/routine_group_item.py:26
 msgid "Never updated"
-msgstr ""
+msgstr "Ніколи не оновлювалося"
 
 #: routine_tracker/routines/components/routines/template.html:4
 #: routine_tracker/routines/models.py:123
@@ -481,43 +521,50 @@ msgid "Routines"
 msgstr "Рутини"
 
 #: routine_tracker/routines/components/routines/template.html:15
-msgid "No routines found. To create new routine click a \\"
-msgstr ""
+msgid "No routines found. To create new routine click a \"+\" button."
+msgstr "Рутин не знайдено. Щоб створити нову рутину, натисніть кнопку \"+\"."
 
 #: routine_tracker/routines/components/statistics_range/template.html:10
 msgid "from"
-msgstr ""
+msgstr "від"
 
 #: routine_tracker/routines/components/statistics_range/template.html:12
 #: routine_tracker/routines/components/statistics_range/template.html:18
 msgid "to"
-msgstr ""
+msgstr "до"
 
-#: routine_tracker/routines/forms.py:13 routine_tracker/routines/forms.py:30
+#: routine_tracker/routines/forms.py:13 routine_tracker/routines/forms.py:31
 msgid "None"
-msgstr ""
+msgstr "Нічого"
 
-#: routine_tracker/routines/forms.py:22 routine_tracker/routines/models.py:18
+#: routine_tracker/routines/forms.py:15 routine_tracker/routines/forms.py:33
+#: routine_tracker/routines/models.py:20 routine_tracker/routines/models.py:97
+msgid "Icon"
+msgstr "Значок"
+
+#: routine_tracker/routines/forms.py:23 routine_tracker/routines/models.py:18
 #: routine_tracker/routines/models.py:95
 msgid "Name"
 msgstr "Назва"
 
-#: routine_tracker/routines/forms.py:23 routine_tracker/routines/forms.py:44
+#: routine_tracker/routines/forms.py:24 routine_tracker/routines/forms.py:46
 #: routine_tracker/routines/models.py:19 routine_tracker/routines/models.py:96
 msgid "Description"
 msgstr "Опис"
 
-#: routine_tracker/routines/forms.py:24 routine_tracker/routines/models.py:21
+
+#: routine_tracker/routines/forms.py:25 routine_tracker/routines/models.py:21
 msgid "Color"
 msgstr "Колір"
 
-#: routine_tracker/routines/forms.py:36 routine_tracker/routines/models.py:102
+#: routine_tracker/routines/forms.py:38 routine_tracker/routines/models.py:102
 msgid "Measure"
 msgstr "Одиниця виміру"
 
 #: routine_tracker/routines/models.py:17
 msgid "User"
 msgstr "Користувач"
+
 
 #: routine_tracker/routines/models.py:20 routine_tracker/routines/models.py:97
 msgid "Icon"
@@ -606,125 +653,110 @@ msgstr "Записи ретини"
 
 #: routine_tracker/routines/templates/routines/entries/form.html:24
 msgid "Unchecked"
-msgstr ""
+msgstr "Встановлено"
 
 #: routine_tracker/routines/templates/routines/entries/form.html:25
-#, fuzzy
-#| msgid "Check"
 msgid "Checked"
 msgstr "Відмітка"
 
 #: routine_tracker/routines/templates/routines/groups/list.html:8
-#, fuzzy
-#| msgid "Routine Groups"
 msgid "Your routine groups"
-msgstr "Групи рутин"
+msgstr "Ваші групи рутин"
 
 #: routine_tracker/routines/templates/routines/groups/list.html:13
 msgid "Create new"
-msgstr ""
+msgstr "Створити нову"
 
 #: routine_tracker/routines/templates/routines/routines/form_modal.html:4
-#, fuzzy
-#| msgid "Routine"
 msgid "Edit routine"
 msgstr "Рутина"
 
 #: routine_tracker/routines/utils/statistics.py:42
 msgid "Average"
-msgstr ""
+msgstr "Середнє"
 
 #: routine_tracker/routines/views/entry.py:30
-#, fuzzy
-#| msgid "Routine Entry"
 msgid "Create Entry"
-msgstr "Запис рутини"
+msgstr "Створити запис"
 
 #: routine_tracker/routines/views/entry.py:31
 msgid "Create"
-msgstr ""
+msgstr "Створити"
 
 #: routine_tracker/routines/views/entry.py:51
 msgid "Entry created successfully"
-msgstr ""
+msgstr "Запис успішно створено"
 
 #: routine_tracker/routines/views/entry.py:72
-#, fuzzy
-#| msgid "Routine Entry"
 msgid "Update Entry"
-msgstr "Запис рутини"
+msgstr "Оновити запис"
 
 #: routine_tracker/routines/views/entry.py:92
 msgid "Entry updated successfully"
-msgstr ""
+msgstr "Запис успішно оновлено"
 
 #: routine_tracker/routines/views/entry.py:114
-#, fuzzy
-#| msgid "Routine Entry"
 msgid "Delete Entry"
-msgstr "Запис рутини"
+msgstr "Видалити запис"
 
 #: routine_tracker/routines/views/entry.py:115
 msgid "Are you sure you want to delete this entry?"
-msgstr ""
+msgstr "Ви впевнені, що хочете видалити цей запис?"
 
 #: routine_tracker/routines/views/entry.py:129
 msgid "Routine entry deleted successfully"
-msgstr ""
+msgstr "Запис успішно видалено"
 
 #: routine_tracker/routines/views/group.py:44
-#, fuzzy
-#| msgid "Routine Group"
 msgid "Create routine group"
-msgstr "Група рутин"
+msgstr "Створити групу"
 
 #: routine_tracker/routines/views/group.py:45
 msgid "Create group"
-msgstr ""
+msgstr "Створити"
 
 #: routine_tracker/routines/views/group.py:55
 msgid "Routine group created successfully"
-msgstr ""
+msgstr "Група успішно створена"
 
 #: routine_tracker/routines/views/group.py:80
-#, fuzzy
-#| msgid "Routine Group"
 msgid "Edit routine group"
-msgstr "Група рутин"
+msgstr "Редагувати групу"
 
 #: routine_tracker/routines/views/group.py:92
 #, python-brace-format
 msgid "Routine group '{group}' updated successfully"
-msgstr ""
+msgstr "Група '{group}' успішно оновлена"
 
 #: routine_tracker/routines/views/group.py:129
-#, fuzzy
-#| msgid "Routine Group"
 msgid "Delete routine group"
-msgstr "Група рутин"
+msgstr "Видалити групу"
 
 #: routine_tracker/routines/views/group.py:130
 msgid "Are you sure you want to delete this routine group?"
-msgstr ""
+msgstr "Ви дійсно хочете видалити цю групу рутин?"
 
 #: routine_tracker/routines/views/group.py:141
-#: routine_tracker/routines/views/routine.py:135
+#: routine_tracker/routines/views/routine.py:137
 msgid "Routine group deleted successfully"
-msgstr ""
+msgstr "Група успішно видалена"
 
 #: routine_tracker/routines/views/routine.py:46
 msgid "Create routine"
-msgstr ""
+msgstr "Створити рутину"
 
-#: routine_tracker/routines/views/routine.py:96
+#: routine_tracker/routines/views/routine.py:97
 #, python-brace-format
 msgid "Routine '{routine}' updated successfully"
-msgstr ""
+msgstr "Рутина '{routine}' успішно оновлена"
 
-#: routine_tracker/routines/views/routine.py:120
+#: routine_tracker/routines/views/routine.py:122
 msgid "Delete routine"
-msgstr ""
+msgstr "Видалити рутину"
 
-#: routine_tracker/routines/views/routine.py:121
+#: routine_tracker/routines/views/routine.py:123
 msgid "Are you sure you want to delete this routine?"
-msgstr ""
+msgstr "Ви впевнені, що хочете видалити цю рутину?"
+
+#~ msgid "entries"
+#~ msgstr "записів"
