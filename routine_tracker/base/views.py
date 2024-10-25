@@ -1,10 +1,8 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView
 
 
-class IndexView(TemplateView):
-    template_name = 'base/index.html'
-
-
-class DashboardView(LoginRequiredMixin, TemplateView):
-    template_name = 'base/dashboard.html'
+class DashboardView(TemplateView):
+    def get_template_names(self) -> list[str]:
+        if self.request.user.is_authenticated:
+            return ["base/dashboard.html"]
+        return ["base/index.html"]
