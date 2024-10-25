@@ -1,5 +1,4 @@
 from typing import Callable
-from urllib.parse import parse_qs
 
 from django.contrib import messages
 from django.http import HttpRequest, HttpResponse
@@ -50,27 +49,3 @@ def message_middleware(get_response: Callable[..., HttpResponse]) -> Callable[..
         return response
 
     return middleware
-
-
-def query_params_middleware(get_resonse: Callable[..., HttpResponse]) -> Callable[..., HttpResponse]:
-    allowed_query_params = ('from', 'to', 'page', 'routine')
-
-    def middlware(request: HttpRequest):
-        if not request.htmx:
-            return get_resonse(request)
-
-        query_params = parse_qs(request.headers['HX-Current-URL'].split('?')[-1])
-        query_params = {
-            key: value[0] if len(value) == 1 else value
-            for key, value in query_params.items()
-            if key in allowed_query_params
-        }
-
-        request.GET = {
-            **query_params,
-            **request.GET,
-        }
-
-        return get_resonse(request)
-
-    return middlware

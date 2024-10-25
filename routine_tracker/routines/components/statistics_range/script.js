@@ -29,11 +29,6 @@ function dateRangeComponent({chartUrl, chartId}) {
         url.searchParams.set("to", to);
         window.history.pushState({}, "", url);
     },
-    /**
-     * @param {string} from
-     * @param {string} to
-     * @returns {URLSearchParams}
-     */
     createSearchParams(from, to) {
       const params = new URLSearchParams();
       params.set("from", from);
@@ -45,10 +40,9 @@ function dateRangeComponent({chartUrl, chartId}) {
 
       if (from && to) {
         this.updateUrl(from, to);
+        const params = this.createSearchParams(from, to);
 
-        const searchParams = this.createSearchParams(from, to);
-
-        htmx.ajax('GET', `${this.chartUrl}?${searchParams.toString()}`, {
+        htmx.ajax('GET', `${this.chartUrl}?${params.toString()}`, {
           target: `#${this.chartId}`,
           swap: 'outerHTML',
         });
@@ -57,6 +51,7 @@ function dateRangeComponent({chartUrl, chartId}) {
     bind() {
       return {
         "@change": this.onChange,
+        "@hx-chart-update.window": this.onChange,
       };
     },
     init() {
