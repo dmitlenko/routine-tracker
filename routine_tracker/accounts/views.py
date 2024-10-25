@@ -111,7 +111,7 @@ class UserSettingsView(UserProfileFormView):
     form_class = UserProfileForm
 
     def get_form_instance(self) -> Any:
-        return self.request.user.profile
+        return UserProfile.objects.get_or_create(user=self.request.user)[0]
 
     def get(self, request: HttpRequest, *args: str, **kwargs: Any) -> HttpResponse:
         response = super().get(request, *args, **kwargs)
