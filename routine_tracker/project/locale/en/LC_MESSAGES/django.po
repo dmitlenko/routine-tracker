@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-25 15:16+0000\n"
+"POT-Creation-Date: 2024-10-25 15:43+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -31,10 +31,12 @@ msgid "Important dates"
 msgstr ""
 
 #: routine_tracker/accounts/components/profilenav/profilenav.py:17
+#: routine_tracker/accounts/components/userdropdown/userdropdown.html:9
 msgid "Profile"
 msgstr ""
 
 #: routine_tracker/accounts/components/profilenav/profilenav.py:18
+#: routine_tracker/accounts/components/userdropdown/userdropdown.html:10
 msgid "Settings"
 msgstr ""
 
@@ -105,6 +107,10 @@ msgstr ""
 msgid "RoutineTracker"
 msgstr ""
 
+#: routine_tracker/accounts/templates/accounts/profile.html:7
+msgid "Your profile"
+msgstr ""
+
 #: routine_tracker/accounts/templates/accounts/profile.html:17
 #: routine_tracker/routines/templates/routines/routines/form_modal.html:14
 #: routine_tracker/routines/views/entry.py:73
@@ -147,36 +153,43 @@ msgstr[1] ""
 msgid "Entries"
 msgstr ""
 
+#: routine_tracker/base/components/dashboard/dashboard.py:92
+#, python-brace-format
+msgid "{count} entry"
+msgid_plural "{count} entries"
+msgstr[0] ""
+msgstr[1] ""
+
 #: routine_tracker/base/components/dashboard/template.html:7
 msgid "To see dashboard create the routine group first."
 msgstr ""
 
-#: routine_tracker/base/components/dashboard/template.html:22
+#: routine_tracker/base/components/dashboard/template.html:16
+msgid "Streak"
+msgstr ""
+
+#: routine_tracker/base/components/dashboard/template.html:23
 msgid "Group entries"
 msgstr ""
 
-#: routine_tracker/base/components/dashboard/template.html:29
+#: routine_tracker/base/components/dashboard/template.html:30
 msgid "Routine groups"
 msgstr ""
 
-#: routine_tracker/base/components/dashboard/template.html:45
+#: routine_tracker/base/components/dashboard/template.html:46
 msgid "Show more..."
 msgstr ""
 
-#: routine_tracker/base/components/dashboard/template.html:60
+#: routine_tracker/base/components/dashboard/template.html:61
 msgid "Details"
 msgstr ""
 
-#: routine_tracker/base/components/dashboard/template.html:74
+#: routine_tracker/base/components/dashboard/template.html:75
 msgid "No routines found"
 msgstr ""
 
-#: routine_tracker/base/components/dashboard/template.html:81
+#: routine_tracker/base/components/dashboard/template.html:82
 msgid "Top routines"
-msgstr ""
-
-#: routine_tracker/base/components/dashboard/template.html:93
-msgid "entries"
 msgstr ""
 
 #: routine_tracker/base/components/navbar/navbar.html:33
@@ -220,7 +233,7 @@ msgid "Date"
 msgstr ""
 
 #: routine_tracker/routines/components/entry_table/template.html:15
-#: routine_tracker/routines/forms.py:54 routine_tracker/routines/models.py:133
+#: routine_tracker/routines/forms.py:56 routine_tracker/routines/models.py:133
 #: routine_tracker/routines/utils/statistics.py:33
 msgid "Value"
 msgstr ""
@@ -235,6 +248,22 @@ msgstr ""
 #: routine_tracker/routines/components/routine_group/template.html:27
 #: routine_tracker/routines/components/routine_group_item/template.html:31
 msgid "Edit"
+msgstr ""
+
+#: routine_tracker/routines/components/group_stats/template.html:5
+msgid "Total routines"
+msgstr ""
+
+#: routine_tracker/routines/components/group_stats/template.html:9
+msgid "Total entries"
+msgstr ""
+
+#: routine_tracker/routines/components/group_stats/template.html:13
+msgid "Most entries"
+msgstr ""
+
+#: routine_tracker/routines/components/group_stats/template.html:17
+msgid "Average value"
 msgstr ""
 
 #: routine_tracker/routines/components/routine_chart/template.html:8
@@ -285,34 +314,35 @@ msgstr ""
 msgid "to"
 msgstr ""
 
-#: routine_tracker/routines/forms.py:13 routine_tracker/routines/forms.py:30
+#: routine_tracker/routines/forms.py:13 routine_tracker/routines/forms.py:31
 msgid "None"
 msgstr ""
 
-#: routine_tracker/routines/forms.py:22 routine_tracker/routines/models.py:18
+#: routine_tracker/routines/forms.py:15 routine_tracker/routines/forms.py:33
+#: routine_tracker/routines/models.py:20 routine_tracker/routines/models.py:97
+msgid "Icon"
+msgstr ""
+
+#: routine_tracker/routines/forms.py:23 routine_tracker/routines/models.py:18
 #: routine_tracker/routines/models.py:95
 msgid "Name"
 msgstr ""
 
-#: routine_tracker/routines/forms.py:23 routine_tracker/routines/forms.py:44
+#: routine_tracker/routines/forms.py:24 routine_tracker/routines/forms.py:46
 #: routine_tracker/routines/models.py:19 routine_tracker/routines/models.py:96
 msgid "Description"
 msgstr ""
 
-#: routine_tracker/routines/forms.py:24 routine_tracker/routines/models.py:21
+#: routine_tracker/routines/forms.py:25 routine_tracker/routines/models.py:21
 msgid "Color"
 msgstr ""
 
-#: routine_tracker/routines/forms.py:36 routine_tracker/routines/models.py:102
+#: routine_tracker/routines/forms.py:38 routine_tracker/routines/models.py:102
 msgid "Measure"
 msgstr ""
 
 #: routine_tracker/routines/models.py:17
 msgid "User"
-msgstr ""
-
-#: routine_tracker/routines/models.py:20 routine_tracker/routines/models.py:97
-msgid "Icon"
 msgstr ""
 
 #: routine_tracker/routines/models.py:65
@@ -478,7 +508,7 @@ msgid "Are you sure you want to delete this routine group?"
 msgstr ""
 
 #: routine_tracker/routines/views/group.py:141
-#: routine_tracker/routines/views/routine.py:135
+#: routine_tracker/routines/views/routine.py:137
 msgid "Routine group deleted successfully"
 msgstr ""
 
@@ -486,15 +516,15 @@ msgstr ""
 msgid "Create routine"
 msgstr ""
 
-#: routine_tracker/routines/views/routine.py:96
+#: routine_tracker/routines/views/routine.py:97
 #, python-brace-format
 msgid "Routine '{routine}' updated successfully"
 msgstr ""
 
-#: routine_tracker/routines/views/routine.py:120
+#: routine_tracker/routines/views/routine.py:122
 msgid "Delete routine"
 msgstr ""
 
-#: routine_tracker/routines/views/routine.py:121
+#: routine_tracker/routines/views/routine.py:123
 msgid "Are you sure you want to delete this routine?"
 msgstr ""

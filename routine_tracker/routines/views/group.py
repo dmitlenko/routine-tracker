@@ -5,7 +5,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models.query import QuerySet
 from django.http import HttpRequest, HttpResponse
 from django.urls import reverse, reverse_lazy
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext
+from django.utils.translation import gettext_lazy as _
 from django.views.generic import CreateView, DeleteView, DetailView, ListView, UpdateView
 
 from routine_tracker.base.utils.htmx import custom_swap, htmx_redirect
@@ -52,7 +53,7 @@ class RoutineGroupCreateView(LoginRequiredMixin, ModalFormMixin, CreateView):
     def form_valid(self, form: RoutineGroupForm) -> Any:
         form.instance.user = self.request.user
         group = form.save()
-        messages.success(self.request, _("Routine group created successfully"))
+        messages.success(self.request, gettext("Routine group created successfully"))
         response = RoutineGroupItemComponent.render_to_response(
             kwargs={
                 'routine_group': group,
@@ -89,7 +90,7 @@ class RoutineGroupUpdateView(LoginRequiredMixin, ModalFormMixin, UpdateView):
 
     def form_valid(self, form: RoutineGroupForm) -> Any:
         obj = form.save()
-        messages.success(self.request, _("Routine group '{group}' updated successfully").format(group=obj.name))
+        messages.success(self.request, gettext("Routine group '{group}' updated successfully").format(group=obj.name))
         response = RoutineGroupItemComponent.render_to_response(
             kwargs={
                 'routine_group': self.get_object(),
@@ -138,7 +139,7 @@ class RoutineGroupDeleteView(LoginRequiredMixin, ModalDeleteMixin, DeleteView):
     def post(self, request: HttpRequest, *args: str, **kwargs: Any) -> HttpResponse:
         response = super().post(request, *args, **kwargs)
 
-        messages.success(request, _("Routine group deleted successfully"))
+        messages.success(request, gettext("Routine group deleted successfully"))
 
         if request.headers.get('HX-Origin') == 'detail':
             response = htmx_redirect(

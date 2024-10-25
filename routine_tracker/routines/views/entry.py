@@ -8,6 +8,7 @@ from django.db.models.query import QuerySet
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
+from django.utils.translation import gettext
 from django.utils.translation import gettext_lazy as _
 from django.views import View
 from django.views.generic import CreateView, DeleteView, UpdateView
@@ -48,7 +49,7 @@ class EntryCreateView(LoginRequiredMixin, ModalFormMixin, CreateView):
         routine = self.get_routine()
         form.instance.routine = routine
         entry = form.save()
-        messages.success(self.request, _("Entry created successfully"))
+        messages.success(self.request, gettext("Entry created successfully"))
         return update_chart(
             close_modal(
                 custom_swap(
@@ -89,7 +90,7 @@ class EntryUpdateView(LoginRequiredMixin, ModalFormMixin, UpdateView):
     def form_valid(self, form: RoutineEntryForm) -> Any:
         entry = form.save()
         selector = f'[data-entry-id="{entry.pk}"]'
-        messages.success(self.request, _("Entry updated successfully"))
+        messages.success(self.request, gettext("Entry updated successfully"))
 
         return update_chart(
             close_modal(
@@ -126,7 +127,7 @@ class EntryDeleteView(LoginRequiredMixin, ModalDeleteMixin, DeleteView):
     def post(self, request: HttpRequest, *args: str, **kwargs: Any) -> HttpResponse:
         response = super().post(request, *args, **kwargs)
 
-        messages.success(request, _("Routine entry deleted successfully"))
+        messages.success(request, gettext("Routine entry deleted successfully"))
 
         return update_chart(response)
 

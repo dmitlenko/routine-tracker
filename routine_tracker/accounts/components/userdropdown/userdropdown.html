@@ -6,8 +6,8 @@
             {{ user.email }}
         </a>
         <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="{% url 'accounts:profile' %}">Profile</a></li>
-            <li><a class="dropdown-item" href="{% url 'accounts:settings' %}">Settings</a></li>
+            <li><a class="dropdown-item" href="{% url 'accounts:profile' %}">{% trans "Profile" %}</a></li>
+            <li><a class="dropdown-item" href="{% url 'accounts:settings' %}">{% trans "Settings" %}</a></li>
             <li><hr class="dropdown-divider" /></li>
             <li>
                 <form action="{% url 'accounts:logout' %}" method="POST">

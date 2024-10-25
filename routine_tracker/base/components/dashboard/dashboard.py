@@ -86,7 +86,15 @@ class DashboardComponent(Component):
         return chrt, show
 
     def get_top_routines(self, routines: QuerySet[Routine], count: int = 5) -> QuerySet[Routine]:
-        return routines.annotate(entry_count=Count('entries')).order_by('-entry_count')[:count]
+        return [
+            {
+                'routine': routine,
+                'entry_count': ngettext('{count} entry', '{count} entries', routine.entry_count).format(
+                    count=routine.entry_count
+                ),
+            }
+            for routine in routines.annotate(entry_count=Count('entries')).order_by('-entry_count')[:count]
+        ]
 
     def get_context_data(self, user: User) -> Any:
         groups, routines = self.get_user_data(user)
