@@ -1,5 +1,6 @@
 from typing import Any
 
+from django.utils.translation import gettext_lazy as _
 from django_components import Component, register
 from django_components.attributes import attributes_to_string
 
@@ -13,8 +14,8 @@ class ProfileNavComponent(Component):
     def get_context_data(self, *args: Any, **kwargs: Any) -> Any:
         return {
             'navlinks': lks(
-                ('accounts:profile', 'Profile'),
-                ('accounts:settings', 'Settings'),
+                ('accounts:profile', _('Profile')),
+                ('accounts:settings', _('Settings')),
             ).reverse(self.inject('request').request),
             'attrs': attributes_to_string(kwargs),
         }

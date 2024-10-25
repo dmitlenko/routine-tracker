@@ -13,8 +13,9 @@
 <div class="row gap-3 gap-sm-0 pb-4">
     <div class="col-sm-4">
         <div class="d-flex flex-column gap-3 gap-sm-4">
+            {% trans 'Streak' as streak_d %}
             {% component 'stat-card' value=streak
-                description="{% trans 'Streak' %}"
+                description=streak_d
                 icon='lightning' color='warning'
                 horizontal=True class="shadow-sm" / %}
             {% if show_entries_chart %}
@@ -86,11 +87,10 @@
                     <li class="list-group-item">
                         <div class="d-flex justify-content-between align-items-center">
                             <span class="text-truncate">
-                                <a href="{% url 'routines:group-detail' pk=routine.group.pk %}?routine={{ routine.pk }}">{{ routine.name }}</a>
+                                <a href="{% url 'routines:group-detail' pk=routine.routine.group.pk %}?routine={{ routine.routine.pk }}">{{ routine.routine.name }}</a>
                             </span>
                             <span class="badge bg-primary rounded-pill">
-                                {{ routine.entries.count }}
-                                {% trans "entries" %}
+                                {{ routine.entry_count }}
                             </span>
                         </div>
                     </li>

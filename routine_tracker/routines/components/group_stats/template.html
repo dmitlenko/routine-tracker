@@ -2,15 +2,19 @@
 
 <div class="row row-cols-1 row-cols-md-4 g-3">
     <div class="col">
-        {% component 'stat-card' value=total_routines description="{% trans 'Total routines' %}" icon="backpack" / %}
+        {% trans 'Total routines' as tr_d %}
+        {% component 'stat-card' value=total_routines description=tr_d icon="backpack" / %}
     </div>
     <div class="col">
-        {% component 'stat-card' value=total_entries description="{% trans 'Total entries' %}" icon="award" color="warning" / %}
+        {% trans 'Total entries' as te_d %}
+        {% component 'stat-card' value=total_entries description=te_d icon="award" color="warning" / %}
     </div>
     <div class="col">
-        {% component 'stat-card' value=most_entries description="{% trans 'Most entries' %}" icon="bar-chart" color="success" / %}
+        {% trans 'Most entries' as me_d %}
+        {% component 'stat-card' value=most_entries description=me_d icon="bar-chart" color="success" / %}
     </div>
     <div class="col">
-        {% component 'stat-card' value=average_value description="{% trans 'Average value' %}" icon="graph-up" color="danger" / %}
+        {% trans 'Average value' as av_d %}
+        {% component 'stat-card' value=average_value description=av_d icon="graph-up" color="danger" / %}
     </div>
 </div>

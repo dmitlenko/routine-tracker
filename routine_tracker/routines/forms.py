@@ -12,6 +12,7 @@ class RoutineGroupForm(forms.ModelForm):
     icon = forms.ChoiceField(
         choices=[('', _('None'))] + icon_choices(),
         widget=forms.Select(attrs={'class': 'form-select'}),
+        label=_('Icon'),
         required=False,
     )
 
@@ -29,6 +30,7 @@ class RoutineForm(forms.ModelForm):
     icon = forms.ChoiceField(
         choices=[('', _('None'))] + icon_choices(),
         widget=forms.Select(attrs={'class': 'form-select'}),
+        label=_('Icon'),
         required=False,
     )
 
