@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-14 13:07+0000\n"
+"POT-Creation-Date: 2024-10-25 16:55+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -30,178 +30,596 @@ msgstr ""
 msgid "Important dates"
 msgstr ""
 
-#: routine_tracker/accounts/models.py:9
+#: routine_tracker/accounts/models.py:10
 msgid "The Email field must be set"
 msgstr ""
 
-#: routine_tracker/accounts/models.py:27
+#: routine_tracker/accounts/models.py:28
 msgid "Superuser must have is_staff=True"
 msgstr ""
 
-#: routine_tracker/accounts/models.py:29
+#: routine_tracker/accounts/models.py:30
 msgid "Superuser must have is_superuser=True"
 msgstr ""
 
-#: routine_tracker/accounts/models.py:40
+#: routine_tracker/accounts/models.py:41
 msgid "email address"
 msgstr ""
 
-#: routine_tracker/accounts/models.py:41
+#: routine_tracker/accounts/models.py:42
 msgid "first name"
 msgstr ""
 
-#: routine_tracker/accounts/models.py:42
+#: routine_tracker/accounts/models.py:43
 msgid "last name"
 msgstr ""
 
-#: routine_tracker/accounts/models.py:63
+#: routine_tracker/accounts/models.py:64
 #: routine_tracker/project/settings/locale.py:10
 msgid "English"
 msgstr ""
 
-#: routine_tracker/accounts/models.py:64
+#: routine_tracker/accounts/models.py:65
 #: routine_tracker/project/settings/locale.py:11
 msgid "Ukrainian"
 msgstr ""
 
-#: routine_tracker/accounts/models.py:67
+#: routine_tracker/accounts/models.py:68
 msgid "Dark mode"
 msgstr ""
 
-#: routine_tracker/accounts/models.py:72
+#: routine_tracker/accounts/models.py:73
 msgid "Preferred language"
 msgstr ""
 
-#: routine_tracker/accounts/models.py:74
+#: routine_tracker/accounts/models.py:77
 msgid "Time zone"
 msgstr ""
 
-#: routine_tracker/accounts/models.py:78
+#: routine_tracker/accounts/models.py:84
 #, python-brace-format
 msgid "{username} profile"
 msgstr ""
 
-#: routine_tracker/accounts/models.py:81
+#: routine_tracker/accounts/models.py:87
 msgid "User profile"
 msgstr ""
 
-#: routine_tracker/accounts/models.py:82
+#: routine_tracker/accounts/models.py:88
 msgid "User profiles"
 msgstr ""
 
-#: routine_tracker/routines/models.py:46
-msgid "User"
+#: routine_tracker/accounts/templates/accounts/form.html:9
+msgid "RoutineTracker"
 msgstr ""
 
-#: routine_tracker/routines/models.py:47 routine_tracker/routines/models.py:136
-msgid "Name"
+#: routine_tracker/accounts/templates/accounts/profile.html:17
+#: routine_tracker/routines/templates/routines/routines/form_modal.html:14
+#: routine_tracker/routines/views/entry.py:73
+#: routine_tracker/routines/views/group.py:81
+#: routine_tracker/routines/views/routine.py:85
+msgid "Save changes"
 msgstr ""
 
-#: routine_tracker/routines/models.py:48 routine_tracker/routines/models.py:137
-msgid "Description"
+#: routine_tracker/accounts/views.py:22 routine_tracker/accounts/views.py:23
+#: routine_tracker/accounts/views.py:41
+msgid "Login"
 msgstr ""
 
-#: routine_tracker/routines/models.py:49 routine_tracker/routines/models.py:138
-msgid "Icon"
+#: routine_tracker/accounts/views.py:26 routine_tracker/accounts/views.py:37
+#: routine_tracker/accounts/views.py:38
+msgid "Register"
 msgstr ""
 
-#: routine_tracker/routines/models.py:50
-msgid "Color"
+#: routine_tracker/accounts/views.py:93
+msgid "Profile updated successfully"
 msgstr ""
 
-#: routine_tracker/routines/models.py:106
-msgid "Routine Group"
+#: routine_tracker/accounts/views.py:97
+msgid "Profile update failed"
 msgstr ""
 
-#: routine_tracker/routines/models.py:107
-msgid "Routine Groups"
+#: routine_tracker/base/components/dashboard/dashboard.py:60
+msgid "No streak"
 msgstr ""
 
-#: routine_tracker/routines/models.py:120
-msgid "Check"
+#: routine_tracker/base/components/dashboard/dashboard.py:62
+#, python-brace-format
+msgid "{days} day"
+msgid_plural "{days} days"
+msgstr[0] ""
+msgstr[1] ""
+
+#: routine_tracker/base/components/dashboard/dashboard.py:74
+#: routine_tracker/routines/components/routine_detail/template.html:63
+msgid "Entries"
 msgstr ""
 
-#: routine_tracker/routines/models.py:121
-msgid "Time"
+#: routine_tracker/base/components/dashboard/template.html:7
+msgid "To see dashboard create the routine group first."
 msgstr ""
 
-#: routine_tracker/routines/models.py:122
-msgid "Count"
+#: routine_tracker/base/components/dashboard/template.html:22
+msgid "Group entries"
 msgstr ""
 
-#: routine_tracker/routines/models.py:129
-msgid "Seconds"
+#: routine_tracker/base/components/dashboard/template.html:29
+msgid "Routine groups"
 msgstr ""
 
-#: routine_tracker/routines/models.py:130
-msgid "Minutes"
+#: routine_tracker/base/components/dashboard/template.html:45
+msgid "Show more..."
 msgstr ""
 
-#: routine_tracker/routines/models.py:131
-msgid "Hours"
+#: routine_tracker/base/components/dashboard/template.html:60
+msgid "Details"
 msgstr ""
 
+#: routine_tracker/base/components/dashboard/template.html:74
+msgid "No routines found"
+msgstr ""
+
+#: routine_tracker/base/components/dashboard/template.html:81
+msgid "Top routines"
+msgstr ""
+
+#: routine_tracker/base/components/dashboard/template.html:93
+msgid "entries"
+msgstr ""
+
+#: routine_tracker/base/templates/base/dashboard.html:6
+msgid "Dashboard"
+msgstr ""
+
+#: routine_tracker/base/templates/base/index.html:13
+msgid ""
+"\n"
+"                        Welcome to <b>RoutineTracker!</b>\n"
+"                    "
+msgstr ""
+
+#: routine_tracker/base/templates/base/index.html:18
+msgid ""
+"\n"
+"                        This is an app that helps you track your daily "
+"routines.\n"
+"                        Create a group, add routines to it, and track your "
+"progress.\n"
+"                        Stay motivated and achieve your goals!\n"
+"                    "
+msgstr ""
+
+#: routine_tracker/base/templates/base/index.html:26
+msgid "Get started"
+msgstr ""
+
+#: routine_tracker/base/templates/base/index.html:29
+msgid "Already have an account"
+msgstr ""
+
+#: routine_tracker/base/templates/base/index.html:40
+msgid ""
+"\n"
+"                        Features\n"
+"                    "
+msgstr ""
+
+#: routine_tracker/base/templates/base/index.html:45
+msgid ""
+"\n"
+"                        <b>Track your routines:</b> Create groups and add "
+"routines to them.\n"
+"                        Track your progress and stay motivated.\n"
+"                    "
+msgstr ""
+
+#: routine_tracker/base/templates/base/index.html:51
+msgid ""
+"\n"
+"                        <b>Stay organized:</b> Organize your routines by "
+"adding them to groups.\n"
+"                        Set your goals and achieve them.\n"
+"                    "
+msgstr ""
+
+#: routine_tracker/base/templates/base/index.html:57
+msgid ""
+"\n"
+"                        <b>Get reminders:</b> Set reminders for your "
+"routines and tasks.\n"
+"                        Never miss a task again.\n"
+"                    "
+msgstr ""
+
+#: routine_tracker/base/templates/base/index.html:73
+msgid ""
+"\n"
+"                        Dark mode\n"
+"                    "
+msgstr ""
+
+#: routine_tracker/base/templates/base/index.html:78
+msgid ""
+"\n"
+"                        App supports dark mode. Switch to dark mode to "
+"reduce eye strain.\n"
+"                    "
+msgstr ""
+
+#: routine_tracker/base/templates/base/index.html:87
+msgid ""
+"\n"
+"                        Multi-language support\n"
+"                    "
+msgstr ""
+
+#: routine_tracker/base/templates/base/index.html:92
+msgid ""
+"\n"
+"                        App supports multiple languages. Choose your "
+"preferred language and use the app.\n"
+"                        Supported languages: English and Ukrainian.\n"
+"                    "
+msgstr ""
+
+#: routine_tracker/base/templates/base/index.html:101
+msgid "English dashboard"
+msgstr ""
+
+#: routine_tracker/base/templates/base/index.html:107
+msgid "Ukrainian dashboard"
+msgstr ""
+
+#: routine_tracker/base/templates/base/index.html:115
+msgid ""
+"\n"
+"                    Technologies used\n"
+"                "
+msgstr ""
+
+#: routine_tracker/base/templates/base/index.html:120
+msgid ""
+"\n"
+"                    App is built using <a href=\"https://www.djangoproject."
+"com/\">Django</a>, a high-level Python web framework.\n"
+"                    It uses <a href=\"https://www.postgresql.org/"
+"\">PostgreSQL</a> database to store data.\n"
+"                    Frontend is built using HTML, CSS, <a href=\"https://"
+"getbootstrap.com/\">Bootstrap 5</a>, <a href=\"https://htmx.org/\">HTMX</a> "
+"and <a href=\"https://alpinejs.dev/\">Alpine.js</a>.\n"
+"                "
+msgstr ""
+
+#: routine_tracker/base/templates/base/index.html:129
+msgid ""
+"\n"
+"                    Source code\n"
+"                "
+msgstr ""
+
+#: routine_tracker/base/templates/base/index.html:134
+msgid ""
+"\n"
+"                    Source code is available on <a href=\"https://github.com/"
+"dmitlenko/routine-tracker\">Github</a>. Feel free to contribute.\n"
+"                "
+msgstr ""
+
+#: routine_tracker/base/templates/base/index.html:142
+#, python-format
+msgid ""
+"\n"
+"                    &copy; %(current_year)s RoutineTracker. All rights "
+"reserved.\n"
+"                "
+msgstr ""
+
+#: routine_tracker/core/components/form_controls/template.html:4
+msgid "Cancel"
+msgstr ""
+
+#: routine_tracker/core/components/form_controls/template.html:5
+msgid "Submit"
+msgstr ""
+
+#: routine_tracker/core/mixins.py:51
+#: routine_tracker/core/templates/core/confirm_delete.html:21
+#: routine_tracker/routines/components/entry_table/template.html:63
+#: routine_tracker/routines/components/routine_detail/template.html:39
+#: routine_tracker/routines/components/routine_group/template.html:32
+#: routine_tracker/routines/components/routine_group_item/template.html:36
+msgid "Delete"
+msgstr ""
+
+#: routine_tracker/core/mixins.py:53
+msgid "Are you sure you want to delete this item?"
+msgstr ""
+
+#: routine_tracker/routines/components/entry_table/template.html:12
 #: routine_tracker/routines/models.py:132
-msgid "Reps"
-msgstr ""
-
-#: routine_tracker/routines/models.py:133
-msgid "Sets"
-msgstr ""
-
-#: routine_tracker/routines/models.py:135
-msgid "Group"
-msgstr ""
-
-#: routine_tracker/routines/models.py:140
-msgid "Type"
-msgstr ""
-
-#: routine_tracker/routines/models.py:141
-msgid "Has a goal"
-msgstr ""
-
-#: routine_tracker/routines/models.py:142
-msgid "Goal"
-msgstr ""
-
-#: routine_tracker/routines/models.py:144
-msgid "Measure"
-msgstr ""
-
-#: routine_tracker/routines/models.py:260
-msgid "A goal value must be set if the routine has a goal."
-msgstr ""
-
-#: routine_tracker/routines/models.py:264
-msgid "A check routine cannot have a goal."
-msgstr ""
-
-#: routine_tracker/routines/models.py:274
-#: routine_tracker/routines/models.py:283
-msgid "Routine"
-msgstr ""
-
-#: routine_tracker/routines/models.py:275
-msgid "Routines"
-msgstr ""
-
-#: routine_tracker/routines/models.py:284
 msgid "Date"
 msgstr ""
 
-#: routine_tracker/routines/models.py:285
+#: routine_tracker/routines/components/entry_table/template.html:15
+#: routine_tracker/routines/forms.py:54 routine_tracker/routines/models.py:133
+#: routine_tracker/routines/utils/statistics.py:33
 msgid "Value"
 msgstr ""
 
-#: routine_tracker/routines/models.py:286
+#: routine_tracker/routines/components/entry_table/template.html:18
+#: routine_tracker/routines/models.py:134
 msgid "Notes"
 msgstr ""
 
-#: routine_tracker/routines/models.py:293
+#: routine_tracker/routines/components/entry_table/template.html:58
+#: routine_tracker/routines/components/routine_detail/template.html:34
+#: routine_tracker/routines/components/routine_group/template.html:27
+#: routine_tracker/routines/components/routine_group_item/template.html:31
+msgid "Edit"
+msgstr ""
+
+#: routine_tracker/routines/components/routine_chart/template.html:8
+msgid "No entries found in selected range."
+msgstr ""
+
+#: routine_tracker/routines/components/routine_detail/template.html:23
+#: routine_tracker/routines/components/routine_detail/template.html:26
+msgid "Export as"
+msgstr ""
+
+#: routine_tracker/routines/components/routine_detail/template.html:46
+msgid "Statistics"
+msgstr ""
+
+#: routine_tracker/routines/components/routine_detail/template.html:50
+msgid "Statistics is not available for this type of routine."
+msgstr ""
+
+#: routine_tracker/routines/components/routine_detail/template.html:66
+msgid "Add entry"
+msgstr ""
+
+#: routine_tracker/routines/components/routine_group_item/routine_group_item.py:24
+#, python-brace-format
+msgid "Last updated {date} ago"
+msgstr ""
+
+#: routine_tracker/routines/components/routine_group_item/routine_group_item.py:26
+msgid "Never updated"
+msgstr ""
+
+#: routine_tracker/routines/components/routines/template.html:4
+#: routine_tracker/routines/models.py:123
+msgid "Routines"
+msgstr ""
+
+#: routine_tracker/routines/components/routines/template.html:15
+msgid "No routines found. To create new routine click a \\"
+msgstr ""
+
+#: routine_tracker/routines/components/statistics_range/template.html:10
+msgid "from"
+msgstr ""
+
+#: routine_tracker/routines/components/statistics_range/template.html:12
+#: routine_tracker/routines/components/statistics_range/template.html:18
+msgid "to"
+msgstr ""
+
+#: routine_tracker/routines/forms.py:13 routine_tracker/routines/forms.py:30
+msgid "None"
+msgstr ""
+
+#: routine_tracker/routines/forms.py:22 routine_tracker/routines/models.py:18
+#: routine_tracker/routines/models.py:95
+msgid "Name"
+msgstr ""
+
+#: routine_tracker/routines/forms.py:23 routine_tracker/routines/forms.py:44
+#: routine_tracker/routines/models.py:19 routine_tracker/routines/models.py:96
+msgid "Description"
+msgstr ""
+
+#: routine_tracker/routines/forms.py:24 routine_tracker/routines/models.py:21
+msgid "Color"
+msgstr ""
+
+#: routine_tracker/routines/forms.py:36 routine_tracker/routines/models.py:102
+msgid "Measure"
+msgstr ""
+
+#: routine_tracker/routines/models.py:17
+msgid "User"
+msgstr ""
+
+#: routine_tracker/routines/models.py:20 routine_tracker/routines/models.py:97
+msgid "Icon"
+msgstr ""
+
+#: routine_tracker/routines/models.py:65
+msgid "Routine Group"
+msgstr ""
+
+#: routine_tracker/routines/models.py:66
+msgid "Routine Groups"
+msgstr ""
+
+#: routine_tracker/routines/models.py:79
+msgid "Check"
+msgstr ""
+
+#: routine_tracker/routines/models.py:80
+msgid "Time"
+msgstr ""
+
+#: routine_tracker/routines/models.py:81
+msgid "Count"
+msgstr ""
+
+#: routine_tracker/routines/models.py:88
+#: routine_tracker/routines/templates/routines/includes/time_input.html:14
+msgid "Seconds"
+msgstr ""
+
+#: routine_tracker/routines/models.py:89
+#: routine_tracker/routines/templates/routines/includes/time_input.html:10
+msgid "Minutes"
+msgstr ""
+
+#: routine_tracker/routines/models.py:90
+#: routine_tracker/routines/templates/routines/includes/time_input.html:6
+msgid "Hours"
+msgstr ""
+
+#: routine_tracker/routines/models.py:91
+msgid "Reps"
+msgstr ""
+
+#: routine_tracker/routines/models.py:92
+msgid "Sets"
+msgstr ""
+
+#: routine_tracker/routines/models.py:94
+msgid "Group"
+msgstr ""
+
+#: routine_tracker/routines/models.py:99
+msgid "Type"
+msgstr ""
+
+#: routine_tracker/routines/models.py:100
+msgid "Has a goal"
+msgstr ""
+
+#: routine_tracker/routines/models.py:101
+#: routine_tracker/routines/utils/statistics.py:66
+msgid "Goal"
+msgstr ""
+
+#: routine_tracker/routines/models.py:108
+msgid "A goal value must be set if the routine has a goal."
+msgstr ""
+
+#: routine_tracker/routines/models.py:112
+msgid "A check routine cannot have a goal."
+msgstr ""
+
+#: routine_tracker/routines/models.py:122
+#: routine_tracker/routines/models.py:131
+msgid "Routine"
+msgstr ""
+
+#: routine_tracker/routines/models.py:141
 msgid "Routine Entry"
 msgstr ""
 
-#: routine_tracker/routines/models.py:294
+#: routine_tracker/routines/models.py:142
 msgid "Routine Entries"
+msgstr ""
+
+#: routine_tracker/routines/templates/routines/entries/form.html:24
+msgid "Unchecked"
+msgstr ""
+
+#: routine_tracker/routines/templates/routines/entries/form.html:25
+msgid "Checked"
+msgstr ""
+
+#: routine_tracker/routines/templates/routines/groups/list.html:8
+msgid "Your routine groups"
+msgstr ""
+
+#: routine_tracker/routines/templates/routines/groups/list.html:13
+msgid "Create new"
+msgstr ""
+
+#: routine_tracker/routines/templates/routines/routines/form_modal.html:4
+msgid "Edit routine"
+msgstr ""
+
+#: routine_tracker/routines/utils/statistics.py:42
+msgid "Average"
+msgstr ""
+
+#: routine_tracker/routines/views/entry.py:30
+msgid "Create Entry"
+msgstr ""
+
+#: routine_tracker/routines/views/entry.py:31
+msgid "Create"
+msgstr ""
+
+#: routine_tracker/routines/views/entry.py:51
+msgid "Entry created successfully"
+msgstr ""
+
+#: routine_tracker/routines/views/entry.py:72
+msgid "Update Entry"
+msgstr ""
+
+#: routine_tracker/routines/views/entry.py:92
+msgid "Entry updated successfully"
+msgstr ""
+
+#: routine_tracker/routines/views/entry.py:114
+msgid "Delete Entry"
+msgstr ""
+
+#: routine_tracker/routines/views/entry.py:115
+msgid "Are you sure you want to delete this entry?"
+msgstr ""
+
+#: routine_tracker/routines/views/entry.py:129
+msgid "Routine entry deleted successfully"
+msgstr ""
+
+#: routine_tracker/routines/views/group.py:44
+msgid "Create routine group"
+msgstr ""
+
+#: routine_tracker/routines/views/group.py:45
+msgid "Create group"
+msgstr ""
+
+#: routine_tracker/routines/views/group.py:55
+msgid "Routine group created successfully"
+msgstr ""
+
+#: routine_tracker/routines/views/group.py:80
+msgid "Edit routine group"
+msgstr ""
+
+#: routine_tracker/routines/views/group.py:92
+#, python-brace-format
+msgid "Routine group '{group}' updated successfully"
+msgstr ""
+
+#: routine_tracker/routines/views/group.py:129
+msgid "Delete routine group"
+msgstr ""
+
+#: routine_tracker/routines/views/group.py:130
+msgid "Are you sure you want to delete this routine group?"
+msgstr ""
+
+#: routine_tracker/routines/views/group.py:141
+#: routine_tracker/routines/views/routine.py:135
+msgid "Routine group deleted successfully"
+msgstr ""
+
+#: routine_tracker/routines/views/routine.py:46
+msgid "Create routine"
+msgstr ""
+
+#: routine_tracker/routines/views/routine.py:96
+#, python-brace-format
+msgid "Routine '{routine}' updated successfully"
+msgstr ""
+
+#: routine_tracker/routines/views/routine.py:120
+msgid "Delete routine"
+msgstr ""
+
+#: routine_tracker/routines/views/routine.py:121
+msgid "Are you sure you want to delete this routine?"
 msgstr ""
