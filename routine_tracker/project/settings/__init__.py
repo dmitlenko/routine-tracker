@@ -34,6 +34,7 @@ include(
     'logging.py',
     'locale.py',
     'push.py',
+    'celery.py',
     optional(str(LOCAL_SETTINGS_PATH)),
     'env.py',
 )
