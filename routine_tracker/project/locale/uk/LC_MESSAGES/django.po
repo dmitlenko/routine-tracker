@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-25 15:44+0000\n"
+"POT-Creation-Date: 2024-10-25 16:55+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -119,6 +119,7 @@ msgstr "Ваш профіль"
 #: routine_tracker/routines/views/group.py:81
 #: routine_tracker/routines/views/routine.py:85
 msgid "Save changes"
+=======
 msgstr "Зберегти зміни"
 
 #: routine_tracker/accounts/views.py:22 routine_tracker/accounts/views.py:23
@@ -142,6 +143,218 @@ msgstr "Профіль не оновлено"
 #: routine_tracker/base/components/dashboard/dashboard.py:60
 msgid "No streak"
 msgstr "Немає серії"
+
+
+#: routine_tracker/base/templates/base/index.html:13
+msgid ""
+"\n"
+"                        Welcome to <b>RoutineTracker!</b>\n"
+"                    "
+msgstr ""
+"\n"
+"                        Вітаємо у <b>RoutineTracker!</b>\n"
+"                    "
+
+#: routine_tracker/base/templates/base/index.html:18
+msgid ""
+"\n"
+"                        This is an app that helps you track your daily "
+"routines.\n"
+"                        Create a group, add routines to it, and track your "
+"progress.\n"
+"                        Stay motivated and achieve your goals!\n"
+"                    "
+msgstr ""
+"\n"
+"                        Це додаток, який допомагає відстежувати ваші щоденні "
+"справи.\n"
+"                        Створіть групу, додайте до неї завдання і "
+"відстежуйте свій прогрес. \n"
+"                        Залишайтеся вмотивованими та досягайте своїх цілей!\n"
+"                    "
+
+#: routine_tracker/base/templates/base/index.html:26
+msgid "Get started"
+msgstr "Почати"
+
+#: routine_tracker/base/templates/base/index.html:29
+msgid "Already have an account"
+msgstr "Вжа маєте обліковий запис"
+
+#: routine_tracker/base/templates/base/index.html:40
+msgid ""
+"\n"
+"                        Features\n"
+"                    "
+msgstr ""
+"\n"
+"                        Можливості\n"
+"                    "
+
+#: routine_tracker/base/templates/base/index.html:45
+msgid ""
+"\n"
+"                        <b>Track your routines:</b> Create groups and add "
+"routines to them.\n"
+"                        Track your progress and stay motivated.\n"
+"                    "
+msgstr ""
+"\n"
+"                        <b>Відстежуйте свої рутини:</b> Створюйте групи та "
+"додавайте до них рутини. \n"
+"                        Відстежуйте свій прогрес та залишайтеся "
+"вмотивованими.\n"
+"                    "
+
+#: routine_tracker/base/templates/base/index.html:51
+msgid ""
+"\n"
+"                        <b>Stay organized:</b> Organize your routines by "
+"adding them to groups.\n"
+"                        Set your goals and achieve them.\n"
+"                    "
+msgstr ""
+"\n"
+"                        <b>Будьте організованими:</b> Організуйте свої "
+"рутини, додавши їх до груп. \n"
+"                        Встановіть свої цілі та досягніть їх.\n"
+"                    "
+
+#: routine_tracker/base/templates/base/index.html:57
+msgid ""
+"\n"
+"                        <b>Get reminders:</b> Set reminders for your "
+"routines and tasks.\n"
+"                        Never miss a task again.\n"
+"                    "
+msgstr ""
+"\n"
+"                        <b>Отримуйте нагадування:</b> Встановлюйте "
+"нагадування для своїх рутин та завдань. \n"
+"                        Більше ніколи не пропустіть завдання.\n"
+"                    "
+
+#: routine_tracker/base/templates/base/index.html:73
+msgid ""
+"\n"
+"                        Dark mode\n"
+"                    "
+msgstr ""
+"\n"
+"                        Темний режим\n"
+"                    "
+
+#: routine_tracker/base/templates/base/index.html:78
+msgid ""
+"\n"
+"                        App supports dark mode. Switch to dark mode to "
+"reduce eye strain.\n"
+"                    "
+msgstr ""
+"\n"
+"                        Додаток підтримує темний режим. Переключіться на "
+"темний режим, щоб зменшити напругу очей.\n"
+"                    "
+
+#: routine_tracker/base/templates/base/index.html:87
+msgid ""
+"\n"
+"                        Multi-language support\n"
+"                    "
+msgstr ""
+"\n"
+"                        Мульти-мовна підтримка\n"
+"                    "
+
+#: routine_tracker/base/templates/base/index.html:92
+msgid ""
+"\n"
+"                        App supports multiple languages. Choose your "
+"preferred language and use the app.\n"
+"                        Supported languages: English and Ukrainian.\n"
+"                    "
+msgstr ""
+"\n"
+"                        Додаток підтримує кілька мов. Виберіть свою мову та "
+"використовуйте додаток.\n"
+"                        Підтримувані мови: англійська та українська.\n"
+"                    "
+
+#: routine_tracker/base/templates/base/index.html:101
+msgid "English dashboard"
+msgstr "Англійська"
+
+#: routine_tracker/base/templates/base/index.html:107
+msgid "Ukrainian dashboard"
+msgstr "Українська"
+
+#: routine_tracker/base/templates/base/index.html:115
+msgid ""
+"\n"
+"                    Technologies used\n"
+"                "
+msgstr ""
+"\n"
+"                    Використані технології\n"
+"                "
+
+#: routine_tracker/base/templates/base/index.html:120
+msgid ""
+"\n"
+"                    App is built using <a href=\"https://www.djangoproject."
+"com/\">Django</a>, a high-level Python web framework.\n"
+"                    It uses <a href=\"https://www.postgresql.org/"
+"\">PostgreSQL</a> database to store data.\n"
+"                    Frontend is built using HTML, CSS, <a href=\"https://"
+"getbootstrap.com/\">Bootstrap 5</a>, <a href=\"https://htmx.org/\">HTMX</a> "
+"and <a href=\"https://alpinejs.dev/\">Alpine.js</a>.\n"
+"                "
+msgstr ""
+"\n"
+"\n"
+"                    Додаток побудовано використовуючи <a href=\"https://www."
+"djangoproject.com/\">Django</a>, високорівневий веб-фреймворк Python.\n"
+"                    Він використовує <a href=\"https://www.postgresql.org/"
+"\">PostgreSQL</a> базу даних для зберігання даних.\n"
+"                    Інтерфейс побудовано використовуючи HTML, CSS, <a "
+"href=\"https://getbootstrap.com/\">Bootstrap 5</a>, <a href=\"https://htmx."
+"org/\">HTMX</a> та <a href=\"https://alpinejs.dev/\">Alpine.js</a>.\n"
+"                "
+
+#: routine_tracker/base/templates/base/index.html:129
+msgid ""
+"\n"
+"                    Source code\n"
+"                "
+msgstr ""
+"\n"
+"                    Вихідний код\n"
+"                "
+
+#: routine_tracker/base/templates/base/index.html:134
+msgid ""
+"\n"
+"                    Source code is available on <a href=\"https://github.com/"
+"dmitlenko/routine-tracker\">Github</a>. Feel free to contribute.\n"
+"                "
+msgstr ""
+"\n"
+"                    Вихідний код доступний на <a href=\"https://github.com/"
+"dmitlenko/routine-tracker\">Github</a>. Не соромтеся вносити свій внесок.\n"
+"                "
+
+#: routine_tracker/base/templates/base/index.html:142
+#, python-format
+msgid ""
+"\n"
+"                    &copy; %(current_year)s RoutineTracker. All rights "
+"reserved.\n"
+"                "
+msgstr ""
+"\n"
+"                    &copy; %(current_year)s RoutineTracker. Усі права "
+"захищені.\n"
+"                "
 
 #: routine_tracker/base/components/dashboard/dashboard.py:62
 #, python-brace-format
@@ -339,6 +552,7 @@ msgstr "Назва"
 msgid "Description"
 msgstr "Опис"
 
+
 #: routine_tracker/routines/forms.py:25 routine_tracker/routines/models.py:21
 msgid "Color"
 msgstr "Колір"
@@ -351,9 +565,18 @@ msgstr "Одиниця виміру"
 msgid "User"
 msgstr "Користувач"
 
+
+#: routine_tracker/routines/models.py:20 routine_tracker/routines/models.py:97
+msgid "Icon"
+msgstr "Значок"
+
 #: routine_tracker/routines/models.py:65
 msgid "Routine Group"
 msgstr "Група рутин"
+
+#: routine_tracker/routines/models.py:66
+msgid "Routine Groups"
+msgstr "Групи рутин"
 
 #: routine_tracker/routines/models.py:79
 msgid "Check"
