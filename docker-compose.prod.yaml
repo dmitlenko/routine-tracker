@@ -1,0 +1,133 @@
+name: routine_tracker
+services:
+  db:
+    image: postgres:14-alpine
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=routine_tracker
+      - POSTGRES_PASSWORD=routine_tracker
+      - POSTGRES_DB=routine_tracker
+    expose:
+      - 5432
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U routine_tracker"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - project_network
+
+  redis:
+    image: redis:alpine
+    restart: unless-stopped
+    expose:
+      - 6379
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - project_network
+
+  app:
+    build:
+      context: .
+      dockerfile: docker/django/Dockerfile
+    restart: unless-stopped
+    command: gunicorn routine_tracker.project.wsgi:application -b 0.0.0.0:8000
+    environment:
+      - RT_DATABASES={"default":{"HOST":"db"}}
+      - RT_STATIC_ROOT=/app/routine_tracker/static_root
+    env_file:
+      - .env
+    expose:
+      - 8000
+    volumes:
+      - static_volume:/app/routine_tracker/static_root
+      - app_volume:/app
+    networks:
+      - project_network
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  nginx:
+    build: ./docker/nginx
+    ports:
+      - "80:80"
+    depends_on:
+      - app
+    networks:
+      - project_network
+    volumes:
+      - static_volume:/app/routine_tracker/static_root
+
+  celery:
+    build:
+      context: .
+      dockerfile: docker/django/Dockerfile
+    restart: unless-stopped
+    command: celery -A routine_tracker.project worker --loglevel=info --concurrency=2
+    environment:
+      - RT_DATABASES={"default":{"HOST":"db"}}
+      - RT_STATIC_ROOT=/app/routine_tracker/static_root
+      - RT_CELERY_BROKER_URL=redis://redis:6379/0
+      - RT_CELERY_RESULT_BACKEND=redis://redis:6379/0
+    env_file:
+      - .env
+    networks:
+      - project_network
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    volumes:
+      - app_volume:/app
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 1G
+
+  celery-beat:
+    build:
+      context: .
+      dockerfile: docker/django/Dockerfile
+    restart: unless-stopped
+    command: celery -A routine_tracker.project beat -l info
+    environment:
+      - RT_DATABASES={"default":{"HOST":"db"}}
+      - RT_STATIC_ROOT=/app/routine_tracker/static_root
+      - RT_CELERY_BROKER_URL=redis://redis:6379/0
+      - RT_CELERY_RESULT_BACKEND=redis://redis:6379/0
+    env_file:
+      - .env
+    networks:
+      - project_network
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    volumes:
+      - app_volume:/app
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
+
+volumes:
+  db_data:
+  static_volume:
+  app_volume:
+
+networks:
+  project_network:
+    driver: bridge
