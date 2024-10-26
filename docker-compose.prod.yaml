@@ -100,7 +100,7 @@ services:
       context: .
       dockerfile: docker/django/Dockerfile
     restart: unless-stopped
-    command: celery -A routine_tracker.project beat -l info
+    command: celery -A routine_tracker.project beat -l debug --scheduler django_celery_beat.schedulers:DatabaseScheduler
     environment:
       - RT_DATABASES={"default":{"HOST":"db"}}
       - RT_STATIC_ROOT=/app/routine_tracker/static_root
