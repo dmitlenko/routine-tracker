@@ -4,17 +4,19 @@ services:
     image: postgres:14-alpine
     restart: always
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=routine_tracker_dev
+      - POSTGRES_USER=routine_tracker
+      - POSTGRES_PASSWORD=routine_tracker
+      - POSTGRES_DB=routine_tracker
     ports:
       - "5432:5432"
     volumes:
       - dev_db_data:/var/lib/postgresql/data
+
   dev_redis:
     image: redis:alpine
     restart: always
     ports:
       - "6379:6379"
+
 volumes:
   dev_db_data:

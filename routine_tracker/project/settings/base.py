@@ -120,3 +120,14 @@ MESSAGE_TAGS = {
     messages.WARNING: "text-dark bg-warning",
     messages.ERROR: "text-white bg-danger",
 }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'routine_tracker',
+        'USER': 'routine_tracker',
+        'PASSWORD': 'routine_tracker',
+        'HOST': 'db',
+        'PORT': '',
+    }
+}
