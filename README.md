@@ -1,45 +1,107 @@
-# routine-tracker
+# RoutineTracker
+
+![preview](docs/preview.png)
 
 ## Project Description
 
-This project is a simple routine tracker application that allows users to track their daily routines. Users can create routines, add tasks to routines, and mark tasks as completed.
+This is an app that helps you track your daily routines.
+Create a group, add routines to it, and track your progress. Stay motivated and achieve your goals!
 
-## Requirements
+## Features
+
+- Fully implmented CRUD operations for groups and routines
+- User authentication and authorization
+- HTMX and Alpine.js for dynamic content loading
+- Bootstrap 5 for styling
+- Dockerized deployment
+
+## Deployment
+
+### Requirements
+
+- Docker and Docker Compose
+- Linux or macOS
+
+### Instructions
+
+1. Clone the repository and navigate to the project directory.
+
+    ```bash
+    git clone https://github.com/dmitlenko/routine-tracker.git
+    ```
+
+2. Create a `.env` file in the project root directory. See the [.env.example](./.env.example) file for the reference.
+
+3. Build and run the Docker containers.
+
+    ```bash
+    docker-compose -f docker-compose.prod.yaml up -d --build
+    ```
+
+4. See the logs to check if the containers are running.
+
+    ```bash
+    docker-compose -f docker-compose.prod.yaml logs -f
+    ```
+
+## Development
+
+### Requirements
 
 - Python 3.12 or higher
 - Poetry
 - Docker and Docker Compose
 - Linux or macOS
+- Make
 
-## Makefile Commands
+### Instructions
 
-This project uses a Makefile to simplify common development tasks. Here are the available commands:
+1. Clone the repository and navigate to the project directory.
 
-### Setup and Installation
+    ```bash
+    git clone https://github.com/dmitlenko/routine-tracker.git
+    ```
 
-- `make install`: Sets up the project by creating a virtual environment, installing pre-commit hooks, and installing dependencies using Poetry.
-- `make venv`: Creates a virtual environment if it doesn't exist.
-- `make devenv`: Sets up a development environment by creating a virtual environment, installing dependencies, and copying a local settings file.
+2. Create and install dependencies using Poetry.
 
-### Running the Application
+    ```bash
+    make devenv
+    ```
 
-- `make run`: Starts the development server.
+3. Run the dependencies using Docker Compose.
 
-### Database Operations
+    ```bash
+    make docker-up-dev
+    ```
 
-- `make migrate`: Applies database migrations.
-- `make migrations`: Creates new database migrations.
-- `make super`: Creates a superuser for the application.
+4. Apply database migrations.
 
-### Development Tools
+    ```bash
+    make migrate
+    ```
 
-- `make shell`: Launches the Django shell.
-- `make test`: Runs the project's test suite using pytest.
-- `make lint`: Runs the flake8 linter on the project code.
-- `make format`: Formats the project code using Black.
+5. Run the development server.
 
-### Pre-commit Hooks
+    ```bash
+    make run
+    ```
 
-- `make install-pre-commit`: Installs pre-commit hooks.
-- `make uninstall-pre-commit`: Uninstalls pre-commit hooks.
-- `make pre-commit`: Runs all pre-commit hooks on all files.
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
+
+## Documentation
+
+- [Makefile commands](./docs/makefile.md)
+- [Translation](./docs/translation.md)
+
+
+## Acknowledgements
+
+- [HTMX](https://htmx.org/)
+- [Alpine.js](https://alpinejs.dev/)
+- [Bootstrap](https://getbootstrap.com/)
+- [Django](https://www.djangoproject.com/)
+- [Docker](https://www.docker.com/)
+- [Poetry](https://python-poetry.org/)
+- [Make](https://www.gnu.org/software/make/)
