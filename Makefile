@@ -83,3 +83,17 @@ translations:
 .PHONY: celery
 celery:
 	celery -A routine_tracker.project worker --beat --scheduler django --loglevel=info
+
+
+# docker
+.PHONY: docker-up-dev
+up-dev:
+	docker-compose -f docker-compose.dev.yaml up
+
+.PHONY: docker-build
+build:
+	docker-compose -f docker-compose.dev.yaml build
+
+.PHONY: docker-down
+down:
+	docker-compose -f docker-compose.dev.yaml down
