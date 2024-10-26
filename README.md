@@ -1,6 +1,4 @@
-# RoutineTracker
-
-![preview](docs/preview.png)
+![Project logo](docs/logo.png)
 
 ## Project Description
 
