@@ -36,6 +36,10 @@ shell:
 super:
 	$(MANAGE) createsuperuser
 
+.PHONY: secretkey
+secretkey:
+	$(MANAGE) generate_secret_key
+
 # Create virtual environment
 .PHONY: venv
 venv:
