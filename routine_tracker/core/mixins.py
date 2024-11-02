@@ -42,8 +42,9 @@ class ModalFormMixin(ModalMixin):
         )
         return context
 
+    @close_modal
     def form_valid(self, form) -> Any:
-        return close_modal(super().form_valid(form))
+        return super().form_valid(form)
 
 
 class ModalDeleteMixin(ModalFormMixin):
@@ -68,7 +69,8 @@ class ModalDeleteMixin(ModalFormMixin):
         )
         return context
 
+    @close_modal
     def post(self, request, *args, **kwargs):
         response = super().post(request, *args, **kwargs)
         response.status_code = 204
-        return close_modal(response)
+        return response

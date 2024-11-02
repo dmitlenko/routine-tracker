@@ -93,26 +93,25 @@ class RoutineUpdateView(LoginRequiredMixin, ModalFormMixin, UpdateView):
     def get_queryset(self) -> QuerySet[Any]:
         return super().get_queryset().filter(group__user=self.request.user)
 
+    @close_modal
     def form_valid(self, form: RoutineForm) -> Any:
         messages.success(
             self.request, gettext("Routine '{routine}' updated successfully").format(routine=self.object.name)
         )
         form.save()
 
-        return close_modal(
-            custom_swap(
-                RoutinesComponent.render_to_response(
-                    context={'request': self.request},
-                    args=(self.object.group,),
-                    kwargs={
-                        'request': self.request,
-                        'current': self.object,
-                    },
-                ),
-                'outerHTML',
-                '#routines-card',
-                '#routines-card',
-            )
+        return custom_swap(
+            RoutinesComponent.render_to_response(
+                context={'request': self.request},
+                args=(self.object.group,),
+                kwargs={
+                    'request': self.request,
+                    'current': self.object,
+                },
+            ),
+            'outerHTML',
+            '#routines-card',
+            '#routines-card',
         )
 
 

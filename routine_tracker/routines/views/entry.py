@@ -45,23 +45,22 @@ class EntryCreateView(LoginRequiredMixin, ModalFormMixin, CreateView):
         context['routine'] = get_object_or_404(Routine, pk=self.kwargs['pk'], group__user=self.request.user)
         return context
 
+    @close_modal
     def form_valid(self, form: RoutineForm) -> Any:
         routine = self.get_routine()
         form.instance.routine = routine
         entry = form.save()
         messages.success(self.request, gettext("Entry created successfully"))
         return update_chart(
-            close_modal(
-                custom_swap(
-                    EntryTableComponent.render_to_response(
-                        kwargs={
-                            'entries': [entry],
-                        }
-                    ),
-                    'afterbegin',
-                    '#entry-table tbody',
-                    f'[data-entry-id="{entry.pk}"]',
-                )
+            custom_swap(
+                EntryTableComponent.render_to_response(
+                    kwargs={
+                        'entries': [entry],
+                    }
+                ),
+                'afterbegin',
+                '#entry-table tbody',
+                f'[data-entry-id="{entry.pk}"]',
             )
         )
 
@@ -87,23 +86,22 @@ class EntryUpdateView(LoginRequiredMixin, ModalFormMixin, UpdateView):
         context['routine'] = self.get_object().routine
         return context
 
+    @close_modal
     def form_valid(self, form: RoutineEntryForm) -> Any:
         entry = form.save()
         selector = f'[data-entry-id="{entry.pk}"]'
         messages.success(self.request, gettext("Entry updated successfully"))
 
         return update_chart(
-            close_modal(
-                custom_swap(
-                    EntryTableComponent.render_to_response(
-                        kwargs={
-                            'entries': [entry],
-                        }
-                    ),
-                    'outerHTML',
-                    selector,
-                    selector,
-                )
+            custom_swap(
+                EntryTableComponent.render_to_response(
+                    kwargs={
+                        'entries': [entry],
+                    }
+                ),
+                'outerHTML',
+                selector,
+                selector,
             )
         )
 

@@ -1,4 +1,5 @@
-from typing import Literal, Optional, TypedDict, Union
+import functools
+from typing import Literal, Optional, TypedDict, Union, Callable, Any
 
 from django.http import HttpResponse
 from django_htmx.http import trigger_client_event
@@ -25,13 +26,19 @@ def trigger_modal(response: HttpResponse, options: ModalOptions = None):
     return trigger_client_event(response, 'hx-show-modal', options)
 
 
-def close_modal(response: HttpResponse):
-    """Triggers a modal to close
+def close_modal(view: Callable[..., HttpResponse]) -> Callable[..., HttpResponse]:
+    """Closes a modal view on response
 
     Args:
-        response (HttpResponse): Response object
+        view(Callable[..., HttpResponse]): View function
 
     Returns:
-        HttpResponse: Response object
+        Callable[..., HttpResponse]: Wrapper function
     """
-    return trigger_client_event(response, 'hx-close-modal')
+
+    @functools.wraps(view)
+    def wrapper(*args: Any, **kwargs: Any) -> HttpResponse:
+        response = view(*args, **kwargs)
+        return trigger_client_event(response, 'hx-close-modal')
+
+    return wrapper

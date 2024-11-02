@@ -50,6 +50,7 @@ class RoutineGroupCreateView(LoginRequiredMixin, ModalFormMixin, CreateView):
     def get_success_url(self) -> str:
         return reverse('routines:group-detail', kwargs={'pk': self.object.pk})
 
+    @close_modal
     def form_valid(self, form: RoutineGroupForm) -> Any:
         form.instance.user = self.request.user
         group = form.save()
@@ -61,14 +62,12 @@ class RoutineGroupCreateView(LoginRequiredMixin, ModalFormMixin, CreateView):
             }
         )
 
-        return close_modal(
-            custom_swap(
-                response,
-                'afterbegin',
-                '#routine-group-list',
-                '.routine-group-item',
-                status_code=201,
-            )
+        return custom_swap(
+            response,
+            'afterbegin',
+            '#routine-group-list',
+            '.routine-group-item',
+            status_code=201,
         )
 
 
@@ -88,6 +87,7 @@ class RoutineGroupUpdateView(LoginRequiredMixin, ModalFormMixin, UpdateView):
     def get_queryset(self) -> QuerySet[Any]:
         return super().get_queryset().filter(user=self.request.user)
 
+    @close_modal
     def form_valid(self, form: RoutineGroupForm) -> Any:
         obj = form.save()
         messages.success(self.request, gettext("Routine group '{group}' updated successfully").format(group=obj.name))
@@ -99,26 +99,22 @@ class RoutineGroupUpdateView(LoginRequiredMixin, ModalFormMixin, UpdateView):
         )
 
         if self.request.headers.get('HX-Origin') == 'detail':
-            return close_modal(
-                custom_swap(
-                    RoutineGroupComponent.render_to_response(
-                        kwargs={
-                            'group': obj,
-                        },
-                    ),
-                    'outerHTML',
-                    '#routine-group-card',
-                    '#routine-group-card',
-                )
+            return custom_swap(
+                RoutineGroupComponent.render_to_response(
+                    kwargs={
+                        'group': obj,
+                    },
+                ),
+                'outerHTML',
+                '#routine-group-card',
+                '#routine-group-card',
             )
 
-        return close_modal(
-            custom_swap(
-                response,
-                'outerHTML',
-                f'[data-group-id="{obj.pk}"]',
-                '.routine-group-item',
-            )
+        return custom_swap(
+            response,
+            'outerHTML',
+            f'[data-group-id="{obj.pk}"]',
+            '.routine-group-item',
         )
 
 
