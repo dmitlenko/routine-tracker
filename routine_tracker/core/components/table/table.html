@@ -11,6 +11,10 @@
                     {% provide "row_data" ...row %}
                         {% slot "row" %}{% endslot %}
                     {% endprovide %}
+                {% empty %}
+                    <tr class="empty-message-row">
+                        {% slot "empty" %}{% endslot %}
+                    </tr>
                 {% endfor %}
             </tbody>
         </table>

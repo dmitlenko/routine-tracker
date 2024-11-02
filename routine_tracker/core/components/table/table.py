@@ -62,3 +62,6 @@ class TableComponent(Component):
             'table_data': table_data,
             'classes': classes,
         }
+
+    class Media:
+        js = 'script.js'
