@@ -47,7 +47,6 @@ services:
       - 8000
     volumes:
       - static_volume:/app/routine_tracker/static_root
-      - app_volume:/app
     networks:
       - project_network
     depends_on:
@@ -87,8 +86,6 @@ services:
         condition: service_healthy
       redis:
         condition: service_healthy
-    volumes:
-      - app_volume:/app
     deploy:
       resources:
         limits:
@@ -115,8 +112,6 @@ services:
         condition: service_healthy
       redis:
         condition: service_healthy
-    volumes:
-      - app_volume:/app
     deploy:
       resources:
         limits:
@@ -126,7 +121,6 @@ services:
 volumes:
   db_data:
   static_volume:
-  app_volume:
 
 networks:
   project_network:
