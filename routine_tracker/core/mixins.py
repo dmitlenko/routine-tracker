@@ -50,7 +50,7 @@ class ModalFormMixin(ModalMixin):
 class ModalDeleteMixin(ModalFormMixin):
     callback: str = ""
     button_text: str = _("Delete")
-    template_name = 'core/confirm_delete.html'
+    template_name = "core/confirm_delete.html"
     message: str = _("Are you sure you want to delete this item?")
 
     def get_callback(self) -> str:
@@ -63,8 +63,8 @@ class ModalDeleteMixin(ModalFormMixin):
         context = super().get_context_data(**kwargs)
         context.update(
             {
-                'callback': self.get_callback(),
-                'message': self.message,
+                "callback": self.get_callback(),
+                "message": self.message,
             }
         )
         return context

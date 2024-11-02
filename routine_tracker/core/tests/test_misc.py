@@ -50,6 +50,6 @@ class MiscTestCase(TestCase):
         # and with dictionary
         self.assertEqual(
             yaml_coerce("{'a':1}"),
-            {'a': 1},
+            {"a": 1},
             "yaml_coerce should coerce '{'a':1}' to {'a': 1}",
         )

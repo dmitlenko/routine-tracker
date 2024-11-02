@@ -24,10 +24,10 @@ function dateRangeComponent({chartUrl, chartId}) {
      * @param {string} to
      */
     updateUrl(from, to){
-        const url = new URL(window.location.href);
-        url.searchParams.set("from", from);
-        url.searchParams.set("to", to);
-        window.history.pushState({}, "", url);
+      const url = new URL(window.location.href);
+      url.searchParams.set("from", from);
+      url.searchParams.set("to", to);
+      window.history.pushState({}, "", url);
     },
     createSearchParams(from, to) {
       const params = new URLSearchParams();

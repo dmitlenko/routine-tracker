@@ -23,7 +23,7 @@ def message_middleware(get_response: Callable[..., HttpResponse]) -> Callable[..
             return response
 
         # Ignore if response contains redirect or refresh headers
-        if response.has_header('HX-Redirect') or response.has_header('HX-Refresh'):
+        if response.has_header("HX-Redirect") or response.has_header("HX-Refresh"):
             return response
 
         # Get request messages
@@ -33,12 +33,12 @@ def message_middleware(get_response: Callable[..., HttpResponse]) -> Callable[..
         if len(messages_) > 0:
             response = trigger_client_event(
                 response,
-                'hx-show-message',
+                "hx-show-message",
                 {
-                    'messages': [
+                    "messages": [
                         {
-                            'tags': message.tags,
-                            'message': message.message,
+                            "tags": message.tags,
+                            "message": message.message,
                         }
                         for message in messages_
                     ]

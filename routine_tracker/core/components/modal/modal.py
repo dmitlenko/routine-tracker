@@ -4,13 +4,13 @@ from django_components import Component, register
 from django_components.attributes import attributes_to_string
 
 
-@register('modal')
+@register("modal")
 class ModalComponent(Component):
-    template_name = 'modal.html'
+    template_name = "modal.html"
 
-    def get_context_data(self, title: str = '', **kwargs) -> Any:
+    def get_context_data(self, title: str = "", **kwargs) -> Any:
         return {
-            'title': title,
-            'class': kwargs.pop('class', ''),
-            'modal_attrs': attributes_to_string(kwargs) if kwargs else '',
+            "title": title,
+            "class": kwargs.pop("class", ""),
+            "modal_attrs": attributes_to_string(kwargs) if kwargs else "",
         }

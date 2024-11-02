@@ -20,9 +20,9 @@ def send_reminders():
         send_user_notification(
             user=user,
             payload={
-                'head': _('RoutineTracker'),
-                'body': _("Don't forget to complete your routines today."),
-                'icon': '/static/images/icon.png',
+                "head": _("RoutineTracker"),
+                "body": _("Don't forget to complete your routines today."),
+                "icon": "/static/images/icon.png",
             },
             ttl=1000,
         )

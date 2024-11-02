@@ -5,12 +5,12 @@ from django_components import Component, register
 from routine_tracker.routines.models import RoutineGroup
 
 
-@register('routine-group')
+@register("routine-group")
 class RoutineGroupComponent(Component):
-    template_name = 'template.html'
+    template_name = "template.html"
 
     def get_context_data(self, group: RoutineGroup) -> Any:
-        return {'group': group}
+        return {"group": group}
 
     class Media:
-        js = 'script.js'
+        js = "script.js"

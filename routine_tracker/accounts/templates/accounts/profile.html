@@ -9,23 +9,23 @@
     <div class="card shadow-sm" id="profile-container">
         <div class="card-header">
             {% component 'profilenav' hx-select="#profile-container" hx-target="#profile-container" hx-swap="outerHTML:#profile-container" / %}
-        </div>
-        <div class="card-body">
-            {% component 'form' form horizontal="true" hx-post='{{ request.path }}' hx-select='#userForm' hx-swap='outerHTML' id='userForm' %}
-                {% fill 'fields' %}
-                    {% if is_settings %}
-                        {% webpush_button with_class="btn btn-outline-secondary" %}
-                    {% endif %}
-                {% endfill %}
-                {% fill 'form-controls' %}
-                    {% component 'form-controls' wrap=True class="d-flex w-100 justify-content-end gap-1" %}
-                        {% fill "submit-class" %}btn-success{% endfill %}
-                        {% fill "submit" %}
-                            {% trans "Save changes" %}
+                </div>
+                <div class="card-body">
+                    {% component 'form' form horizontal="true" hx-post='{{ request.path }}' hx-select='#userForm' hx-swap='outerHTML' id='userForm' %}
+                        {% fill 'fields' %}
+                            {% if is_settings %}
+                                {% webpush_button with_class="btn btn-outline-secondary" %}
+                            {% endif %}
+                        {% endfill %}
+                        {% fill 'form-controls' %}
+                            {% component 'form-controls' wrap=True class="d-flex w-100 justify-content-end gap-1" %}
+                                {% fill "submit-class" %}btn-success{% endfill %}
+                                {% fill "submit" %}
+                                    {% trans "Save changes" %}
+                                {% endfill %}
+                            {% endcomponent %}
                         {% endfill %}
                     {% endcomponent %}
-                {% endfill %}
-            {% endcomponent %}
-        </div>
-    </div>
-{% endblock content %}
+                </div>
+                </div>
+            {% endblock content %}

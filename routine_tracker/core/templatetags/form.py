@@ -9,8 +9,8 @@ register = Library()
 def fieldbind(field):
     params = json.dumps(
         {
-            'field': field.name,
-            'errors': list(map(str, field.errors)),
+            "field": field.name,
+            "errors": list(map(str, field.errors)),
         }
     )
 

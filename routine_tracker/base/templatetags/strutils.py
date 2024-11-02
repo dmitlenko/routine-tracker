@@ -6,18 +6,18 @@ register = template.Library()
 
 
 @register.filter
-def onlyif[T: str](value: T, arg: Any) -> Union[Literal[''], T]:
-    return value if bool(arg) else ''
+def onlyif[T: str](value: T, arg: Any) -> Union[Literal[""], T]:
+    return value if bool(arg) else ""
 
 
 @register.filter
-def ifnot[T: str](value: T, arg: Any) -> Union[Literal[''], T]:
-    return '' if bool(arg) else value
+def ifnot[T: str](value: T, arg: Any) -> Union[Literal[""], T]:
+    return "" if bool(arg) else value
 
 
-@register.tag(name='trim')
+@register.tag(name="trim")
 def do_trim(parser, token):
-    nodelist = parser.parse(('endtrim',))
+    nodelist = parser.parse(("endtrim",))
     parser.delete_first_token()
     return TrimNode(nodelist)
 

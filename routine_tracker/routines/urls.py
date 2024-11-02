@@ -4,9 +4,9 @@ from routine_tracker.routines.views.entry import EntryDeleteView, EntryUpdateVie
 
 from .views import (
     EntryCreateView,
+    EntryExportView,
     EntryTableView,
     RoutineChartView,
-    EntryExportView,
     RoutineCreateView,
     RoutineDeleteView,
     RoutineDetailView,

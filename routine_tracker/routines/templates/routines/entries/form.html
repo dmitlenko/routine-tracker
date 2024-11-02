@@ -7,50 +7,50 @@
 {% component 'modal' title=title hx-select=".modal-body" %}
     {% fill "body" %}
         {% component 'form' form
-            exclude="value"
-            hx-post=form_url
-            hx-target=".modal-body"
-            hx-swap="outerHTML"
-            id="routine-entry-update-form"
+        exclude="value"
+        hx-post=form_url
+        hx-target=".modal-body"
+        hx-swap="outerHTML"
+        id="routine-entry-update-form"
         %}
-            {% fill "fields" %}
-                {% with value=form.value %}
-                    <div class="input-group" {% if routine.type == "time" %}x-data="{% time_entry_data form.instance %}"{% endif %}>
-                        <label class="input-group-text" for="{{ value.auto_id }}">{{ value.label }}</label>
-                        {% if routine.type == "check" %}
-                            <select class="form-select form-select-sm"
+        {% fill "fields" %}
+            {% with value=form.value %}
+                <div class="input-group" {% if routine.type == "time" %}x-data="{% time_entry_data form.instance %}"{% endif %}>
+                    <label class="input-group-text" for="{{ value.auto_id }}">{{ value.label }}</label>
+                    {% if routine.type == "check" %}
+                        <select class="form-select form-select-sm"
                                 aria-label="{{ value.label }}"
                                 name="{{ value.name }}"
                                 value="{{value.value}}">
-                                <option value="0" {% if not value.value %}selected{%endif%}>{% trans "Unchecked" %}</option>
-                                <option value="1" {% if value.value %}selected{%endif%}>{% trans "Checked" %}</option>
-                            </select>
-                        {% elif routine.type == "count" %}
-                            <input type="number" class="form-control form-control-sm"
-                                id="{{ value.auto_id }}"
-                                name="{{ value.name }}"
-                                value="{{ value.value }}"
-                                step="1">
-                        {% elif routine.type == "time" %}
-                            <input type="hidden"
-                                class="d-none"
-                                id="{{ value.auto_id }}"
-                                name="{{ value.name }}"
-                                value="{{ value.value }}"
-                                :value="parseInt(hours) * 3600 + parseInt(minutes) * 60 + parseInt(seconds)">
-                            {% include "routines/includes/time_input.html" %}
-                        {% endif %}
-                    </div>
-                {% endwith %}
-            {% endfill %}
-        {% endcomponent %}
-    {% endfill %}
-    {% fill "footer" %}
-        {% component 'form-controls' form_id="routine-entry-update-form" in_modal="true" %}
-            {% fill "submit-class" %}btn-success{% endfill %}
-            {% fill "submit" %}
-                {{ button_text }}
-            {% endfill %}
-        {% endcomponent %}
-    {% endfill %}
+                            <option value="0" {% if not value.value %}selected{%endif%}>{% trans "Unchecked" %}</option>
+                            <option value="1" {% if value.value %}selected{%endif%}>{% trans "Checked" %}</option>
+                        </select>
+                    {% elif routine.type == "count" %}
+                        <input type="number" class="form-control form-control-sm"
+                               id="{{ value.auto_id }}"
+                               name="{{ value.name }}"
+                               value="{{ value.value }}"
+                               step="1">
+                    {% elif routine.type == "time" %}
+                        <input type="hidden"
+                               class="d-none"
+                               id="{{ value.auto_id }}"
+                               name="{{ value.name }}"
+                               value="{{ value.value }}"
+                               :value="parseInt(hours) * 3600 + parseInt(minutes) * 60 + parseInt(seconds)">
+                        {% include "routines/includes/time_input.html" %}
+                    {% endif %}
+                </div>
+            {% endwith %}
+        {% endfill %}
+    {% endcomponent %}
+{% endfill %}
+{% fill "footer" %}
+    {% component 'form-controls' form_id="routine-entry-update-form" in_modal="true" %}
+        {% fill "submit-class" %}btn-success{% endfill %}
+        {% fill "submit" %}
+            {{ button_text }}
+        {% endfill %}
+    {% endcomponent %}
+{% endfill %}
 {% endcomponent %}

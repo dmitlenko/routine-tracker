@@ -14,7 +14,7 @@ class daterange:
 
     def _parse_date(self, date: Union[str, datetime]) -> datetime:
         if isinstance(date, str):
-            return datetime.strptime(date, '%Y-%m-%d')
+            return datetime.strptime(date, "%Y-%m-%d")
         return date
 
     def _alter_dates(self):
@@ -50,15 +50,15 @@ def get_default_daterange() -> daterange:
 
 def get_daterange(request: HttpRequest) -> daterange:
     if request.htmx:
-        if request.headers.get('HX-Navigation') == 'true':
+        if request.headers.get("HX-Navigation") == "true":
             return get_default_daterange()
 
-        query_params = parse_qs(request.headers.get('HX-Current-Url', '').split('?')[-1])
-        start = query_params.get('from', [None])[0]
-        end = query_params.get('to', [None])[0]
+        query_params = parse_qs(request.headers.get("HX-Current-Url", "").split("?")[-1])
+        start = query_params.get("from", [None])[0]
+        end = query_params.get("to", [None])[0]
     else:
-        start = request.GET.get('from')
-        end = request.GET.get('to')
+        start = request.GET.get("from")
+        end = request.GET.get("to")
 
     if not start:
         return get_default_daterange()

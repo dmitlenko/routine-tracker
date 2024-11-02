@@ -6,7 +6,7 @@ from django_components.attributes import attributes_to_string
 from routine_tracker.core.components.table.table import get_row_data, get_table_data
 
 
-@register('table-row')
+@register("table-row")
 class TableRowComponent(Component):
 
     def get_template(self, context: Context) -> str | Template | None:
@@ -18,16 +18,16 @@ class TableRowComponent(Component):
         """
 
         table_data = get_table_data(self)
-        columns = table_data['columns']
-        attrs = context['attrs']
-        last = context['last']
+        columns = table_data["columns"]
+        attrs = context["attrs"]
+        last = context["last"]
 
-        slots = ''.join(map(lambda column: self.get_cell(context, column), columns))
+        slots = "".join(map(lambda column: self.get_cell(context, column), columns))
 
         return f"<tr {attrs} {{% if forloop.last %}}{last}{{% endif %}}>{slots}</tr>"
 
     def get_cell(self, context: Context, column: str) -> str:
-        col_attrs = context.get('col_attrs', {})
+        col_attrs = context.get("col_attrs", {})
         cell_attrs = self.get_cell_attributes(col_attrs, column)
         cell_attrs_str = attributes_to_string(cell_attrs)
 
@@ -39,13 +39,13 @@ class TableRowComponent(Component):
     def get_context_data(self, **kwargs):
         row_data = get_row_data(self)
         table_data = get_table_data(self)
-        col_attrs = kwargs.pop('col', {})
-        last_row_attrs = kwargs.pop('last', {})
+        col_attrs = kwargs.pop("col", {})
+        last_row_attrs = kwargs.pop("last", {})
 
         return {
-            'row': row_data,
-            'columns': table_data['columns'],
-            'attrs': attributes_to_string(kwargs),
-            'last': attributes_to_string(last_row_attrs),
-            'col_attrs': col_attrs,
+            "row": row_data,
+            "columns": table_data["columns"],
+            "attrs": attributes_to_string(kwargs),
+            "last": attributes_to_string(last_row_attrs),
+            "col_attrs": col_attrs,
         }

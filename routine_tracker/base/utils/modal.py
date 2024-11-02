@@ -1,12 +1,12 @@
 import functools
-from typing import Literal, Optional, TypedDict, Union, Callable, Any
+from typing import Any, Callable, Literal, Optional, TypedDict, Union
 
 from django.http import HttpResponse
 from django_htmx.http import trigger_client_event
 
 
 class ModalOptions(TypedDict):
-    backdrop: Optional[Union[bool, Literal['static']]]
+    backdrop: Optional[Union[bool, Literal["static"]]]
     focus: Optional[bool]
     keyboard: Optional[bool]
 
@@ -23,7 +23,7 @@ def trigger_modal(response: HttpResponse, options: ModalOptions = None):
     """
     options = options or {}
 
-    return trigger_client_event(response, 'hx-show-modal', options)
+    return trigger_client_event(response, "hx-show-modal", options)
 
 
 def close_modal(view: Callable[..., HttpResponse]) -> Callable[..., HttpResponse]:
@@ -39,6 +39,6 @@ def close_modal(view: Callable[..., HttpResponse]) -> Callable[..., HttpResponse
     @functools.wraps(view)
     def wrapper(*args: Any, **kwargs: Any) -> HttpResponse:
         response = view(*args, **kwargs)
-        return trigger_client_event(response, 'hx-close-modal')
+        return trigger_client_event(response, "hx-close-modal")
 
     return wrapper

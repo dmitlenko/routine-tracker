@@ -13,10 +13,10 @@ class RoutineChartComponent(Component):
 
     def get_context_data(self, routine: Routine, daterange: daterange = None) -> Any:
         if not daterange:
-            daterange = get_daterange(self.inject('request').request)
+            daterange = get_daterange(self.inject("request").request)
 
         chart = routine_statistics_chart(routine, daterange)
 
         return {
-            'chart': chart,
+            "chart": chart,
         }

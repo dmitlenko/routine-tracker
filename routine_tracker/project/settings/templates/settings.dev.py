@@ -9,32 +9,32 @@ SECRET_KEY = "NotSoSecureSecretKey"
 DEBUG = True
 
 # SECURITY WARNING: update this when you have the production host
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ["*"]
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'routine_tracker_dev',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
-        'HOST': 'localhost',
-        'PORT': '5432',
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "routine_tracker_dev",
+        "USER": "postgres",
+        "PASSWORD": "postgres",
+        "HOST": "localhost",
+        "PORT": "5432",
     }
 }
 
 
-LOGGING['formatters']['colored'] = {  # noqa # type: ignore
-    '()': 'colorlog.ColoredFormatter',
-    'format': '%(log_color)s%(asctime)s [%(levelname)s] %(name)s: %(bold_white)s%(message)s',
+LOGGING["formatters"]["colored"] = {  # noqa # type: ignore
+    "()": "colorlog.ColoredFormatter",
+    "format": "%(log_color)s%(asctime)s [%(levelname)s] %(name)s: %(bold_white)s%(message)s",
 }
-LOGGING['loggers']['routine_tracker']['level'] = 'DEBUG'  # noqa # type: ignore
-LOGGING['handlers']['console']['level'] = 'DEBUG'  # noqa # type: ignore
-LOGGING['handlers']['console']['formatter'] = 'colored'  # noqa # type: ignore
+LOGGING["loggers"]["routine_tracker"]["level"] = "DEBUG"  # noqa # type: ignore
+LOGGING["handlers"]["console"]["level"] = "DEBUG"  # noqa # type: ignore
+LOGGING["handlers"]["console"]["formatter"] = "colored"  # noqa # type: ignore
 
 WEBPUSH_SETTINGS = {
-    'VAPID_PUBLIC_KEY': 'VAPID_PUBLIC_KEY',
-    'VAPID_PRIVATE_KEY': 'VAPID_PRIVATE_KEY',
-    'VAPID_ADMIN_EMAIL': 'VAPID_ADMIN_EMAIL',
+    "VAPID_PUBLIC_KEY": "VAPID_PUBLIC_KEY",
+    "VAPID_PRIVATE_KEY": "VAPID_PRIVATE_KEY",
+    "VAPID_ADMIN_EMAIL": "VAPID_ADMIN_EMAIL",
 }
 
-CELERY_BROKER_URL = 'redis://localhost:6379/0'
+CELERY_BROKER_URL = "redis://localhost:6379/0"

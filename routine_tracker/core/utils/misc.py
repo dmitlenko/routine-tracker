@@ -12,7 +12,7 @@ def yaml_coerce(value: Union[str, Any]) -> Any:
 
     # Convert value to a Python object
     if isinstance(value, str):
-        return yaml.safe_load(f'dummy: {value}')['dummy']
+        return yaml.safe_load(f"dummy: {value}")["dummy"]
 
     # If the value is not a string, return it as is
     return value
