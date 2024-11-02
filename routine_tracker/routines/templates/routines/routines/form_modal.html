@@ -3,7 +3,7 @@
 
 {% trans "Edit routine" as title %}
 
-{% component 'modal' title=title hx-select=".modal-body" %}
+{% component 'modal' title=title class="modal-lg" hx-select=".modal-body" %}
     {% fill "body" %}
         {% include "routines/routines/form.html" with modal=True %}
     {% endfill %}

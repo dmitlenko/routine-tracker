@@ -5,6 +5,8 @@ from django.core.exceptions import ValidationError
 from django.db import models, transaction
 from django.db.models import OuterRef, Subquery
 from django.utils.translation import gettext_lazy as _
+from markdownfield.models import MarkdownField, RenderedMarkdownField
+from markdownfield.validators import VALIDATOR_STANDARD
 
 User = get_user_model()
 
@@ -93,7 +95,10 @@ class Routine(models.Model):
 
     group = models.ForeignKey(RoutineGroup, on_delete=models.CASCADE, related_name='routines', verbose_name=_('Group'))
     name = models.CharField(_('Name'), max_length=100)
-    description = models.TextField(_('Description'), blank=True)
+    description = MarkdownField(
+        _('Description'), blank=True, rendered_field='description_rendered', validator=VALIDATOR_STANDARD
+    )
+    description_rendered = RenderedMarkdownField(blank=True, null=True)
     icon = models.CharField(_('Icon'), max_length=50, blank=True)
 
     type = models.CharField(_('Type'), max_length=5, choices=Type.choices, default=Type.CHECK)
