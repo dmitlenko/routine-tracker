@@ -4,7 +4,7 @@ from django.core.management.base import BaseCommand
 
 
 class Command(BaseCommand):
-    help = 'Compile locale files for the project'
+    help = "Compile locale files for the project"
 
     def handle(self, *args, **options):
         # Compile locale files for the project
@@ -12,8 +12,8 @@ class Command(BaseCommand):
 
         # Call the makemessages command for each locale
         call_command(
-            'compilemessages',
-            ignore=['venv'],
+            "compilemessages",
+            ignore=["venv"],
             locale=locales,
             verbosity=1,
         )

@@ -32,9 +32,9 @@ class RoutineDetailView(LoginRequiredMixin, DetailView):
 
     def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         return RoutineDetailComponent.render_to_response(
-            context={'request': request},
+            context={"request": request},
             kwargs={
-                'routine': self.get_object(),
+                "routine": self.get_object(),
             },
         )
 
@@ -42,53 +42,53 @@ class RoutineDetailView(LoginRequiredMixin, DetailView):
 class RoutineCreateView(LoginRequiredMixin, CreateView):
     model = Routine
     form_class = RoutineForm
-    template_name = 'routines/routines/form.html'
+    template_name = "routines/routines/form.html"
     extra_context = {
-        'button_text': _('Create routine'),
-        'measure_choices': Routine.DefaultMeasures.choices,
+        "button_text": _("Create routine"),
+        "measure_choices": Routine.DefaultMeasures.choices,
     }
 
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
-        context['form_url'] = reverse_lazy('routines:routine-create', kwargs={'pk': self.kwargs['pk']})
+        context["form_url"] = reverse_lazy("routines:routine-create", kwargs={"pk": self.kwargs["pk"]})
         return context
 
     def get_success_url(self, obj: Routine) -> str:
         return f"{reverse('routines:group-detail', kwargs={'pk': self.kwargs['pk']})}?routine={obj.pk}"
 
     def form_valid(self, form: RoutineForm) -> Any:
-        group = get_object_or_404(RoutineGroup, pk=self.kwargs['pk'], user=self.request.user)
+        group = get_object_or_404(RoutineGroup, pk=self.kwargs["pk"], user=self.request.user)
         form.instance.group = group
         form.save()
 
         return custom_swap(
             RoutinesComponent.render_to_response(
-                context={'request': self.request},
+                context={"request": self.request},
                 args=(group,),
                 kwargs={
-                    'request': self.request,
-                    'current': form.instance,
+                    "request": self.request,
+                    "current": form.instance,
                 },
             ),
-            'outerHTML',
-            '#routines-card',
-            '#routines-card',
-            headers={'HX-Push-Url': self.get_success_url(form.instance)},
+            "outerHTML",
+            "#routines-card",
+            "#routines-card",
+            headers={"HX-Push-Url": self.get_success_url(form.instance)},
         )
 
 
 class RoutineUpdateView(LoginRequiredMixin, ModalFormMixin, UpdateView):
     model = Routine
     form_class = RoutineForm
-    template_name = 'routines/routines/form_modal.html'
-    context_object_name = 'routine'
+    template_name = "routines/routines/form_modal.html"
+    context_object_name = "routine"
     extra_context = {
-        'button_text': _('Save changes'),
-        'measure_choices': Routine.DefaultMeasures.choices,
+        "button_text": _("Save changes"),
+        "measure_choices": Routine.DefaultMeasures.choices,
     }
 
     def get_form_url(self) -> str:
-        return reverse('routines:routine-edit-modal', kwargs={'pk': self.object.pk})
+        return reverse("routines:routine-edit-modal", kwargs={"pk": self.object.pk})
 
     def get_queryset(self) -> QuerySet[Any]:
         return super().get_queryset().filter(group__user=self.request.user)
@@ -102,31 +102,31 @@ class RoutineUpdateView(LoginRequiredMixin, ModalFormMixin, UpdateView):
 
         return custom_swap(
             RoutinesComponent.render_to_response(
-                context={'request': self.request},
+                context={"request": self.request},
                 args=(self.object.group,),
                 kwargs={
-                    'request': self.request,
-                    'current': self.object,
+                    "request": self.request,
+                    "current": self.object,
                 },
             ),
-            'outerHTML',
-            '#routines-card',
-            '#routines-card',
+            "outerHTML",
+            "#routines-card",
+            "#routines-card",
         )
 
 
 class RoutineDeleteView(LoginRequiredMixin, ModalDeleteMixin, DeleteView):
     model = Routine
-    context_object_name = 'routine'
-    form_id = 'delete-routine-form'
+    context_object_name = "routine"
+    form_id = "delete-routine-form"
     title = _("Delete routine")
     message = _("Are you sure you want to delete this routine?")
 
     def get_success_url(self) -> str:
-        return reverse('routines:group-detail', kwargs={'pk': self.get_object().group.pk})
+        return reverse("routines:group-detail", kwargs={"pk": self.get_object().group.pk})
 
     def get_callback(self) -> str:
-        return f'$dispatch(`delete-routine`, {self.get_object().pk})'
+        return f"$dispatch(`delete-routine`, {self.get_object().pk})"
 
     def get_queryset(self) -> QuerySet[Any]:
         return super().get_queryset().filter(group__user=self.request.user)
@@ -145,7 +145,7 @@ class RoutineChartView(LoginRequiredMixin, View):
 
         return RoutineChartComponent.render_to_response(
             kwargs={
-                'routine': routine,
-                'daterange': get_daterange(request),
+                "routine": routine,
+                "daterange": get_daterange(request),
             }
         )

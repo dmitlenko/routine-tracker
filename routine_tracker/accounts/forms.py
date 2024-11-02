@@ -21,19 +21,19 @@ class RegistrationForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'email', 'password1', 'password2']
+        fields = ["first_name", "last_name", "email", "password1", "password2"]
 
 
 class UserForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ['first_name', 'last_name']
+        fields = ["first_name", "last_name"]
 
 
 class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
-        fields = ['preferred_language', 'time_zone', 'dark_mode']
+        fields = ["preferred_language", "time_zone", "dark_mode"]
         widgets = {
-            'dark_mode': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            "dark_mode": forms.CheckboxInput(attrs={"class": "form-check-input"}),
         }

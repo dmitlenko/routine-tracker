@@ -13,4 +13,4 @@ ALLOWED_HOSTS = []
 
 # Static files (CSS, JavaScript, Images)
 # will be server from this directory using NGINX
-STATIC_ROOT = BASE_DIR / 'staticfiles'  # noqa # type: ignore
+STATIC_ROOT = BASE_DIR / "staticfiles"  # noqa # type: ignore

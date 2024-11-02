@@ -14,13 +14,13 @@ class Kwargs(TypedDict):
     current: NotRequired[Optional[Routine]]
 
 
-@register('routines')
+@register("routines")
 class RoutinesComponent(Component[Args, Kwargs, Any, Any]):
-    template_name = 'template.html'
+    template_name = "template.html"
 
     def get_request(self, request: Optional[HttpRequest]) -> HttpRequest:
         if request is None:
-            return self.inject('request').request
+            return self.inject("request").request
 
         return request
 
@@ -34,7 +34,7 @@ class RoutinesComponent(Component[Args, Kwargs, Any, Any]):
         routines = group.routines.all()
 
         # Try to get the current routine from the request
-        routine_id = request.GET.get('routine')
+        routine_id = request.GET.get("routine")
 
         # If a routine is not specified in the request, try to get the current routine from the component
         if current:
@@ -49,8 +49,8 @@ class RoutinesComponent(Component[Args, Kwargs, Any, Any]):
             current_routine = routines.first()
 
         return {
-            'group': group,
-            'routines': routines,
-            'current_routine': current_routine,
-            'form': RoutineForm,
+            "group": group,
+            "routines": routines,
+            "current_routine": current_routine,
+            "form": RoutineForm,
         }

@@ -8,10 +8,10 @@ register = template.Library()
 @register.simple_tag
 def messages_to_json(request: HttpRequest) -> dict[str, list[dict[str, str]]]:
     return {
-        'messages': [
+        "messages": [
             {
-                'tags': message.tags,
-                'message': message.message,
+                "tags": message.tags,
+                "message": message.message,
             }
             for message in messages.get_messages(request)
         ]

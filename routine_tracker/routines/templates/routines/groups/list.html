@@ -25,23 +25,23 @@
 {% endblock content %}
 
 {% block js %}
-	<script>
+    <script>
         (() => {
-          const groupList = document.querySelector("#routine-group-list");
+            const groupList = document.querySelector("#routine-group-list");
 
-          new MutationObserver((mutationList) => {
-            for (const mutation of mutationList) {
-              if (mutation.type === "childList") {
-                const emptyAlert = document.querySelector(".alert");
+            new MutationObserver((mutationList) => {
+                for (const mutation of mutationList) {
+                    if (mutation.type === "childList") {
+                        const emptyAlert = document.querySelector(".alert");
 
-                if (groupList.children.length === 1 && groupList.children[0].isSameNode(emptyAlert)) {
-                    emptyAlert.classList.remove("d-none");
-                } else {
-                    emptyAlert.classList.add("d-none");
+                        if (groupList.children.length === 1 && groupList.children[0].isSameNode(emptyAlert)) {
+                            emptyAlert.classList.remove("d-none");
+                        } else {
+                            emptyAlert.classList.add("d-none");
+                        }
+                    }
                 }
-              }
-            }
-          }).observe(groupList, { childList: true });
+            }).observe(groupList, { childList: true });
         })();
     </script>
 {% endblock %}

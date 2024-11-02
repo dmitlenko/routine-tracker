@@ -110,7 +110,7 @@ class UserSettingsView(UserProfileFormView):
     model = UserProfile
     form_class = UserProfileForm
     extra_context = {
-        'is_settings': True,
+        "is_settings": True,
     }
 
     def get_form_instance(self) -> Any:

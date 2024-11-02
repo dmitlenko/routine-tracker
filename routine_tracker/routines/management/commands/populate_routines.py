@@ -16,16 +16,16 @@ class Command(BaseCommand):
     help = "Fill database with fake RoutineGroup, Routine, and RoutineEntry data"
 
     def add_arguments(self, parser):
-        parser.add_argument('--users', type=int, default=5, help='Number of users to generate data for')
-        parser.add_argument('--groups', type=int, default=3, help='Number of routine groups per user')
-        parser.add_argument('--routines', type=int, default=5, help='Number of routines per group')
-        parser.add_argument('--entries', type=int, default=30, help='Number of entries per routine')
+        parser.add_argument("--users", type=int, default=5, help="Number of users to generate data for")
+        parser.add_argument("--groups", type=int, default=3, help="Number of routine groups per user")
+        parser.add_argument("--routines", type=int, default=5, help="Number of routines per group")
+        parser.add_argument("--entries", type=int, default=30, help="Number of entries per routine")
 
     def handle(self, *args, **kwargs):
-        users_count = kwargs['users']
-        groups_count = kwargs['groups']
-        routines_count = kwargs['routines']
-        entries_count = kwargs['entries']
+        users_count = kwargs["users"]
+        groups_count = kwargs["groups"]
+        routines_count = kwargs["routines"]
+        entries_count = kwargs["entries"]
 
         users = User.objects.all()[:users_count]
         if not users:

@@ -7,9 +7,9 @@
         const emptyMessageRow = document.querySelector(".empty-message-row");
 
         if (tbody.children.length === 1 && tbody.children[0].isSameNode(emptyMessageRow)) {
-            emptyMessageRow.classList.remove("d-none");
+          emptyMessageRow.classList.remove("d-none");
         } else {
-            emptyMessageRow.classList.add("d-none");
+          emptyMessageRow.classList.add("d-none");
         }
       }
     }

@@ -10,8 +10,8 @@ class Link:
     reverse_name: str
     text: str
 
-    url: Union[Literal['#'], str] = '#'
-    active: Union[Literal[''], Literal["active"]] = None
+    url: Union[Literal["#"], str] = "#"
+    active: Union[Literal[""], Literal["active"]] = None
 
 
 class LinkHolder:
@@ -34,11 +34,11 @@ class LinkHolder:
             is_active = request.resolver_match.view_name == link.reverse_name
 
             # Set the active attribute to 'active' if the link is active
-            link.active = 'active' if is_active else ''
+            link.active = "active" if is_active else ""
 
             # Set the url of the link to the reverse_name if the link is not active
             if is_active:
-                link.url = '#'
+                link.url = "#"
             else:
                 link.url = reverse(link.reverse_name)
 

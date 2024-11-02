@@ -27,22 +27,22 @@ from ..models import Routine, RoutineEntry
 class EntryCreateView(LoginRequiredMixin, ModalFormMixin, CreateView):
     model = RoutineEntry
     form_class = RoutineEntryForm
-    template_name = 'routines/entries/form.html'
+    template_name = "routines/entries/form.html"
     title = _("Create Entry")
     button_text = _("Create")
 
     def get_routine(self) -> Routine:
-        return get_object_or_404(Routine, pk=self.kwargs['pk'], group__user=self.request.user)
+        return get_object_or_404(Routine, pk=self.kwargs["pk"], group__user=self.request.user)
 
     def get_form_url(self) -> str:
-        return reverse('routines:entry-create', kwargs={'pk': self.kwargs['pk']})
+        return reverse("routines:entry-create", kwargs={"pk": self.kwargs["pk"]})
 
     def get_success_url(self) -> str:
-        return reverse('routines:group-detail', kwargs={'pk': self.get_routine().group.pk})
+        return reverse("routines:group-detail", kwargs={"pk": self.get_routine().group.pk})
 
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
-        context['routine'] = get_object_or_404(Routine, pk=self.kwargs['pk'], group__user=self.request.user)
+        context["routine"] = get_object_or_404(Routine, pk=self.kwargs["pk"], group__user=self.request.user)
         return context
 
     @close_modal
@@ -55,11 +55,11 @@ class EntryCreateView(LoginRequiredMixin, ModalFormMixin, CreateView):
             custom_swap(
                 EntryTableComponent.render_to_response(
                     kwargs={
-                        'entries': [entry],
+                        "entries": [entry],
                     }
                 ),
-                'afterbegin',
-                '#entry-table tbody',
+                "afterbegin",
+                "#entry-table tbody",
                 f'[data-entry-id="{entry.pk}"]',
             )
         )
@@ -68,22 +68,22 @@ class EntryCreateView(LoginRequiredMixin, ModalFormMixin, CreateView):
 class EntryUpdateView(LoginRequiredMixin, ModalFormMixin, UpdateView):
     model = RoutineEntry
     form_class = RoutineEntryForm
-    template_name = 'routines/entries/form.html'
+    template_name = "routines/entries/form.html"
     title = _("Update Entry")
     button_text = _("Save changes")
 
     def get_form_url(self) -> str:
-        return reverse('routines:entry-edit-modal', kwargs={'pk': self.kwargs['pk']})
+        return reverse("routines:entry-edit-modal", kwargs={"pk": self.kwargs["pk"]})
 
     def get_queryset(self) -> QuerySet[Any]:
         return super().get_queryset().filter(routine__group__user=self.request.user)
 
     def get_success_url(self) -> str:
-        return reverse('routines:group-detail', kwargs={'pk': self.get_object().routine.group.pk})
+        return reverse("routines:group-detail", kwargs={"pk": self.get_object().routine.group.pk})
 
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
-        context['routine'] = self.get_object().routine
+        context["routine"] = self.get_object().routine
         return context
 
     @close_modal
@@ -96,10 +96,10 @@ class EntryUpdateView(LoginRequiredMixin, ModalFormMixin, UpdateView):
             custom_swap(
                 EntryTableComponent.render_to_response(
                     kwargs={
-                        'entries': [entry],
+                        "entries": [entry],
                     }
                 ),
-                'outerHTML',
+                "outerHTML",
                 selector,
                 selector,
             )
@@ -108,16 +108,16 @@ class EntryUpdateView(LoginRequiredMixin, ModalFormMixin, UpdateView):
 
 class EntryDeleteView(LoginRequiredMixin, ModalDeleteMixin, DeleteView):
     model = RoutineEntry
-    context_object_name = 'entry'
-    form_id = 'delete-entry-form'
+    context_object_name = "entry"
+    form_id = "delete-entry-form"
     title = _("Delete Entry")
     message = _("Are you sure you want to delete this entry?")
 
     def get_success_url(self) -> str:
-        return reverse('routines:group-detail', kwargs={'pk': self.get_object().routine.group.pk})
+        return reverse("routines:group-detail", kwargs={"pk": self.get_object().routine.group.pk})
 
     def get_callback(self) -> str:
-        return f'deleteRoutineEntry({self.get_object().pk})'
+        return f"deleteRoutineEntry({self.get_object().pk})"
 
     def get_queryset(self) -> QuerySet[Any]:
         return super().get_queryset().filter(routine__group__user=self.request.user)
@@ -135,26 +135,26 @@ class EntryTableView(LoginRequiredMixin, View):
         routine = get_object_or_404(Routine, pk=pk, group__user=request.user)
 
         try:
-            page = int(request.GET.get('page', [1])[0])
+            page = int(request.GET.get("page", [1])[0])
         except ValueError:
             page = 1
 
         return EntryTableComponent.render_to_response(
             kwargs={
-                'entries': routine.entries.all(),
-                'page': page,
+                "entries": routine.entries.all(),
+                "page": page,
             }
         )
 
 
 class EntryExportView(LoginRequiredMixin, View):
-    export_formats = ['csv', 'json']
-    field_names = ['date', 'value', 'notes']
+    export_formats = ["csv", "json"]
+    field_names = ["date", "value", "notes"]
 
     def get_export_format(self, request: HttpRequest) -> str:
-        export_format = request.GET.get('format', 'csv')
+        export_format = request.GET.get("format", "csv")
         if export_format not in self.export_formats:
-            export_format = 'csv'
+            export_format = "csv"
 
         return export_format
 
@@ -175,11 +175,11 @@ class EntryExportView(LoginRequiredMixin, View):
         entries = routine.entries.all()
         export_format = self.get_export_format(request)
 
-        response = file_response(f'{routine.name}.{export_format}', f'text/{export_format}')
+        response = file_response(f"{routine.name}.{export_format}", f"text/{export_format}")
 
-        if export_format == 'csv':
+        if export_format == "csv":
             self.get_csv(response, entries)
-        elif export_format == 'json':
+        elif export_format == "json":
             self.get_json(response, entries)
 
         return response

@@ -10,8 +10,8 @@ User = get_user_model()
 
 class UserModelTest(TestCase):
     def setUp(self):
-        self.user1 = User.objects.create_user(email='user1@example.com', password='pass123')
-        self.user2 = User.objects.create_user(email='user2@example.com', password='pass123')
+        self.user1 = User.objects.create_user(email="user1@example.com", password="pass123")
+        self.user2 = User.objects.create_user(email="user2@example.com", password="pass123")
 
     def test_create_user_success(self):
         self.assertEqual(User.objects.count(), 2)
@@ -19,22 +19,22 @@ class UserModelTest(TestCase):
     def test_email_uniqueness(self):
         # Email must be unique across all users
         with self.assertRaises(IntegrityError):
-            User.objects.create_user(email='user1@example.com', password='pass123')
+            User.objects.create_user(email="user1@example.com", password="pass123")
 
     def test_string_representation(self):
-        self.assertEqual(str(self.user1), 'user1@example.com')
+        self.assertEqual(str(self.user1), "user1@example.com")
 
 
 class UserProfileModelTest(TestCase):
     def setUp(self):
-        self.user = User.objects.create_user(email='user1@example.com', password='pass123')
+        self.user = User.objects.create_user(email="user1@example.com", password="pass123")
         self.profile = UserProfile.objects.create(user=self.user, dark_mode=True)
 
     def test_create_profile_success(self):
         # Profile should be created with default values
         self.assertEqual(UserProfile.objects.count(), 1)
         self.assertEqual(self.profile.preferred_language, UserProfile.Language.ENGLISH)
-        self.assertEqual(self.profile.time_zone, ('UTC', 'UTC'))
+        self.assertEqual(self.profile.time_zone, ("UTC", "UTC"))
         self.assertEqual(self.profile.profile_completeness, 0)
 
     def test_profile_one_to_one_constraint(self):
@@ -53,7 +53,7 @@ class UserProfileModelTest(TestCase):
 
     def test_preferred_language_choices(self):
         # Test that invalid language choices raise validation errors
-        self.profile.preferred_language = 'fr'  # Invalid choice
+        self.profile.preferred_language = "fr"  # Invalid choice
         with self.assertRaises(ValidationError):
             self.profile.full_clean()  # Validates model fields
 
@@ -64,7 +64,7 @@ class UserProfileModelTest(TestCase):
 
     def test_edge_case_empty_timezone(self):
         # Test setting an empty string as the time zone
-        self.profile.time_zone = ''
+        self.profile.time_zone = ""
         with self.assertRaises(ValidationError):
             self.profile.full_clean()
 

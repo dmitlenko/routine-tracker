@@ -27,7 +27,7 @@ function formComponent({ callSubmit = false }) {
       const { field } = context;
       return {
         "x-bind:class": () =>
-          this.hasError(context, field) ? "is-invalid" : "",
+        this.hasError(context, field) ? "is-invalid" : "",
         "x-bind:disabled": () => this.submitting,
         "x-on:keyup": () => this.clearError(context),
         "x-on:change": () => this.clearError(context),

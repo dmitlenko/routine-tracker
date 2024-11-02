@@ -42,21 +42,21 @@ class CustomUserAdmin(UserAdmin):
 
 @admin.register(UserProfile)
 class UserProfileAdmin(admin.ModelAdmin):
-    list_display = ('user', 'dark_mode', 'preferred_language', 'time_zone')
-    list_filter = ('dark_mode', 'preferred_language', 'time_zone')
-    search_fields = ('user__email', 'user__first_name', 'user__last_name')
-    raw_id_fields = ('user',)
-    list_select_related = ('user',)
+    list_display = ("user", "dark_mode", "preferred_language", "time_zone")
+    list_filter = ("dark_mode", "preferred_language", "time_zone")
+    search_fields = ("user__email", "user__first_name", "user__last_name")
+    raw_id_fields = ("user",)
+    list_select_related = ("user",)
     fieldsets = (
-        (None, {'fields': ('user',)}),
-        ('Preferences', {'fields': ('dark_mode', 'preferred_language', 'time_zone')}),
+        (None, {"fields": ("user",)}),
+        ("Preferences", {"fields": ("dark_mode", "preferred_language", "time_zone")}),
     )
     add_fieldsets = (
         (
             None,
             {
-                'classes': ('wide',),
-                'fields': ('user', 'dark_mode', 'preferred_language', 'time_zone'),
+                "classes": ("wide",),
+                "fields": ("user", "dark_mode", "preferred_language", "time_zone"),
             },
         ),
     )
@@ -64,5 +64,5 @@ class UserProfileAdmin(admin.ModelAdmin):
     def get_readonly_fields(self, _, obj: Any | None = ...) -> list[str] | tuple[Any, ...]:
         # Make the user field "create"-only
         if obj:
-            return ('user',)
+            return ("user",)
         return ()

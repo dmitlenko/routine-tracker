@@ -13,7 +13,7 @@ def htmx_redirect(response: HttpResponse, url: str, code: int = 200, soft: bool 
     Returns:
         HttpResponse: Response object.
     """
-    header = 'HX-Redirect' if not soft else 'HX-Location'
+    header = "HX-Redirect" if not soft else "HX-Location"
 
     response[header] = url
     response.status_code = code
@@ -54,13 +54,13 @@ def custom_swap(
     """
 
     if swap:
-        response.headers.setdefault('HX-Reswap', swap)
+        response.headers.setdefault("HX-Reswap", swap)
 
     if target:
-        response.headers.setdefault('HX-Retarget', target)
+        response.headers.setdefault("HX-Retarget", target)
 
     if select:
-        response.headers.setdefault('HX-Reselect', select)
+        response.headers.setdefault("HX-Reselect", select)
 
     if headers:
         for key, value in headers.items():

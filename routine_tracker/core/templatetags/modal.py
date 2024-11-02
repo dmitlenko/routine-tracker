@@ -22,8 +22,8 @@ def hxmodal(url: str, **kwargs) -> str:
 
     return attributes_to_string(
         {
-            'hx-get': reverse(url, kwargs=kwargs),
-            'hx-target': '#modalContainer',
-            'hx-swap': 'innerHTML',
+            "hx-get": reverse(url, kwargs=kwargs),
+            "hx-target": "#modalContainer",
+            "hx-swap": "innerHTML",
         }
     )

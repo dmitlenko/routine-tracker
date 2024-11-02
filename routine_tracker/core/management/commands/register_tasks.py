@@ -3,10 +3,10 @@ from django_celery_beat.models import IntervalSchedule, PeriodicTask
 
 
 class Command(BaseCommand):
-    help = 'Compile locale files for the project'
+    help = "Compile locale files for the project"
 
     tasks = [
-        (('routine_tracker.core.tasks.send_reminders', 'Send reminders'), (24, IntervalSchedule.HOURS)),
+        (("routine_tracker.core.tasks.send_reminders", "Send reminders"), (24, IntervalSchedule.HOURS)),
     ]
 
     def handle(self, *args, **options):
@@ -22,4 +22,4 @@ class Command(BaseCommand):
                 task=task,
             )
 
-            self.stdout.write(self.style.SUCCESS(f'Created task: {name}'))
+            self.stdout.write(self.style.SUCCESS(f"Created task: {name}"))
