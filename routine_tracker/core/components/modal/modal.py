@@ -11,5 +11,6 @@ class ModalComponent(Component):
     def get_context_data(self, title: str = '', **kwargs) -> Any:
         return {
             'title': title,
+            'class': kwargs.pop('class', ''),
             'modal_attrs': attributes_to_string(kwargs) if kwargs else '',
         }
