@@ -16,6 +16,32 @@
     <div id="routine-group-list" class="d-flex flex-column gap-3">
         {% for group in groups %}
             {% component "routine_group_item" routine_group=group fade="false" / %}
+        {% empty %}
+            <div class="alert alert-info w-100" role="alert">
+                {% trans "No groups yet. Create one now by clicking the button above." %}
+            </div>
         {% endfor %}
     </div>
 {% endblock content %}
+
+{% block js %}
+	<script>
+        (() => {
+          const groupList = document.querySelector("#routine-group-list");
+
+          new MutationObserver((mutationList) => {
+            for (const mutation of mutationList) {
+              if (mutation.type === "childList") {
+                const emptyAlert = document.querySelector(".alert");
+
+                if (groupList.children.length === 1 && groupList.children[0].isSameNode(emptyAlert)) {
+                    emptyAlert.classList.remove("d-none");
+                } else {
+                    emptyAlert.classList.add("d-none");
+                }
+              }
+            }
+          }).observe(groupList, { childList: true });
+        })();
+    </script>
+{% endblock %}
