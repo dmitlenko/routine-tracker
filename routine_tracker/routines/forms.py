@@ -43,7 +43,14 @@ class RoutineForm(forms.ModelForm):
         model = Routine
         fields = ['name', 'description', 'icon', 'type', 'has_goal', 'goal', 'measure']
         widgets = {
-            'description': forms.Textarea(attrs={'placeholder': _('Description'), 'rows': 3}),
+            'description': forms.Textarea(
+                attrs={
+                    'class': 'd-none',
+                    'placeholder': _('Description'),
+                    'rows': 3,
+                    'x-init': 'new EasyMDE({element: this.$el, status: []})',
+                }
+            ),
         }
 
 

@@ -10,6 +10,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'markdownfield',
     'django.contrib.staticfiles',
     'routine_tracker.core',
     'routine_tracker.base',

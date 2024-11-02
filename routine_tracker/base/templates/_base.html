@@ -19,8 +19,10 @@
     <script src="{% static 'js/alpinejs.min.js' %}" defer></script>
     <script src="{% static 'js/modal.js' %}"></script>
     <script src="{% static 'js/chart.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.js"></script>
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.css">
     {% webpush_header %}
 </head>
 <body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"{% block headers %}{% endblock headers %}}' data-bs-theme="{{ request.user.profile.dark_mode|yesno:'dark,light'}}">

@@ -50,7 +50,7 @@
                         x-text="show ? '{% trans "Hide" %}' : '{% trans "Show" %}'"></button>
             </div>
             <div class="mb-0" x-show="show">
-                {{ routine.description }}
+                {{ routine.description_rendered | safe }}
             </div>
         </div>
         <div class="card-body border-bottom">
