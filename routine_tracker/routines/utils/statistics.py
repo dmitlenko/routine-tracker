@@ -19,9 +19,11 @@ def routine_statistics_chart(routine: Routine, range: daterange) -> Union[ChartO
     entry_dict = {entry.date: entry.value for entry in entries}
     data = [entry_dict.get(date, None) for date in range]
 
-    max_value = max(filter(None, data))
-    min_value = min(filter(None, data))
-    average = sum(filter(None, data)) / len(entries)
+    filtered_data = list(filter(lambda value: value is not None, data))
+
+    max_value = max(filtered_data)
+    min_value = min(filtered_data)
+    average = sum(filtered_data) / len(entries)
 
     chrt = chart(
         {
