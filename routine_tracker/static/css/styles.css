@@ -2,11 +2,11 @@
 
 @media (min-width: 1080px) {
   .container-lg {
-    max-width: 1040px;
+    max-width: 1040px !important;
   }
 }
 
-.containe-lg {
+.container-lg {
   margin: 0 auto;
 }
 
